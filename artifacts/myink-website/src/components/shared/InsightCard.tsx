@@ -43,7 +43,7 @@ export function InsightCard({ article }: InsightCardProps) {
       </h3>
 
       {/* Excerpt */}
-      <p className="text-foreground/65 text-[15px] leading-[1.85] mb-7">
+      <p className="text-muted-foreground text-[15px] leading-[1.72] mb-7">
         {article.excerpt}
       </p>
 

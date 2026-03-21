@@ -45,7 +45,7 @@ export function CTASection({
                 {headline}
               </h2>
               {subtext && (
-                <p className="text-secondary-foreground/70 text-[17px] leading-[1.9] max-w-lg">
+                <p className="text-muted-foreground text-[17px] leading-[1.72] max-w-lg">
                   {subtext}
                 </p>
               )}

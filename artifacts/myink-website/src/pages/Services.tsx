@@ -161,7 +161,7 @@ export default function Services() {
         }
         intro={
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-            <p className="text-xl text-foreground/65 leading-relaxed">
+            <p className="text-xl text-muted-foreground leading-[1.72]">
               Five capabilities — each one a distinct discipline, together forming the
               complete strategic infrastructure most brands piece together from multiple
               vendors and wonder why it never feels cohesive.
@@ -262,7 +262,7 @@ export default function Services() {
                     <h4 className="text-xl font-display font-bold leading-snug">{faq.q}</h4>
                   </div>
                   <div className="lg:col-span-7">
-                    <p className="text-foreground/65 leading-[1.85]">{faq.a}</p>
+                    <p className="text-muted-foreground leading-[1.72]">{faq.a}</p>
                   </div>
                 </div>
               </FadeIn>

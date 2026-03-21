@@ -72,7 +72,7 @@ export function WhyChooseUs() {
                 </div>
 
                 <div className="lg:col-span-7">
-                  <p className="text-foreground/65 leading-[1.9] text-[15px]">{item.desc}</p>
+                  <p className="text-muted-foreground leading-[1.72] text-[15px]">{item.desc}</p>
                 </div>
 
               </div>

@@ -89,12 +89,12 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.4 }}
           >
-            <p className="text-xl text-foreground/60 leading-[1.85]">
+            <p className="text-xl text-muted-foreground leading-[1.72]">
               We are not looking for the largest brief or the most familiar brand name.
               We are looking for the brands with the most to gain from getting their
               strategy right — and the conviction to do it properly.
             </p>
-            <p className="text-xl text-foreground/60 leading-[1.85]">
+            <p className="text-xl text-muted-foreground leading-[1.72]">
               This form is a brief, not a contact form. The more you tell us about where
               your brand is and where you want it to go, the more useful our response
               will be — and the more quickly we can establish whether we're the right
@@ -119,14 +119,14 @@ export default function Contact() {
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-5">
                     Who This Is For
                   </p>
-                  <p className="text-foreground/55 text-sm leading-relaxed mb-5">
+                  <p className="text-muted-foreground text-sm leading-[1.72] mb-5">
                     We are best placed to help brands that:
                   </p>
                   <ul className="space-y-3">
                     {IDEAL_CLIENT_TRAITS.map((trait, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="w-1 h-1 rounded-full bg-primary shrink-0 mt-2" />
-                        <span className="text-foreground/60 text-sm leading-relaxed">
+                        <span className="text-muted-foreground text-sm leading-[1.72]">
                           {trait}
                         </span>
                       </li>

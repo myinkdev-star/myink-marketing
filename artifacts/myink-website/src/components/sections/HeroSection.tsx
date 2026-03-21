@@ -61,7 +61,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55 }}
         >
-          <p className="text-[17px] text-foreground/70 leading-[1.9] max-w-xl">
+          <p className="text-[17px] text-muted-foreground leading-[1.72] max-w-xl">
             M.Y. INK partners with ambitious brands to sharpen their message,
             strengthen their market presence, and execute campaigns with clarity,
             creativity, and purpose.

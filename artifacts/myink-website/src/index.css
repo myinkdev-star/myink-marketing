@@ -46,7 +46,7 @@
   --foreground:            0 0% 5%;    /* #0D0D0D — rich near-black               */
   --card-foreground:       0 0% 5%;
   --popover-foreground:    0 0% 5%;
-  --muted-foreground:      0 0% 38%;   /* #616161 — neutral mid-grey, strong      */
+  --muted-foreground:      0 0% 28%;   /* #474747 — rich dark grey, high contrast */
 
   /* Brand orange */
   --primary:               26 82% 52%; /* #E87722 — signature orange              */
@@ -86,7 +86,7 @@
   --secondary:    0 0% 96%;
   --secondary-foreground: 0 0% 7%;
   --muted:        0 0% 16%;       /* #292929                                    */
-  --muted-foreground: 0 0% 58%;   /* #949494 — readable on dark                 */
+  --muted-foreground: 0 0% 70%;   /* #B3B3B3 — clear, premium on dark            */
   --accent:       26 82% 52%;
   --accent-foreground: 0 0% 100%;
   --destructive:  0 62.8% 30.6%;

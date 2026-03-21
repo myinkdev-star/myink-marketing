@@ -238,7 +238,7 @@ function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
                 <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-4 ${col.highlight ? "text-primary" : "text-foreground/35"}`}>
                   {col.label}
                 </p>
-                <p className={`text-sm leading-[1.85] ${col.highlight ? "text-foreground/80" : "text-foreground/55"}`}>
+                <p className={`text-sm leading-[1.72] ${col.highlight ? "text-foreground" : "text-muted-foreground"}`}>
                   {col.body}
                 </p>
                 {col.highlight && study.resultMetric && (
@@ -333,7 +333,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/30 mb-1.5">
                 Challenge
               </p>
-              <p className="text-sm text-foreground/60 leading-[1.8]">
+              <p className="text-sm text-muted-foreground leading-[1.72]">
                 {study.challenge.split(".")[0]}.
               </p>
             </div>
@@ -346,7 +346,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary mb-1.5">
                 Result
               </p>
-              <p className="text-sm text-foreground/70 leading-[1.8]">
+              <p className="text-sm text-muted-foreground leading-[1.72]">
                 {study.result.split(".")[0]}.
               </p>
               {study.resultMetric && (
@@ -414,12 +414,12 @@ export default function Work() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.4 }}
           >
-            <p className="text-xl text-foreground/60 leading-[1.85]">
+            <p className="text-xl text-muted-foreground leading-[1.72]">
               Six engagements. Each one a real brief, a specific challenge, and a
               strategy built from the ground up. The results listed are not projections
               — they are what happened.
             </p>
-            <p className="text-xl text-foreground/60 leading-[1.85]">
+            <p className="text-xl text-muted-foreground leading-[1.72]">
               Every case study follows the same structure: the problem as it actually
               presented itself, the strategy we built to address it, how we executed it,
               and what it produced.
@@ -548,7 +548,7 @@ export default function Work() {
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-2">
                     {item.label}
                   </p>
-                  <p className="text-sm text-foreground/50 leading-[1.8]">{item.body}</p>
+                  <p className="text-sm text-muted-foreground leading-[1.72]">{item.body}</p>
                 </div>
               ))}
             </div>

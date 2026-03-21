@@ -123,7 +123,7 @@ export default function Insights() {
           </>
         }
         intro={
-          <p className="text-xl text-foreground/60 leading-[1.85] max-w-2xl">
+          <p className="text-xl text-muted-foreground leading-[1.72] max-w-2xl">
             Marketing intelligence from the team at M.Y. INK. We write when we have
             something worth saying — not on a publishing schedule.
           </p>
@@ -197,7 +197,7 @@ export default function Insights() {
                     <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-6 group-hover:text-primary transition-colors">
                       {filteredFeatured.title}
                     </h2>
-                    <p className="text-foreground/60 leading-[1.85] text-lg">
+                    <p className="text-muted-foreground leading-[1.72] text-lg">
                       {filteredFeatured.excerpt}
                     </p>
                   </div>
