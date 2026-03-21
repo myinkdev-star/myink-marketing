@@ -22,86 +22,86 @@ const SERVICE_CATEGORIES = [
   {
     num: "01",
     category: "Strategy & Planning",
-    headline: "Where every great campaign begins.",
+    headline: "Before a single decision is made.",
     services: ["Customized Marketing Strategies", "Brand Positioning"],
-    desc: "We don't start with tactics — we start with thinking. Our strategy work gives your brand a clear direction, a competitive edge, and a roadmap that makes every dollar work harder.",
+    desc: "We don't begin with creative. We begin with your market, your competitors, and the specific advantage your brand has — or could have. Every engagement we take on starts here, regardless of what prompted the call.",
   },
   {
     num: "02",
     category: "Campaigns & Advertising",
-    headline: "Ideas that demand attention.",
+    headline: "Campaigns built to convert, not just to impress.",
     services: ["Promotion & Campaign Design & Execution", "Advertising Concepts & Execution"],
-    desc: "From concept through launch, we design campaigns with intention and execute them with precision. Bold creative backed by strategic thinking — across every channel that matters.",
+    desc: "Every creative decision we make has a strategic rationale behind it. We build campaigns from the insight outward, execute across every channel that matters to your audience, and measure the outcomes that matter to your business.",
   },
   {
     num: "03",
     category: "Editorial & Voice",
-    headline: "Your authority, articulated.",
+    headline: "The words that separate authorities from the rest.",
     services: ["Ghostwriting", "Script Writing (All Media)"],
-    desc: "We give your brand a voice that commands respect. Long-form content, broadcast scripts, and editorial storytelling — all crafted to position you as the definitive authority in your space.",
+    desc: "Your reputation is built, in large part, by what you say and how you say it. We craft the written and spoken work that makes your brand impossible to dismiss — thought leadership, scripts, brand voice — every word deliberate.",
   },
   {
     num: "04",
     category: "Media & Press",
-    headline: "Coverage that builds credibility.",
+    headline: "Stories placed where they shift perception.",
     services: ["Press Releases", "Press Events"],
-    desc: "From crafting the story to creating the moment — we design press strategies that generate meaningful coverage, spark the right conversations, and build lasting credibility.",
+    desc: "Earned media is more valuable than paid media — and harder to get right. We design press strategies that generate coverage that does more than mention a brand. It repositions one.",
   },
   {
     num: "05",
     category: "Digital Execution",
-    headline: "Precision across every platform.",
+    headline: "Every platform that matters. Not all of them.",
     services: ["Digital Strategies & Implementation"],
-    desc: "Data-informed and creatively led. We build and execute digital strategies that reach the right audiences, drive meaningful engagement, and deliver measurable results.",
+    desc: "We don't chase every channel. We identify where your audience actually lives, build a clear strategy for each platform, and execute with data-backed discipline. Digital without noise.",
   },
 ];
 
 const WHY_PILLARS = [
   {
     num: "01",
-    title: "Strategic Thinking First",
-    desc: "We lead with strategy, not execution. Every decision — creative, media, messaging — is rooted in deep strategic thinking designed to move your brand into a stronger market position.",
+    title: "Senior thinking at every stage.",
+    desc: "There are no junior strategists running your account here. The senior people who present the work are the same people who build it — from strategy through to final delivery.",
   },
   {
     num: "02",
-    title: "Tailored Campaigns",
-    desc: "No templates. No copy-paste playbooks. Every campaign we build is engineered specifically for your brand, your audience, and your goals. Precision matters here.",
+    title: "Built for your brand. Not repurposed from another.",
+    desc: "We do not have a playbook we reapply to new clients. Every strategy is built from the ground up around your specific market, audience, and competitive context. Precision is not optional.",
   },
   {
     num: "03",
-    title: "Refined Creative Direction",
-    desc: "We bring a level of creative intelligence that elevates brands. Our work is visually sharp, editorially strong, and always consistent with who you are and where you're going.",
+    title: "Creative that serves the strategy.",
+    desc: "We make things look remarkable because remarkable things get remembered. But the creative is never the starting point — it is the destination the strategy leads to. Always in that order.",
   },
   {
     num: "04",
-    title: "Execution with Purpose",
-    desc: "There are agencies that think, and agencies that do. We do both at the same level. From concept to final output, we execute with the same intensity we bring to strategy.",
+    title: "Accountability to outcomes, not outputs.",
+    desc: "We define what success looks like before we begin, and we hold ourselves to it. We measure the things that move your business — not the metrics that make an agency look productive.",
   },
   {
     num: "05",
-    title: "Strong Market Presence",
-    desc: "We build brands that own their space. Through strategic positioning, consistent messaging, and bold campaigns, we make sure your brand is remembered — for the right reasons.",
+    title: "A roster small enough to matter.",
+    desc: "We limit how many brands we work with at any given time. Quality of work requires depth of attention, and depth of attention has a limit. We respect that limit.",
   },
 ];
 
 const TESTIMONIALS = [
   {
     quote:
-      "Working with M.Y. INK completely transformed how we positioned ourselves in the market. Their strategic thinking is next-level — they didn't just give us a campaign, they gave us a direction.",
+      "M.Y. INK did something most agencies can't: they made us look at our own brand differently. The strategy they developed became the internal compass our team still uses two years later.",
     author: "Marcus T.",
-    title: "CEO, Hospitality Group",
+    title: "CEO · Hospitality Group",
   },
   {
     quote:
-      "They don't just execute — they think. M.Y. INK became a true extension of our leadership team. Every recommendation came backed with clear strategic rationale and flawless delivery.",
+      "They joined our leadership conversations — not just our marketing meetings. The thinking they bring is not what I expected from an agency. It is what I would have expected from our best internal hire.",
     author: "Simone R.",
-    title: "Founder, Lifestyle Brand",
+    title: "Founder · Lifestyle Brand",
   },
   {
     quote:
-      "From concept to execution, the level of polish and intelligence was unlike anything we had experienced before. Our brand equity has never been stronger.",
+      "Our brand occupied a competitive, crowded space. They found the position we hadn't seen ourselves, built a campaign around it, and won us the market segment we'd been chasing for three years.",
     author: "David H.",
-    title: "Director, Real Estate Development",
+    title: "Director · Real Estate Development",
   },
 ];
 
@@ -168,12 +168,10 @@ export default function Home() {
           />
         </div>
 
-        {/* Decorative orange line */}
         <div className="absolute bottom-0 left-0 right-0 h-px bg-primary/30 z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="max-w-5xl">
-            {/* Trust badge */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -181,7 +179,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border border-primary/30 px-4 py-2 mb-10"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
-              Nassau, Bahamas · Strategic Marketing Agency
+              Nassau, Bahamas · Strategic Marketing Firm
             </motion.div>
 
             <motion.h1
@@ -202,8 +200,10 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              M.Y. INK is a premium strategic marketing partner for ambitious brands in the
-              Bahamas and Caribbean. We don't follow trends — we build the campaigns that set them.
+              M.Y. INK is a strategic marketing firm. We work with a deliberately small number
+              of ambitious brands — in the Bahamas, across the Caribbean, and beyond — who
+              understand that the quality of their thinking is the difference between a brand
+              people respect and one they merely recognise.
             </motion.p>
 
             <motion.p
@@ -212,7 +212,7 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.55 }}
             >
-              Trusted by hospitality, real estate, events, and lifestyle brands.
+              Working across hospitality, real estate, lifestyle, events, and professional services.
             </motion.p>
 
             <motion.div
@@ -277,17 +277,20 @@ export default function Home() {
               <h2 className="text-3xl md:text-5xl font-display font-bold leading-[1.12] mb-8">
                 We are not an agency for everyone.{" "}
                 <span className="text-primary italic">We work with brands</span> that have
-                something to say — and the ambition to say it boldly.
+                something real to say — and the conviction to say it at a level that makes
+                it impossible to ignore.
               </h2>
               <p className="text-lg text-foreground/65 leading-relaxed mb-6 max-w-3xl">
-                M.Y. INK Marketing is a strategic marketing firm built for brands that demand
-                more than execution — they demand thinking. From campaign strategy to press
-                events, from brand positioning to digital implementation, we function as a true
-                extension of your leadership team.
+                M.Y. INK functions as a senior strategic partner. We sit at the table where
+                decisions are made, not downstream from them. We build the strategy, shape
+                the creative direction, and take ownership of the execution — with the same
+                rigour at every stage.
               </p>
               <p className="text-lg text-foreground/65 leading-relaxed mb-10 max-w-3xl">
-                We are selective. We are strategic. And we are relentless in our commitment to
-                making every brand we touch impossible to ignore.
+                What we do not do is take on more clients than we can serve at the highest
+                level. What that means for you: if you work with us, you have our full
+                attention and our best thinking — without the dilution that comes from an
+                agency that scales for revenue rather than quality.
               </p>
               <Link
                 href="/about"
@@ -310,8 +313,8 @@ export default function Home() {
                 What We Do
               </p>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight">
-                Comprehensive strategy. <br />
-                <span className="text-foreground/50">Flawless execution.</span>
+                Five disciplines. <br />
+                <span className="text-foreground/50">One standard.</span>
               </h2>
             </FadeIn>
             <FadeIn delay={0.1}>
@@ -369,7 +372,7 @@ export default function Home() {
               Why M.Y. INK
             </p>
             <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight">
-              What separates good agencies from the ones clients never leave.
+              What separates the agencies clients stay with from the ones they replace.
             </h2>
           </FadeIn>
 
@@ -395,8 +398,9 @@ export default function Home() {
             <FadeIn delay={0.4}>
               <Link href="/about" className="block h-full">
                 <div className="group bg-primary p-8 h-full flex flex-col justify-between min-h-[200px] cursor-pointer hover:bg-primary/90 transition-colors">
-                  <p className="text-white/80 text-sm font-medium leading-relaxed">
-                    Ready to see what strategic thinking can do for your brand?
+                  <p className="text-white/85 text-sm leading-relaxed">
+                    The brands we've had the longest partnerships with all started the same
+                    way: with a conversation, not a brief.
                   </p>
                   <div className="flex items-center gap-2 mt-6 font-bold text-white text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
                     Learn About Us <ArrowRight className="w-4 h-4" />
@@ -498,7 +502,6 @@ export default function Home() {
 
       {/* ── 7. FINAL CTA ─────────────────────────────────────── */}
       <section className="py-28 md:py-40 bg-background relative overflow-hidden">
-        {/* Decorative orange block */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/4 -z-0 skew-x-12 translate-x-12" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -508,39 +511,31 @@ export default function Home() {
                 Let's Work Together
               </p>
               <h2 className="text-4xl md:text-6xl font-display font-bold leading-[1.08] mb-6">
-                Ready to move your brand{" "}
-                <span className="text-primary italic">forward?</span>
+                Your brand's next chapter{" "}
+                <span className="text-primary italic">doesn't write itself.</span>
               </h2>
-              <p className="text-xl text-foreground/60 leading-relaxed mb-4">
-                We take on a limited number of clients each year — we prefer it that way. It
-                means every brand we work with gets our full focus, our best thinking, and our
-                highest standard of execution.
+              <p className="text-foreground/60 text-lg mb-10 max-w-xl leading-relaxed">
+                Most of the best partnerships we've built started with a conversation, not a
+                formal brief. If you are thinking seriously about where your brand needs to go
+                next, that is reason enough to reach out.
               </p>
-              <p className="text-base text-foreground/45 mb-12">
-                If you believe your brand deserves more — let's have a conversation.
-              </p>
-
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact">
-                  <Button size="lg" className="px-10 h-14 text-base">
+                  <Button size="lg" className="px-8 group">
                     Start a Conversation
-                    <ArrowRight className="ml-2 w-4 h-4" />
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link href="/services">
                   <Button
                     variant="outline"
                     size="lg"
-                    className="px-10 h-14 text-base bg-transparent border-foreground/25 hover:border-primary hover:text-primary"
+                    className="px-8 bg-transparent border-foreground/30 text-foreground hover:border-primary hover:text-primary"
                   >
-                    Explore Our Services
+                    Our Services <ArrowUpRight className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>
               </div>
-
-              <p className="mt-8 text-sm text-foreground/35 tracking-wide">
-                We respond to all serious inquiries within 48 business hours.
-              </p>
             </FadeIn>
           </div>
         </div>

@@ -17,8 +17,8 @@ const CASE_STUDIES = [
     img: "campaign-2.png",
     year: "2024",
     scope: "Positioning · Messaging · Campaign Launch",
-    desc: "A complete brand strategy overhaul and market repositioning for a luxury real estate development entering a competitive Nassau market. We redefined their audience, reframed their value proposition, and built the campaign that launched them to sold-out status.",
-    result: "Pre-sale targets exceeded in 60 days.",
+    desc: "A luxury real estate development entering a crowded Nassau market with an undifferentiated brand. We conducted a full competitive audit, redefined the target audience, repositioned the value proposition, and built the launch campaign that did exactly what it was designed to do.",
+    result: "Pre-sale targets exceeded within 60 days of campaign launch.",
   },
   {
     id: 2,
@@ -27,8 +27,8 @@ const CASE_STUDIES = [
     img: "campaign-1.png",
     year: "2024",
     scope: "Campaign Strategy · Creative Direction · Execution",
-    desc: "Heritage hospitality brand losing ground to newer boutique competitors. We rebuilt their market story from the inside out — developing a campaign that honoured their history while positioning them squarely for the modern luxury traveller.",
-    result: "40% increase in direct booking enquiries within the first quarter.",
+    desc: "A heritage hospitality brand losing ground to newer boutique competitors. We rebuilt their market story from the inside out — honouring what made them great while positioning them directly for the audience their competitors were winning.",
+    result: "40% increase in direct booking enquiries in the first quarter.",
   },
   {
     id: 3,
@@ -37,8 +37,8 @@ const CASE_STUDIES = [
     img: "campaign-3.png",
     year: "2023",
     scope: "Digital Strategy · Content · Paid Media",
-    desc: "A lifestyle brand with strong product but weak digital presence. We built a cross-channel content and paid media strategy that connected their visual identity to platforms where their audience actually lived — and drove record engagement in the process.",
-    result: "3× engagement rate increase. 180% growth in qualified leads.",
+    desc: "A lifestyle brand with a strong product and a weak digital presence. We audited their audience behaviour, built a cross-channel content and paid media strategy, and gave their visual identity somewhere to live where their buyers actually spent time.",
+    result: "3× increase in engagement rate. 180% growth in qualified inbound leads.",
   },
   {
     id: 4,
@@ -47,8 +47,8 @@ const CASE_STUDIES = [
     img: "strategy-session.png",
     year: "2023",
     scope: "Press Event Design · Media Relations · Execution",
-    desc: "End-to-end design and management of an international industry press event that brought together media, thought leaders, and decision-makers under one roof. Every detail — from the run-of-show to the media kits — executed to a premium standard.",
-    result: "Coverage in 12+ regional and international publications.",
+    desc: "An international industry press event with zero room for error. We designed the concept, managed every detail of the run-of-show, handled all media relations, and created an environment that made journalists want to be in the room.",
+    result: "Covered in 12 regional and international publications within 72 hours.",
   },
   {
     id: 5,
@@ -57,8 +57,8 @@ const CASE_STUDIES = [
     img: "agency-office.png",
     year: "2023",
     scope: "Ghostwriting · Thought Leadership · Brand Voice",
-    desc: "Executive positioning project for a top-tier business leader looking to establish credibility in a new market. We developed their editorial voice, produced a suite of thought leadership content, and placed their byline in the publications that mattered.",
-    result: "Board-level speaking invitation received within 3 months of publication.",
+    desc: "A high-profile business leader moving into a new market who needed credibility quickly and credibly. We developed their editorial voice, produced a body of thought leadership content, and placed it in the publications that mattered to the buyers they were trying to reach.",
+    result: "Board-level speaking invitation received within three months of publication.",
   },
   {
     id: 6,
@@ -67,8 +67,8 @@ const CASE_STUDIES = [
     img: "campaign-1.png",
     year: "2022",
     scope: "Campaign Strategy · Script Writing · Media",
-    desc: "A vibrant, emotion-led tourism campaign for a destination that had lost its story in a sea of competitive noise. We stripped it back to what was true, built a campaign around authentic moments, and gave the destination a voice that travellers actually responded to.",
-    result: "Campaign adopted as regional tourism reference case study.",
+    desc: "A destination that had lost its voice in a market saturated with indistinct tourism campaigns. We stripped it back to what was genuinely true, found the emotional core that other campaigns had missed, and built something that travellers actually remembered.",
+    result: "Adopted as a regional tourism marketing reference case study.",
   },
 ];
 
@@ -142,8 +142,9 @@ export default function Work() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.4 }}
             >
-              A curated selection of brand strategy, campaign, and digital work. Each project
-              represents a real problem solved with strategic thinking and premium execution.
+              Six engagements. Each one a real brief, a specific challenge, and a strategy
+              built from the ground up. The results below are not projections — they are
+              what happened.
             </motion.p>
           </div>
         </div>
@@ -191,7 +192,6 @@ export default function Work() {
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
                 >
                   <div className="group cursor-pointer">
-                    {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden mb-6 bg-secondary">
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10" />
                       <img
@@ -199,7 +199,6 @@ export default function Work() {
                         alt={work.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      {/* Overlaid tag */}
                       <div className="absolute top-4 left-4 z-20 flex items-center gap-3">
                         <span className="bg-black/70 backdrop-blur-sm text-xs font-bold uppercase tracking-widest text-primary px-3 py-1.5">
                           {work.category}
@@ -210,7 +209,6 @@ export default function Work() {
                       </div>
                     </div>
 
-                    {/* Meta */}
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <h3 className="text-3xl font-display font-bold group-hover:text-primary transition-colors leading-tight">
                         {work.title}
@@ -224,7 +222,6 @@ export default function Work() {
 
                     <p className="text-foreground/60 leading-[1.85] mb-5">{work.desc}</p>
 
-                    {/* Result pill */}
                     <div className="inline-flex items-center gap-2 border border-primary/20 bg-primary/5 px-4 py-2 text-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                       <span className="text-foreground/70">{work.result}</span>
@@ -253,11 +250,11 @@ export default function Work() {
                   Start Your Project
                 </p>
                 <h2 className="text-3xl md:text-4xl font-display font-bold text-white leading-tight mb-5">
-                  Ready to be the next case study worth talking about?
+                  Every case study started as a phone call.
                 </h2>
                 <p className="text-secondary-foreground/55 leading-[1.85]">
-                  We build campaigns, strategies, and brand stories that actually get results.
-                  If you're serious about what comes next for your brand, let's talk.
+                  If you see a project above that reminds you of where your brand is — or where
+                  you want it to go — that is a useful starting point for a conversation.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">

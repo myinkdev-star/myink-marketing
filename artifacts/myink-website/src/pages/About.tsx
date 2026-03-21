@@ -11,22 +11,22 @@ const VALUES = [
   {
     num: "01",
     title: "Strategy First. Always.",
-    desc: "Every recommendation we make — every campaign, every event, every piece of copy — is rooted in a strategy that has been thought through rigorously. We do not execute without a plan, and we do not plan without understanding your brand deeply.",
+    desc: "Every piece of work we produce — every campaign, every press event, every line of copy — traces back to a clear strategy. We are incapable of executing without one. It is the discipline that protects the quality of our output and the credibility of our clients.",
   },
   {
     num: "02",
     title: "Excellence in Execution",
-    desc: "Good enough is a ceiling we refuse to hit. We set a standard of quality in everything we produce — the craft, the thinking, the communication, the delivery. Premium clients deserve a premium standard across the board.",
+    desc: "We work with clients who notice the difference between good and excellent. We consider that a privilege — not a burden. It is what keeps our standard where it is, and what makes the work worth producing.",
   },
   {
     num: "03",
     title: "Selective by Design",
-    desc: "We intentionally limit the number of brands we work with at any given time. This is how we protect the quality of our work and the depth of our attention. Every client we take on gets all of us — not a fraction.",
+    desc: "The value of a smaller client roster is that every brand gets more of us: more attention, more senior thinking, more deliberate work. We are not structured for volume. We are structured for quality, and quality requires selectivity.",
   },
   {
     num: "04",
     title: "Creative without Compromise",
-    desc: "Safe is boring, and boring doesn't build brands. We push for ideas that are bold, unexpected, and built to last. We challenge our clients — respectfully, always — because it is the only way to produce work that truly stands out.",
+    desc: "Predictability is the enemy of a brand that wants to stand out. We push the work into territory that is bold, distinctive, and built to endure — because safe ideas produce safe results, and safe results do not win markets.",
   },
 ];
 
@@ -34,21 +34,21 @@ const STATS = [
   { value: "10+", label: "Years of Regional Marketing Experience" },
   { value: "50+", label: "Brand Campaigns Executed" },
   { value: "5", label: "Core Service Disciplines" },
-  { value: "100%", label: "Client-First Approach" },
+  { value: "100%", label: "Senior Team on Every Account" },
 ];
 
 const PHILOSOPHY = [
   {
-    title: "We think before we act.",
-    desc: "The most expensive mistake in marketing is executing the wrong strategy beautifully. We spend the time to get the thinking right before a single asset is produced or a dollar is spent.",
+    title: "The thinking comes first.",
+    desc: "Executing the wrong strategy beautifully is still the wrong strategy. We spend the time to get the thinking right — on your market, your audience, your competitive position — before a single asset is produced or a dollar is committed.",
   },
   {
-    title: "We lead. We don't follow.",
-    desc: "Trend-chasing produces derivative work. We study what is happening in the market so that we can position our clients ahead of it — not behind it. Our job is to make our clients look like visionaries.",
+    title: "We make our clients look prescient.",
+    desc: "The best strategic advice positions a brand ahead of where the market is going, not behind it. We study what is happening in order to advise confidently on what should happen next.",
   },
   {
-    title: "We measure what matters.",
-    desc: "Vanity metrics are easy to produce and easy to spin. We define what success looks like before we begin, and we hold ourselves accountable to outcomes that actually move a business forward.",
+    title: "We define success before we begin.",
+    desc: "Vague goals produce vague results. Every engagement starts with an agreed-upon picture of what success looks like — because that is the only honest way to know whether the work worked.",
   },
 ];
 
@@ -116,15 +116,14 @@ export default function About() {
             transition={{ duration: 0.65, delay: 0.4 }}
           >
             <p className="text-xl text-foreground/65 leading-[1.85]">
-              M.Y. INK Marketing was founded on a premise that sounds simple but is rarely
-              practiced: great execution requires brilliant strategy. We are a collective of
-              thinkers, writers, and creative directors dedicated to building brands that lead
-              in their market.
+              M.Y. INK was founded on a conviction that has only deepened over time: most brands
+              are underserved by their agencies. Not because agencies lack capability — but because
+              they lack the discipline to think before they act.
             </p>
             <p className="text-xl text-foreground/65 leading-[1.85]">
-              Based in Nassau, Bahamas — with reach across the Caribbean and beyond — we work
-              with a carefully selected group of brands that are serious about their market
-              position and willing to invest in getting there the right way.
+              We built M.Y. INK to be the exception. A strategic firm, not a service provider.
+              A partner, not a vendor. Based in Nassau, Bahamas — with the strategic scope to
+              serve ambitious brands wherever they operate.
             </p>
           </motion.div>
         </div>
@@ -156,24 +155,26 @@ export default function About() {
                 Our Story
               </p>
               <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-8">
-                Built for brands that are serious about where they are going.
+                Built for brands serious about where they are going.
               </h2>
               <div className="space-y-5 text-foreground/65 leading-[1.85] text-lg">
                 <p>
-                  M.Y. INK was born from the recognition that the Caribbean market deserved a
-                  different kind of agency — one that combined the strategic rigour of global
-                  firms with the deep local knowledge and cultural fluency that only comes from
-                  being truly rooted here.
+                  The Caribbean market has produced brands, businesses, and stories that deserve
+                  to be told at the highest level. What it has often lacked is the strategic
+                  infrastructure to do so — consistently, at scale, and with the rigour that
+                  premium positioning requires. That is the gap M.Y. INK was designed to fill.
                 </p>
                 <p>
-                  We started small and intentional. We grew the same way. Every client we have
-                  taken on has been a deliberate choice — because the quality of our client
-                  relationships directly determines the quality of our work.
+                  We have remained deliberately small. Our client roster is selective by
+                  design — not because we lack capacity, but because we understand that quality
+                  of work and depth of attention are things that don't scale infinitely.
+                  We would rather serve fewer brands exceptionally than many brands adequately.
                 </p>
                 <p>
-                  Today, M.Y. INK operates as a senior strategic partner to ambitious brands
-                  across hospitality, real estate, lifestyle, events, and professional services.
-                  Our work is our reputation, and our reputation is everything.
+                  Today, M.Y. INK partners with brands across hospitality, real estate,
+                  lifestyle, professional services, and events — organisations that understand
+                  what it means to invest in their market position, not just their marketing
+                  spend.
                 </p>
               </div>
               <div className="mt-10">
@@ -213,7 +214,7 @@ export default function About() {
               What We Stand For
             </p>
             <h2 className="text-4xl md:text-5xl font-display font-bold max-w-xl leading-tight">
-              Four principles we never negotiate on.
+              Four principles we do not negotiate on.
             </h2>
           </FadeIn>
 
@@ -273,12 +274,13 @@ export default function About() {
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight">
-                Senior thinkers. Senior executors.
+                Senior people on every account.
               </h2>
               <p className="text-foreground/60 text-lg leading-[1.85]">
-                Our team is small by design. Every person here is senior, experienced, and
-                fully invested in the work we deliver. No juniors running your account. No
-                account managers between you and the people doing the thinking.
+                Every person here is senior, experienced, and fully invested in the outcome
+                of their client's work. No junior strategists running accounts. No layers
+                between you and the people doing the thinking. The partners who present the
+                work are the same people who built it.
               </p>
             </div>
           </FadeIn>
@@ -320,12 +322,12 @@ export default function About() {
                   Work With Us
                 </p>
                 <h2 className="text-4xl md:text-5xl font-display font-bold leading-[1.1] mb-6">
-                  Looking for an agency that{" "}
-                  <span className="text-primary italic">actually gets it?</span>
+                  The right relationship starts with{" "}
+                  <span className="text-primary italic">the right conversation.</span>
                 </h2>
                 <p className="text-foreground/60 text-lg leading-relaxed">
-                  If you've read this far, there's probably something in your brand that's been
-                  waiting for the right strategic partner. Let's find out if that's us.
+                  If something you've read here sounds like what your brand has been missing,
+                  that intuition is worth acting on. We'd like to hear from you.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-4">

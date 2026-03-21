@@ -17,7 +17,7 @@ const ARTICLES = [
     date: "March 2026",
     readTime: "7 min",
     excerpt:
-      "Most campaigns fail before they launch. Here's how to architect one that doesn't — from the brief through the debrief.",
+      "Most campaigns are built backwards — from the creative, not the insight. Here is what it looks like when the architecture is correct, from brief to debrief.",
     featured: true,
   },
   {
@@ -27,67 +27,67 @@ const ARTICLES = [
     date: "February 2026",
     readTime: "5 min",
     excerpt:
-      "The most beautiful campaign built on the wrong idea is still the wrong idea. How to get the thinking right before the making begins.",
+      "Every agency claims to be strategic. The real test is what they do in the first three weeks of an engagement. Strategy is not a document — it is a discipline.",
     featured: false,
   },
   {
     id: 3,
-    title: "Building Brand Authority in a Noisy Market",
+    title: "Building Brand Authority in a Market That Isn't Listening",
     category: "Digital",
     date: "January 2026",
     readTime: "6 min",
     excerpt:
-      "Authority isn't declared — it's earned, signal by signal, over time. A playbook for brands that want to own their space.",
+      "Authority is not declared — it is demonstrated, consistently, over time. A framework for brands that want to own the conversation in their category, and the patience it actually requires.",
     featured: false,
   },
   {
     id: 4,
-    title: "The Evolution of the Modern Press Event",
+    title: "The Press Event Isn't Dead. It Just Needs a Better Reason to Exist.",
     category: "Press",
     date: "December 2025",
     readTime: "4 min",
     excerpt:
-      "The press event isn't dead. It just needs a new reason to exist. How to design an event that journalists actually want to cover.",
+      "When designed with intention, press events are still one of the most powerful tools in a brand's communications arsenal. The difference between that and expensive noise is entirely in the brief.",
     featured: false,
   },
   {
     id: 5,
-    title: "Ghostwriting: The Secret Weapon of Industry Leaders",
+    title: "Ghostwriting: Why the Best-Known Executives Don't Write Alone",
     category: "Brand",
     date: "November 2025",
     readTime: "5 min",
     excerpt:
-      "The best-known executives in any industry didn't get there alone. A candid look at why ghostwriting is one of the highest-ROI brand investments you can make.",
+      "The most credible thought leaders in any industry share one thing: they say it well. What varies is how much of that they wrote themselves. A candid look at what ghostwriting is — and why it works.",
     featured: false,
   },
   {
     id: 6,
-    title: "Data vs. Intuition in Marketing Decisions",
+    title: "Data vs. Intuition in Marketing: A False Choice",
     category: "Strategy",
     date: "October 2025",
     readTime: "8 min",
     excerpt:
-      "Numbers tell you what happened. They can't tell you what to do next. How to use data intelligently without letting it kill great ideas.",
+      "Data tells you what happened. It cannot tell you what to do about it. The agencies and brands that perform best use data to inform their intuition — not replace it.",
     featured: false,
   },
   {
     id: 7,
-    title: "What Premium Brands Do Differently",
+    title: "What Premium Brands Understand That Others Don't",
     category: "Brand",
     date: "September 2025",
     readTime: "6 min",
     excerpt:
-      "Premium is not a price point — it's a set of decisions made consistently over time. Unpacking the habits of brands that command a premium.",
+      "Premium is not a price point — it is a set of decisions made consistently over time. Unpacking the habits that separate brands people aspire to from brands people simply purchase.",
     featured: false,
   },
   {
     id: 8,
-    title: "The Caribbean Brand Opportunity Nobody Is Talking About",
+    title: "The Caribbean Brand Opportunity No One Is Taking Seriously Enough",
     category: "Strategy",
     date: "August 2025",
     readTime: "7 min",
     excerpt:
-      "The region has the assets. The culture. The story. What it has lacked is the strategic ambition to tell it at the right scale. Until now.",
+      "The region has extraordinary cultural assets, compelling stories, and growing economic ambition. What it has lacked is the strategic infrastructure to tell those stories at the right scale.",
     featured: false,
   },
 ];
@@ -168,8 +168,8 @@ export default function Insights() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.4 }}
             >
-              Strategic thinking, brand intelligence, and honest perspectives on marketing from
-              the team at M.Y. INK. No fluff. No filler. Just ideas worth your time.
+              Marketing intelligence from the team at M.Y. INK. We write when we have
+              something worth saying — not on a publishing schedule.
             </motion.p>
           </div>
         </div>
@@ -210,7 +210,6 @@ export default function Insights() {
           {filteredFeatured && (
             <FadeIn className="mb-20">
               <div className="group grid grid-cols-1 lg:grid-cols-2 gap-0 border border-border hover:border-primary transition-colors duration-300 cursor-pointer">
-                {/* Image half */}
                 <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-secondary">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500 z-10" />
                   <img
@@ -225,7 +224,6 @@ export default function Insights() {
                   </div>
                 </div>
 
-                {/* Text half */}
                 <div className="p-8 lg:p-12 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-4 mb-6">
@@ -322,11 +320,11 @@ export default function Insights() {
                   Stay Sharp
                 </p>
                 <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-5 leading-tight">
-                  Strategic thinking, delivered to your inbox.
+                  Thinking worth reading, when we have it.
                 </h2>
                 <p className="text-secondary-foreground/55 leading-[1.85]">
-                  No fluff. No generic marketing advice. Just the perspectives, frameworks, and
-                  ideas that actually matter — when we have something worth saying.
+                  We write when we have something genuinely useful to say — which means you
+                  will not hear from us often. But when you do, it will be worth the time.
                 </p>
               </div>
 
@@ -346,7 +344,7 @@ export default function Insights() {
                   </Button>
                 </form>
                 <p className="mt-4 text-xs text-secondary-foreground/30 tracking-wide">
-                  No spam. Unsubscribe anytime. We publish only when we have something worth reading.
+                  No noise. No publishing schedule. Unsubscribe anytime.
                 </p>
               </div>
             </div>

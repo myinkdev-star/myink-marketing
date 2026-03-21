@@ -17,7 +17,7 @@ const contactSchema = z.object({
   phone: z.string().optional(),
   service: z.string().min(1, "Please select a service"),
   budget: z.string().min(1, "Please select a budget range"),
-  message: z.string().min(10, "Please tell us a bit about your project"),
+  message: z.string().min(10, "Please tell us a bit about your brand and goals"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -117,9 +117,9 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.4 }}
           >
-            We take a limited number of new clients each quarter. Fill in the form below and
-            we'll review your inquiry personally. If we're the right fit, we'll be in touch
-            quickly.
+            We take a limited number of new clients each quarter — not as a positioning
+            tactic, but because depth of attention is how we protect the quality of our
+            work. Fill in the form below. We review every inquiry personally.
           </motion.p>
         </div>
       </section>
@@ -133,7 +133,6 @@ export default function Contact() {
             <FadeIn className="lg:col-span-4">
               <div className="lg:sticky lg:top-32 space-y-12">
 
-                {/* Contact details */}
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-primary mb-6">
                     Contact Information
@@ -142,7 +141,7 @@ export default function Contact() {
                     {[
                       {
                         icon: <MapPin className="w-5 h-5 shrink-0 text-foreground/40" />,
-                        label: "M.Y. INK Headquarters",
+                        label: "Headquarters",
                         value: "Nassau, Bahamas",
                         href: undefined,
                       },
@@ -181,7 +180,6 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Social */}
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-primary mb-5">
                     Follow Us
@@ -204,15 +202,15 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Response note */}
                 <div className="border border-border p-6">
                   <p className="text-xs font-bold uppercase tracking-widest text-foreground/35 mb-3">
-                    Response Time
+                    What to Expect
                   </p>
                   <p className="text-foreground/65 text-sm leading-relaxed">
-                    We review every inquiry personally. You can expect to hear from us within{" "}
-                    <span className="font-bold text-foreground">48 business hours</span>. We
-                    don't use auto-responders — a real person will be in touch.
+                    We review every inquiry ourselves — no automated responses. A real person
+                    will read what you've written and reply within{" "}
+                    <span className="font-bold text-foreground">48 business hours</span>.
+                    If there is a genuine fit, you'll know it from the first call.
                   </p>
                 </div>
               </div>
@@ -231,8 +229,8 @@ export default function Contact() {
                   </div>
                   <h3 className="text-2xl font-display font-bold mb-3">Inquiry Received</h3>
                   <p className="text-foreground/60 leading-relaxed max-w-md mx-auto">
-                    Thank you for reaching out. We'll review your inquiry and get back to you
-                    within 48 business hours.
+                    Thank you for reaching out. We'll review your inquiry and respond
+                    within 48 business hours. If there's a fit, we'll say so directly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -244,7 +242,6 @@ export default function Contact() {
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
 
-                  {/* Row 1 */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
@@ -253,7 +250,7 @@ export default function Contact() {
                       <input
                         {...register("name")}
                         className={inputClass(!!errors.name)}
-                        placeholder="Jane Smith"
+                        placeholder="Your full name"
                       />
                       {errors.name && (
                         <p className="text-destructive text-xs">{errors.name.message}</p>
@@ -266,12 +263,11 @@ export default function Contact() {
                       <input
                         {...register("company")}
                         className={inputClass()}
-                        placeholder="Your Company"
+                        placeholder="Your company or brand name"
                       />
                     </div>
                   </div>
 
-                  {/* Row 2 */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
@@ -281,7 +277,7 @@ export default function Contact() {
                         {...register("email")}
                         type="email"
                         className={inputClass(!!errors.email)}
-                        placeholder="jane@company.com"
+                        placeholder="Your business email"
                       />
                       {errors.email && (
                         <p className="text-destructive text-xs">{errors.email.message}</p>
@@ -294,12 +290,11 @@ export default function Contact() {
                       <input
                         {...register("phone")}
                         className={inputClass()}
-                        placeholder="+1 (242) 000-0000"
+                        placeholder="Optional"
                       />
                     </div>
                   </div>
 
-                  {/* Row 3 */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
@@ -343,23 +338,21 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  {/* Textarea */}
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
-                      Tell Us About Your Brand & Goals <span className="text-primary">*</span>
+                      Your Brand & Goals <span className="text-primary">*</span>
                     </label>
                     <textarea
                       {...register("message")}
                       rows={6}
                       className={`${inputClass(!!errors.message)} resize-none leading-relaxed`}
-                      placeholder="Tell us where your brand is, where you want it to go, and what you're hoping we can help you achieve. The more context you give us, the better prepared we'll be for the conversation..."
+                      placeholder="Tell us where your brand is today, the challenge you're facing, and what you're trying to build or change. The more specific you are, the more useful our response will be..."
                     />
                     {errors.message && (
                       <p className="text-destructive text-xs">{errors.message.message}</p>
                     )}
                   </div>
 
-                  {/* Submit */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
                     <Button
                       type="submit"
@@ -373,8 +366,8 @@ export default function Contact() {
                       )}
                     </Button>
                     <p className="text-xs text-foreground/35 leading-relaxed max-w-xs">
-                      Your information is kept strictly confidential. We don't share it with
-                      anyone.
+                      Your information is kept strictly confidential and is not shared
+                      with any third party.
                     </p>
                   </div>
                 </form>
@@ -393,7 +386,7 @@ export default function Contact() {
               <div>
                 <p className="font-display font-bold text-2xl text-white mb-1">M.Y. INK Marketing</p>
                 <p className="text-secondary-foreground/45 text-sm">
-                  Creative Thinking That Moves Brands Forward · Nassau, Bahamas
+                  Strategic Marketing · Nassau, Bahamas · Caribbean & Beyond
                 </p>
               </div>
               <div className="text-center md:text-right">

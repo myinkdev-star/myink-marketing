@@ -11,9 +11,9 @@ const CATEGORIES = [
   {
     num: "01",
     title: "Brand & Marketing Strategy",
-    tagline: "The foundation everything else is built on.",
+    tagline: "The foundation. Before a single decision is made.",
     intro:
-      "Before a single campaign is launched or a word of copy is written, strategy must come first. We work closely with your leadership to define where your brand stands, where it needs to go, and the clearest path to get there — in a way that creates real competitive separation.",
+      "Every engagement begins here, regardless of which service a client initially enquires about. Because the most expensive mistake in marketing is executing the wrong strategy with precision. We do the work to ensure the strategy is correct before anything else is built on top of it.",
     services: [
       "Customized marketing strategies built around your specific market context",
       "Brand positioning and competitive differentiation analysis",
@@ -22,34 +22,34 @@ const CATEGORIES = [
       "Messaging hierarchy and brand voice development",
     ],
     outcome:
-      "You leave with a clear, executable strategy that aligns your team, sharpens your positioning, and gives every future marketing decision a filter to run through.",
+      "A strategy your team can actually use — one that sharpens your positioning, clarifies your messaging, prioritises your spend, and gives every future marketing decision a filter to run through.",
     idealClient:
-      "Established brands entering a new phase of growth, businesses that have lost market clarity, and founders who want to build from a position of strength.",
+      "Businesses entering a new growth phase, brands that have lost market clarity, and founders who want to compete from a position of genuine strategic strength rather than tactical activity.",
   },
   {
     num: "02",
     title: "Campaign Development & Execution",
-    tagline: "Ideas that move people. Execution that moves markets.",
+    tagline: "Campaigns built to convert, not just to impress.",
     intro:
-      "A great campaign is more than a good idea — it is a disciplined process from insight to impact. We develop campaigns that are rooted in strategy, shaped by creativity, and executed with the kind of precision that produces results worth measuring. From concept through launch, we own the entire process.",
+      "A campaign is not just a creative concept. It is a system — built from insight, shaped by strategy, executed with precision across every channel that matters, and measured against outcomes that were agreed upon before the work began. We own the entire process.",
     services: [
       "Full-service campaign strategy, concepting, and creative development",
-      "Promotion design and campaign architecture",
-      "Advertising concepts across traditional, digital, and out-of-home channels",
+      "Promotion design and campaign architecture across all channels",
+      "Advertising concepts for traditional, digital, and out-of-home media",
       "Production oversight — photography, video, design, and copy",
       "Campaign management, pacing, and performance review",
     ],
     outcome:
-      "A cohesive, high-impact campaign that captures attention, communicates your message with clarity, and drives audiences to take the action you need.",
+      "A campaign that earns attention, communicates with clarity, and drives audiences to take the specific action your business needs — not just impressions, awareness, or reach.",
     idealClient:
-      "Brands preparing for a product launch, seasonal push, grand opening, or market re-entry who want campaign work done at the highest level.",
+      "Brands preparing for a launch, seasonal push, grand opening, or market re-entry who understand that the quality of the campaign is inseparable from the quality of the strategy behind it.",
   },
   {
     num: "03",
     title: "Content, Messaging & Editorial Support",
-    tagline: "Your authority, articulated at the highest level.",
+    tagline: "The words that separate authorities from the rest.",
     intro:
-      "What you say — and how you say it — is one of the most powerful competitive advantages available to any brand. We help brands and their leaders craft the written and spoken content that positions them as authorities, builds trust with discerning audiences, and elevates their reputation over time.",
+      "Your reputation in your market is built, in large part, by what you say and how you say it. We help brands and their leadership teams develop the written and spoken work that positions them as the definitive authorities in their field — in the publications, platforms, and conversations that matter to their buyers.",
     services: [
       "Ghostwriting — op-eds, thought leadership articles, white papers, speeches",
       "Script writing for video, broadcast, podcast, and digital content",
@@ -58,16 +58,16 @@ const CATEGORIES = [
       "Long-form content strategy and editorial calendar development",
     ],
     outcome:
-      "A consistent, authoritative voice across every written and spoken platform that builds credibility, attracts the right audiences, and sets your brand apart as a leader in its field.",
+      "A consistent, credible voice across every written and spoken platform — one that attracts the right attention, builds trust with discerning audiences, and compounds in value the longer it is sustained.",
     idealClient:
-      "Executives, founders, and brands that understand content is currency — and want to invest in the kind that compounds.",
+      "Executives and founders who understand that thought leadership is a long game worth playing, and brands that want content to do more than fill a content calendar.",
   },
   {
     num: "04",
     title: "Publicity & Communications",
-    tagline: "The right story. The right room. The right moment.",
+    tagline: "Stories placed where they change minds.",
     intro:
-      "Media coverage that matters is earned, not bought. We design publicity strategies that generate meaningful press — positioning your brand in the publications, conversations, and rooms that influence your target market. From the way your story is told to the events where it unfolds, we shape the narrative.",
+      "Earned media is more valuable than paid media — and significantly harder to get right. We build publicity strategies that place the right story in the right room at the right moment, generating coverage that does more than mention a brand: it repositions one.",
     services: [
       "Press release development and strategic media distribution",
       "Press event concept, design, and full execution",
@@ -76,27 +76,27 @@ const CATEGORIES = [
       "Crisis communications preparation and response support",
     ],
     outcome:
-      "Authentic media coverage, a stronger public narrative, and press events that create genuine industry moments — not just noise.",
+      "Authentic coverage in the publications and channels that shape your market's perception, a stronger public narrative, and press events that generate real industry conversation — not just a news cycle.",
     idealClient:
-      "Brands with news worth sharing, businesses preparing for a significant announcement, and organizations that want to own the conversation in their market.",
+      "Brands with news worth sharing, organisations preparing for a significant announcement, and business leaders who understand that public perception is a strategic asset worth managing with the same rigour as any other.",
   },
   {
     num: "05",
     title: "Digital Presence & Growth Support",
-    tagline: "Precision across every platform that matters.",
+    tagline: "Disciplined execution across every platform that matters.",
     intro:
-      "Digital marketing without strategy is just spending money. We build data-informed digital strategies designed to reach the right audiences, drive meaningful engagement, and deliver measurable returns. Every tactic we deploy is tied to a clear business objective — not just a vanity metric.",
+      "Digital marketing without a clear strategic framework is simply an expensive way to generate noise. We build strategies rooted in data, executed with discipline, and designed to convert the right kind of attention into measurable business outcomes — not just platform metrics.",
     services: [
       "Digital marketing strategy and channel planning",
       "Social media strategy and content direction",
-      "Search engine optimization (SEO) — technical and content-focused",
+      "Search engine optimisation — technical and content-focused",
       "Paid media strategy and campaign management",
-      "Digital analytics, reporting, and performance optimization",
+      "Digital analytics, reporting, and performance optimisation",
     ],
     outcome:
-      "A disciplined digital presence that grows your audience, strengthens your brand equity online, and converts the right kind of attention into real business outcomes.",
+      "A disciplined digital presence that grows the right audience, strengthens brand equity across every relevant platform, and produces results that appear in quarterly reports — not just analytics dashboards.",
     idealClient:
-      "Businesses ready to invest seriously in digital growth — not just those looking to post more, but those ready to do it with purpose and precision.",
+      "Brands ready to invest in digital growth seriously — not those looking to post more content, but those prepared to use every channel with purpose, precision, and a strategy behind every decision.",
   },
 ];
 
@@ -104,41 +104,41 @@ const PROCESS_STEPS = [
   {
     num: "01",
     title: "Discovery & Immersion",
-    desc: "We begin by listening — deeply. We study your brand, your market, your competitors, and your audience before making a single recommendation.",
+    desc: "We spend the time to understand your brand as it actually exists — not as you hope it is perceived. We study your market, your competitors, and your audience before making a single recommendation.",
   },
   {
     num: "02",
     title: "Strategic Development",
-    desc: "With clarity in hand, we build the strategy. Every recommendation is intentional, defensible, and designed to create a distinct advantage.",
+    desc: "With clarity in hand, we build the strategy. Every recommendation is specific, defensible, and designed to create a measurable competitive advantage. Nothing vague. Nothing templated.",
   },
   {
     num: "03",
     title: "Creative & Execution",
-    desc: "We bring the strategy to life through precise, high-quality creative execution — across every channel and touchpoint that matters.",
+    desc: "We bring the strategy to life through creative and executional precision — across every channel and touchpoint that matters, at the standard our clients expect and their audiences deserve.",
   },
   {
     num: "04",
-    title: "Measure & Elevate",
-    desc: "We track what matters, report with transparency, and continuously refine the work. Strategy is never set-and-forget.",
+    title: "Measure & Refine",
+    desc: "We track what matters, report with full transparency, and make the adjustments the data requires. Good strategy does not mean set-and-forget — it means continuous improvement against a clear benchmark.",
   },
 ];
 
 const FAQS = [
   {
-    q: "Do you work with international clients?",
-    a: "Yes. While we are based in the Bahamas and deeply understand the Caribbean market, our strategic approach translates globally. We work with clients across North America, the Caribbean, and beyond.",
+    q: "Do you work with clients outside the Bahamas?",
+    a: "Yes. While our roots are in Nassau and our market intelligence runs deepest in the Caribbean, the strategic frameworks we apply translate across geographies. We work with clients across North America and the wider Caribbean — and have done so successfully.",
   },
   {
-    q: "How are your services priced?",
-    a: "We work on a retainer basis for ongoing strategic partnerships, or project-based fees for campaigns and events. We price based on value and scope — not hours — because the thinking is what matters most.",
+    q: "How does your pricing work?",
+    a: "We work on a project-basis or retainer model, depending on the engagement. We price based on scope and value — not hours. We don't do hourly billing because the most valuable thing we provide is the thinking, and the thinking is difficult to meter by the hour.",
   },
   {
-    q: "Do you handle the actual production of creative assets?",
-    a: "We lead creative direction and strategy. Depending on the project, we execute in-house or bring in our trusted network of photographers, videographers, and designers to deliver at the level our clients expect.",
+    q: "Do you manage the full production of creative assets?",
+    a: "We lead creative direction, strategy, and quality control for all assets. Depending on the project, we execute in-house or through our trusted network of photographers, directors, and designers — all of whom we've worked with long enough to trust with our clients.",
   },
   {
     q: "How selective are you about new clients?",
-    a: "We deliberately keep our client roster small. This is a feature, not a limitation — it means every brand we work with receives our full focus, our best thinking, and our highest standard of execution.",
+    a: "Genuinely selective. We review every inquiry personally. The question we ask is whether we believe we are the right strategic fit — and whether we can serve a brand at the standard we hold ourselves to. We turn down work that doesn't meet that threshold.",
   },
 ];
 
@@ -176,7 +176,6 @@ export default function Services() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="pt-40 pb-24 md:pt-48 md:pb-32 bg-background border-b border-border relative overflow-hidden">
-        {/* Subtle orange accent shape */}
         <div className="absolute top-0 right-0 w-px h-full bg-primary/20" />
         <div className="absolute bottom-0 left-0 w-40 h-px bg-primary/30" />
 
@@ -209,9 +208,9 @@ export default function Services() {
               transition={{ duration: 0.65, delay: 0.4 }}
             >
               <p className="text-xl text-foreground/65 leading-relaxed mb-8">
-                Five strategic service pillars. One unwavering standard. Every offering we provide
-                is built around the same core belief — that marketing done with intelligence and
-                precision is one of the most powerful investments a brand can make.
+                Five capabilities — each one a distinct discipline, together forming the
+                complete strategic infrastructure most brands piece together from multiple
+                vendors and wonder why it never feels cohesive.
               </p>
               <Link href="/contact">
                 <Button size="lg" className="px-8">
@@ -221,7 +220,6 @@ export default function Services() {
             </motion.div>
           </div>
 
-          {/* Service category quick-nav */}
           <motion.div
             className="mt-20 flex flex-wrap gap-3"
             initial={{ opacity: 0 }}
@@ -254,7 +252,6 @@ export default function Services() {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
 
-                  {/* Left — metadata column */}
                   <FadeIn className="lg:col-span-4">
                     <div className="lg:sticky lg:top-32">
                       <span className="text-[80px] md:text-[100px] font-display font-bold text-primary/10 leading-none block -mb-4 select-none">
@@ -279,13 +276,11 @@ export default function Services() {
                     </div>
                   </FadeIn>
 
-                  {/* Right — detail column */}
                   <FadeIn delay={0.12} className="lg:col-span-8">
                     <p className="text-lg text-foreground/70 leading-[1.85] mb-10">
                       {cat.intro}
                     </p>
 
-                    {/* Services included */}
                     <div className="mb-10">
                       <p className="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-5">
                         What's Included
@@ -300,7 +295,6 @@ export default function Services() {
                       </ul>
                     </div>
 
-                    {/* Outcome */}
                     <div className="bg-primary/5 border border-primary/15 p-6 mb-8">
                       <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
                         The Outcome
@@ -308,7 +302,6 @@ export default function Services() {
                       <p className="text-foreground/80 leading-relaxed">{cat.outcome}</p>
                     </div>
 
-                    {/* Ideal client */}
                     <div>
                       <p className="text-xs font-bold uppercase tracking-widest text-foreground/35 mb-2">
                         Ideal For
@@ -337,8 +330,8 @@ export default function Services() {
               Our process is our standard.
             </h2>
             <p className="text-secondary-foreground/55 text-lg max-w-2xl mt-5 leading-relaxed">
-              Every engagement follows the same rigorous, four-stage framework — because great
-              outcomes require discipline, not luck.
+              Every engagement follows the same four-stage framework — because exceptional
+              outcomes require structure, not improvisation.
             </p>
           </FadeIn>
 
@@ -405,21 +398,21 @@ export default function Services() {
                 Let's Begin
               </p>
               <h2 className="text-4xl md:text-5xl font-display font-bold leading-[1.1] mb-6">
-                Not sure which service is right for you?
+                Not sure which service your brand needs first?
               </h2>
               <p className="text-foreground/60 text-lg leading-relaxed">
-                Most of our best client relationships start with a conversation, not a brief.
-                Tell us where your brand is and where you want it to go — we'll tell you exactly
-                how we can help.
+                Most of our best client relationships began with a conversation, not a
+                formal brief. Tell us where your brand is today and what you're trying to
+                build — we'll tell you honestly whether and how we can help.
               </p>
             </FadeIn>
 
             <FadeIn delay={0.15}>
               <div className="border border-border p-10">
-                <h3 className="text-2xl font-display font-bold mb-3">Start a Conversation</h3>
+                <h3 className="text-2xl font-display font-bold mb-3">Begin the Conversation</h3>
                 <p className="text-foreground/55 mb-8 text-sm leading-relaxed">
-                  We take on a limited number of new clients each quarter. If you're serious
-                  about elevating your brand, we'd like to hear from you.
+                  We review every enquiry personally and respond within 48 business hours.
+                  If there's a fit, you'll know it from the first call.
                 </p>
                 <div className="space-y-4">
                   <Link href="/contact" className="block">

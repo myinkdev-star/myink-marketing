@@ -1,0 +1,90 @@
+Act as a meticulous senior front-end engineer, UX designer, and website migration specialist.
+
+I am rebuilding an existing website for M.Y. INK Marketing. Your job is NOT to create a brand-new business or invent a different company identity. Your job is to carefully preserve the important details, assets, and content from the current website, while redesigning it into a modern, premium, high-end agency website.
+
+This is a migration + redesign project.
+
+PRIMARY GOAL:
+Rebuild the current M.Y. INK website into a more modern, polished, high-converting, premium agency site while preserving all important existing details from the original site.
+
+CRITICAL INSTRUCTIONS:
+- Preserve the original company identity: M.Y. INK Marketing
+- Preserve the existing branding context, including logo usage, color feel, business tone, and brand recognition
+- Preserve all important text content, themes, messaging, and service details from the current website
+- Preserve all current logos, marks, names, brand assets, and recognizable visual elements from the existing site
+- Preserve page-specific information from the current site wherever relevant
+- Preserve the spirit of the existing slogan and messaging
+- Preserve the existing services and business capabilities
+- Preserve relevant company/about information already on the site
+- Preserve work/case study/project references if they exist
+- Preserve contact details and inquiry information if they exist
+- Preserve navigation labels where useful unless a small refinement improves clarity
+- Preserve the original meaning of the site content even when rewriting for polish
+
+IMPORTANT:
+Do not remove important details just to make the design cleaner.
+Do not shorten core business information so much that substance is lost.
+Do not replace original company-specific content with generic agency filler.
+Do not invent fake case studies, fake metrics, fake awards, or fake clients.
+Do not swap out logos or branding assets for placeholders if original assets can be retained.
+Do not create a different brand voice from scratch.
+This must still clearly be M.Y. INK.
+
+SOURCE OF TRUTH:
+Use the current M.Y. INK website as the source material and preserve:
+- existing logos
+- existing text
+- existing page content
+- existing headings/subheadings where appropriate
+- service descriptions
+- about/company language
+- contact details
+- any existing brand statements
+- any existing portfolio/work references
+- any original sections that should remain part of the site
+
+However, improve:
+- layout
+- typography
+- spacing
+- hierarchy
+- visual polish
+- responsiveness
+- calls to action
+- section flow
+- conversion strategy
+- trust-building presentation
+- overall modern premium feel
+
+DESIGN DIRECTION:
+The redesign should feel:
+- modern
+- high-end
+- strategic
+- polished
+- editorial
+- confident
+- attractive to premium clients
+
+The redesign should NOT feel:
+- generic
+- low-budget
+- template-like
+- cluttered
+- outdated
+- overly corporate
+- trendy in a cheap way
+
+BRAND DIRECTION:
+Keep the same brand world and visual recognition.
+Retain the existing M.Y. INK brand personality.
+Keep the orange/black/neutral brand feel.
+Use the existing logos and branding assets from the original site.
+Do not reinvent the visual identity unless refining it for polish.
+
+CONTENT HANDLING RULES:
+1. Audit the current site first
+Before generating the new site, inspect and list:
+- all current pages
+- all current sections
+-
