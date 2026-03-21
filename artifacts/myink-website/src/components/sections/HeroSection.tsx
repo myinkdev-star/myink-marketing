@@ -47,11 +47,11 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
         >
-          Creative Thinking
+          Creative Thinking.
           <br />
-          <span className="text-primary italic">That Moves</span>
+          Strategic Execution.
           <br />
-          Brands Forward.
+          <span className="text-primary italic">Meaningful Growth.</span>
         </motion.h1>
 
         {/* Bottom strip */}
@@ -62,9 +62,9 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.55 }}
         >
           <p className="text-[17px] text-foreground/55 leading-[1.9] max-w-xl">
-            M.Y. INK turns marketing challenges into strategic opportunities — combining
-            creative thinking with disciplined execution to build brands that lead in
-            their market. Full-service. Senior-led. Selectively engaged.
+            M.Y. INK partners with ambitious brands to sharpen their message,
+            strengthen their market presence, and execute campaigns with clarity,
+            creativity, and purpose.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3.5 lg:justify-end">
