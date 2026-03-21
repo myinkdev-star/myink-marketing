@@ -1,0 +1,33 @@
+packages:
+  "framer-motion": "For premium, smooth page transitions and scroll-triggered reveal animations essential to a high-end agency feel."
+  "react-hook-form": "For form state management in the Contact page."
+  "@hookform/resolvers": "For validating the contact form with Zod."
+  "zod": "Schema validation for forms."
+  "clsx": "Utility for constructing className strings conditionally."
+  "tailwind-merge": "Utility to resolve Tailwind CSS class conflicts."
+
+images:
+  - path: "artifacts/myink-website/public/images/hero-texture.png"
+    description: "Abstract elegant dark charcoal texture with a subtle warm orange glow, premium, deep, moody, minimal geometric shapes, high-end editorial marketing agency background"
+    aspect_ratio: "16:9"
+  - path: "artifacts/myink-website/public/images/agency-office.png"
+    description: "Premium modern marketing agency office, architectural photography, sleek, warm lighting, off-white and charcoal tones"
+    aspect_ratio: "16:9"
+  - path: "artifacts/myink-website/public/images/strategy-session.png"
+    description: "Overhead shot of a premium strategy session, clean desk, architectural plans, coffee, high end editorial style, black and white aesthetic"
+    aspect_ratio: "16:9"
+  - path: "artifacts/myink-website/public/images/campaign-1.png"
+    description: "High fashion editorial campaign shot, striking and bold, minimal typography layout space, warm tones"
+    aspect_ratio: "4:3"
+  - path: "artifacts/myink-website/public/images/campaign-2.png"
+    description: "Modern minimalist luxury product photography, architectural and sleek, strong shadows"
+    aspect_ratio: "4:3"
+  - path: "artifacts/myink-website/public/images/campaign-3.png"
+    description: "Vibrant dynamic lifestyle photography, capturing motion and energy, premium aesthetic, dramatic lighting"
+    aspect_ratio: "4:3"
+
+notes:
+  - Using wouter for routing.
+  - Using framer-motion for smooth entrance animations.
+  - The contact form is client-side validated.
+  - All styling utilizes Tailwind CSS v4.

@@ -1,0 +1,123 @@
+Act as a world-class senior product designer, brand strategist, conversion copywriter, and front-end engineer.
+
+I want you to rebuild an existing agency website into a premium, modern, high-converting marketing agency website for M.Y. INK Marketing.
+
+Important constraints:
+- Keep the existing brand identity and recognition of M.Y. INK.
+- Keep the core branding feel: bold, confident, strategic, creative, orange/black/neutral palette.
+- Keep the spirit of the current slogan “Creative Thinking That Moves Brands Forward.”
+- Keep and modernize the core existing service content already on the website, including:
+  - Customized Marketing Strategies
+  - Promotion & Campaign Design & Execution
+  - Advertising Concepts & Execution
+  - Ghostwriting
+  - Script Writing (All Media)
+  - Press Releases
+  - Press Events
+  - Digital Strategies & Implementation
+- Keep the site feeling like the same company, but elevate it into a high-end strategic marketing agency.
+- Do not present the agency as an “AI agency.”
+- The public-facing brand should feel premium, strategic, polished, editorial, and selective.
+- The goal is to make potential clients immediately want to work with M.Y. INK.
+
+Business positioning:
+M.Y. INK should feel like a high-end strategic marketing partner for ambitious brands, not a generic social media agency.
+The new site should communicate:
+- stronger positioning
+- more premium execution
+- clearer services
+- stronger trust
+- more modern design
+- better conversion
+
+Target audience:
+- premium local businesses
+- established brands
+- hospitality and tourism brands
+- real estate and property brands
+- events and lifestyle brands
+- founders and growing businesses in the Bahamas and Caribbean
+- companies that value strategy, presentation, and polished execution
+
+Design direction:
+- modern premium agency website
+- sleek, editorial, clean, mobile-first
+- strong typography hierarchy
+- generous whitespace
+- subtle motion and hover effects
+- elegant transitions
+- premium service cards
+- strong CTA sections
+- clear inquiry/contact flow
+- visually impressive but not cluttered
+
+Keep the orange as a signature accent, but use it with restraint.
+Use black/charcoal, warm white/off-white, muted grey, and orange accent.
+Make it feel expensive and strategic.
+
+Build requirements:
+- Use React + TypeScript + Tailwind CSS
+- Build reusable components
+- Mobile-first responsive design
+- Smooth scrolling
+- Subtle premium animations
+- Clean modern navigation
+- Fast-loading pages
+- SEO-friendly structure
+- Contact/inquiry form section
+- Strong CTA buttons
+
+Site architecture:
+- Home
+- About
+- Services
+- Work / Case Studies
+- Insights / Journal
+- Contact
+
+Homepage goals:
+- immediately communicate premium strategic positioning
+- showcase services in a more refined way
+- make the agency sound high-value and selective
+- include trust/proof/testimonial placeholders
+- create a strong desire to inquire
+
+Tone of voice:
+- strategic
+- polished
+- premium
+- warm but elevated
+- intelligent
+- confident
+- not overly trendy
+- not overly corporate
+- not generic
+
+Do not build a boring template site.
+Do not use cheesy stock-agency language.
+Do not make it look like a low-cost freelancer site.
+Do not overuse orange.
+Do not clutter the page.
+
+I want:
+1. a full premium sitemap
+2. homepage wireframe sections
+3. updated conversion-focused copy for each page
+4. a polished visual direction
+5. the actual React + Tailwind component structure
+6. reusable section components
+7. modern navigation and footer
+8. premium CTAs
+9. testimonials section with placeholders
+10. a contact/inquiry flow that feels high-end
+
+Before coding, first give me:
+- final sitemap
+- page-by-page section plan
+- design system
+- homepage copy
+- services copy
+- CTA language
+- recommendations for premium interaction design
+
+Then once approved, generate the code.
