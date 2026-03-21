@@ -474,7 +474,7 @@ export default function Work() {
                 className={`relative py-4 px-5 text-xs font-bold uppercase tracking-widest transition-colors shrink-0 ${
                   activeFilter === f
                     ? "text-primary"
-                    : "text-foreground/40 hover:text-foreground"
+                    : "text-foreground/65 hover:text-foreground"
                 }`}
               >
                 {f}
@@ -497,7 +497,7 @@ export default function Work() {
           {/* Grid header */}
           <FadeIn className="mb-12">
             <div className="flex items-end justify-between gap-4">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/30">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/55">
                 {activeFilter === "All"
                   ? `All Work — ${CASE_STUDIES.length} Engagements`
                   : `${activeFilter} — ${filtered.length} ${filtered.length === 1 ? "Engagement" : "Engagements"}`}

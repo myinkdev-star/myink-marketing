@@ -38,7 +38,7 @@ export function ServiceCategoryCard({ category, isEven = false }: ServiceCategor
               <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-4">
                 {category.title}
               </h2>
-              <p className="text-base text-foreground/45 italic mb-8 border-l-2 border-primary/40 pl-4 leading-relaxed">
+              <p className="text-base text-muted-foreground italic mb-8 border-l-2 border-primary/40 pl-4 leading-relaxed">
                 "{category.tagline}"
               </p>
               <Link
@@ -54,20 +54,20 @@ export function ServiceCategoryCard({ category, isEven = false }: ServiceCategor
           {/* Main content */}
           <FadeIn delay={0.12} className="lg:col-span-8">
             {/* Intro paragraph */}
-            <p className="text-lg text-foreground/70 leading-[1.85] mb-10">
+            <p className="text-lg text-muted-foreground leading-[1.72] mb-10">
               {category.intro}
             </p>
 
             {/* What's included checklist */}
             <div className="mb-10">
-              <p className="text-xs font-bold uppercase tracking-widest text-foreground/35 mb-5">
+              <p className="text-xs font-bold uppercase tracking-widest text-foreground/60 mb-5">
                 What's Included
               </p>
               <ul className="space-y-3">
                 {category.services.map((s, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                    <span className="text-foreground/75 text-base leading-relaxed">{s}</span>
+                    <span className="text-foreground text-base leading-[1.72]">{s}</span>
                   </li>
                 ))}
               </ul>
@@ -78,15 +78,15 @@ export function ServiceCategoryCard({ category, isEven = false }: ServiceCategor
               <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
                 The Outcome
               </p>
-              <p className="text-foreground/80 leading-relaxed">{category.outcome}</p>
+              <p className="text-foreground leading-[1.72]">{category.outcome}</p>
             </div>
 
             {/* Ideal client */}
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-foreground/30 mb-2">
+              <p className="text-xs font-bold uppercase tracking-widest text-foreground/55 mb-2">
                 Ideal For
               </p>
-              <p className="text-foreground/50 text-sm leading-relaxed italic">
+              <p className="text-muted-foreground text-sm leading-[1.72] italic">
                 {category.idealClient}
               </p>
             </div>

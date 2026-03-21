@@ -86,7 +86,7 @@
   --secondary:    0 0% 96%;
   --secondary-foreground: 0 0% 7%;
   --muted:        0 0% 16%;       /* #292929                                    */
-  --muted-foreground: 0 0% 70%;   /* #B3B3B3 — clear, premium on dark            */
+  --muted-foreground: 0 0% 85%;   /* #D9D9D9 — bright, clearly legible on dark   */
   --accent:       26 82% 52%;
   --accent-foreground: 0 0% 100%;
   --destructive:  0 62.8% 30.6%;

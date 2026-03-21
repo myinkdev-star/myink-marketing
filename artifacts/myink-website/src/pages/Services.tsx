@@ -190,7 +190,7 @@ export default function Services() {
               <a
                 key={cat.num}
                 href={`#category-${cat.num}`}
-                className="text-xs font-bold uppercase tracking-widest border border-border px-4 py-2 hover:border-primary hover:text-primary transition-colors"
+                className="text-xs font-bold uppercase tracking-widest text-foreground border border-border px-4 py-2 hover:border-primary hover:text-primary transition-colors"
               >
                 {cat.num} {cat.title}
               </a>

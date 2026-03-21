@@ -75,13 +75,13 @@ export function ServicesPreview() {
                   <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-400 ease-out" />
 
                   <div className="lg:col-span-1 flex items-start pt-0.5 pl-0 lg:pl-4">
-                    <span className="text-[11px] font-bold text-primary/35 tabular-nums">
+                    <span className="text-[11px] font-bold text-primary/65 tabular-nums">
                       {row.num}
                     </span>
                   </div>
 
                   <div className="lg:col-span-4 lg:pl-2">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/60 mb-2.5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary mb-2.5">
                       {row.category}
                     </p>
                     <h3

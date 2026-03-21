@@ -77,7 +77,7 @@ export function CTASection({
               )}
 
               {note && (
-                <p className="text-secondary-foreground/25 text-[11px] tracking-[0.05em] text-center pt-0.5">
+                <p className="text-secondary-foreground/55 text-[11px] tracking-[0.05em] text-center pt-0.5">
                   {note}
                 </p>
               )}
