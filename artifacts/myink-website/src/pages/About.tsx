@@ -209,27 +209,33 @@ export default function About() {
       {/* ── VALUES ───────────────────────────────────────────── */}
       <section className="py-28 md:py-40 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn className="mb-20">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">
-              What We Stand For
-            </p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold max-w-xl leading-tight">
-              Four principles we do not negotiate on.
-            </h2>
+          <FadeIn className="mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight">
+                Four principles we do not negotiate on.
+              </h2>
+              <p className="text-foreground/55 text-lg leading-[1.85] self-end">
+                These are not values statements written for a website. They are the
+                operating commitments that determine who we work with and how.
+              </p>
+            </div>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="divide-y divide-border">
             {VALUES.map((v, idx) => (
-              <FadeIn key={v.num} delay={idx * 0.1}>
-                <div className="group border border-border p-10 hover:border-primary transition-colors duration-300 h-full relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-500" />
-                  <span className="text-xs font-bold text-primary/40 tracking-widest block mb-6">
-                    {v.num}
-                  </span>
-                  <h3 className="text-2xl font-display font-bold mb-5 group-hover:text-primary transition-colors">
-                    {v.title}
-                  </h3>
-                  <p className="text-foreground/60 leading-[1.85]">{v.desc}</p>
+              <FadeIn key={v.num} delay={idx * 0.08}>
+                <div className="group grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-16 py-10 hover:bg-card transition-colors duration-200 -mx-4 px-4">
+                  <div className="lg:col-span-1 pt-1">
+                    <span className="text-xs font-bold text-primary/35 tracking-widest">{v.num}</span>
+                  </div>
+                  <div className="lg:col-span-4">
+                    <h3 className="text-2xl font-display font-bold group-hover:text-primary transition-colors leading-snug">
+                      {v.title}
+                    </h3>
+                  </div>
+                  <div className="lg:col-span-7">
+                    <p className="text-foreground/55 leading-[1.85]">{v.desc}</p>
+                  </div>
                 </div>
               </FadeIn>
             ))}
