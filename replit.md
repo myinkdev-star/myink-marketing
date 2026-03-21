@@ -19,7 +19,15 @@ Full-stack marketing agency website for **M.Y. INK Marketing** — a strategic m
 
 **Libraries:** React 19, TypeScript, Tailwind CSS, Wouter (routing with base), Framer Motion, react-hook-form + Zod, clsx + tailwind-merge
 
-**Design Rules:** Billboard headlines at `clamp(52px, 9vw, 130px)`. Editorial ruled lists instead of card grids for feature/differentiator lists. No faded giant numbers as section markers. Stacked blockquotes for testimonials. Asymmetric grids for work previews. Orange accent used with restraint on labels, highlights, and primary CTAs only.
+**Design Rules:** Billboard headlines at `clamp(48px, 8.5vw, 122px)`. Editorial ruled lists instead of card grids for feature/differentiator lists. No faded giant numbers as section markers. Stacked blockquotes for testimonials. Asymmetric grids for work previews. Orange accent used with restraint on labels, highlights, and primary CTAs only.
+
+**Typography hierarchy:** h1 `letter-spacing: -0.03em`, h2 `-0.025em`, h3 `-0.015em`. Eyebrow labels: `text-[11px] font-bold uppercase tracking-[0.2em]`. Body copy: `text-[17px] leading-[1.9]`. Section heading sizes use `clamp()` fluid type.
+
+**Section rhythm:** All major sections use `py-32 md:py-44`. Page heroes use `pt-40 pb-20 md:pt-52 md:pb-28`.
+
+**Buttons:** `rounded-none`, `tracking-[0.1em]`, `uppercase`, `font-bold text-xs`. Primary: `bg-primary hover:brightness-110`. Outline: `border-input hover:border-primary hover:text-primary`. Default CTA copy: "Begin a Conversation".
+
+**Interaction patterns:** Nav links — animated underline grows from left on hover, full-width underline in primary color when active. Row components (ServicesPreview, WhyChooseUs) — left border accent in primary scales in on hover (origin-top). InsightCard — top orange bar grows from left on hover, borderless design. FadeIn easing: `[0.16, 1, 0.3, 1]` (expo out). Image hover scale: `duration-900 group-hover:scale-[1.04]`.
 
 ## Stack
 

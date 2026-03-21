@@ -28,15 +28,19 @@ const DIFFERENTIATORS = [
 
 export function WhyChooseUs() {
   return (
-    <section className="py-28 md:py-40 bg-background">
+    <section className="py-32 md:py-44 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header — two-column editorial */}
+
+        {/* Section header */}
         <FadeIn className="mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <h2
+              className="font-display font-bold leading-[1.1]"
+              style={{ fontSize: "clamp(30px, 4vw, 48px)", letterSpacing: "-0.025em" }}
+            >
               Why the clients who find us tend to stay.
             </h2>
-            <p className="text-foreground/55 text-lg leading-[1.85] self-end">
+            <p className="text-foreground/50 text-[17px] leading-[1.9] self-end">
               There is no shortage of marketing agencies. What is genuinely rare is a firm
               with the discipline to do the thinking first, and the craft to execute it well.
             </p>
@@ -47,38 +51,49 @@ export function WhyChooseUs() {
         <div className="divide-y divide-border">
           {DIFFERENTIATORS.map((item, idx) => (
             <FadeIn key={idx} delay={idx * 0.06}>
-              <div className="group grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-16 py-8 hover:bg-card transition-colors duration-200 -mx-4 px-4">
-                <div className="lg:col-span-1 flex items-start pt-1">
-                  <span className="text-xs font-bold text-primary/35 tracking-widest">
+              <div className="group relative grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-16 py-9 transition-colors duration-300">
+
+                {/* Hover left accent */}
+                <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-350 ease-out" />
+
+                <div className="lg:col-span-1 flex items-start pt-0.5">
+                  <span className="text-[11px] font-bold text-primary/30 tracking-widest tabular-nums">
                     0{idx + 1}
                   </span>
                 </div>
+
                 <div className="lg:col-span-4">
-                  <h3 className="text-xl font-display font-bold group-hover:text-primary transition-colors leading-snug">
+                  <h3
+                    className="font-display font-bold group-hover:text-primary transition-colors duration-200 leading-snug"
+                    style={{ fontSize: "clamp(16px, 1.5vw, 19px)", letterSpacing: "-0.01em" }}
+                  >
                     {item.title}
                   </h3>
                 </div>
+
                 <div className="lg:col-span-7">
-                  <p className="text-foreground/55 leading-[1.85] text-[15px]">{item.desc}</p>
+                  <p className="text-foreground/50 leading-[1.9] text-[15px]">{item.desc}</p>
                 </div>
+
               </div>
             </FadeIn>
           ))}
         </div>
 
-        {/* CTA link */}
-        <FadeIn delay={0.3} className="mt-12">
+        {/* CTA */}
+        <FadeIn delay={0.3} className="mt-14">
           <Link href="/about">
             <Button
               size="lg"
               variant="outline"
-              className="px-8 border-border hover:border-primary hover:text-primary bg-transparent group"
+              className="px-7 border-border/60 hover:border-primary hover:text-primary bg-transparent group"
             >
               About the Firm
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2.5 w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
             </Button>
           </Link>
         </FadeIn>
+
       </div>
     </section>
   );

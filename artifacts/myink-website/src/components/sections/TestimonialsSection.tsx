@@ -23,37 +23,54 @@ const TESTIMONIALS = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-28 md:py-40 bg-background">
+    <section className="py-32 md:py-44 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Label */}
-        <FadeIn className="mb-16">
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">
+        <FadeIn className="mb-18">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
             Client Perspectives
           </p>
         </FadeIn>
 
-        {/* Editorial stacked quotes — no cards, no borders */}
+        {/* Stacked editorial quotes */}
         <div className="divide-y divide-border">
           {TESTIMONIALS.map((t, idx) => (
             <FadeIn key={idx} delay={idx * 0.1}>
-              <div className="py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Large bold quote */}
-                <div className="lg:col-span-8">
-                  <blockquote className="text-2xl md:text-3xl font-display font-bold leading-[1.3] text-foreground">
-                    "{t.quote}"
+              <div className="py-14 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+
+                {/* Quote */}
+                <div className="lg:col-span-8 relative">
+                  {/* Decorative quotation mark behind text */}
+                  <span
+                    className="absolute -top-5 -left-1 font-display font-bold text-[80px] leading-none text-primary/7 select-none pointer-events-none"
+                    aria-hidden="true"
+                  >
+                    "
+                  </span>
+                  <blockquote
+                    className="relative font-display font-bold leading-[1.28] text-foreground"
+                    style={{ fontSize: "clamp(20px, 2.5vw, 30px)", letterSpacing: "-0.015em" }}
+                  >
+                    {t.quote}
                   </blockquote>
                 </div>
-                {/* Attribution — right-aligned on desktop */}
-                <div className="lg:col-span-4 lg:text-right lg:pt-2">
-                  <p className="font-bold text-foreground text-base">{t.author}</p>
-                  <p className="text-primary text-xs font-bold uppercase tracking-widest mt-1">
+
+                {/* Attribution */}
+                <div className="lg:col-span-4 lg:text-right lg:pt-1">
+                  <p className="font-bold text-foreground text-[15px] tracking-tight">
+                    {t.author}
+                  </p>
+                  <p className="text-primary text-[11px] font-bold uppercase tracking-[0.18em] mt-1.5">
                     {t.title}
                   </p>
                 </div>
+
               </div>
             </FadeIn>
           ))}
         </div>
+
       </div>
     </section>
   );

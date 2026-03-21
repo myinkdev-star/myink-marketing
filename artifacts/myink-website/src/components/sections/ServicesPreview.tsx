@@ -38,58 +38,75 @@ const SERVICE_ROWS = [
 
 export function ServicesPreview() {
   return (
-    <section className="py-28 md:py-40 bg-secondary text-secondary-foreground dark">
+    <section className="py-32 md:py-44 bg-secondary text-secondary-foreground dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <FadeIn className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <FadeIn className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-8">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary mb-5">
               What We Do
             </p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">
+            <h2
+              className="font-display font-bold text-white"
+              style={{ fontSize: "clamp(32px, 4.5vw, 52px)", letterSpacing: "-0.025em" }}
+            >
               Five disciplines. One standard.
             </h2>
           </div>
           <Link href="/services">
             <Button
               variant="outline"
-              className="border-white/20 text-secondary-foreground hover:bg-white hover:text-secondary shrink-0"
+              className="border-white/15 text-secondary-foreground/70 hover:bg-white hover:text-secondary hover:border-white shrink-0"
             >
-              Full Service List <ArrowUpRight className="ml-2 w-4 h-4" />
+              Full Service List <ArrowUpRight className="ml-2 w-3.5 h-3.5" />
             </Button>
           </Link>
         </FadeIn>
 
         {/* Service rows */}
-        <div className="divide-y divide-white/8">
+        <div className="divide-y divide-white/7">
           {SERVICE_ROWS.map((row, idx) => (
-            <FadeIn key={row.num} delay={idx * 0.07}>
+            <FadeIn key={row.num} delay={idx * 0.06}>
               <Link href="/services">
-                <div className="group grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 py-9 cursor-pointer">
-                  <div className="lg:col-span-1 flex items-start">
-                    <span className="text-xs font-bold text-primary/40 mt-1">{row.num}</span>
+                <div className="group relative grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 py-10 cursor-pointer transition-colors duration-300">
+
+                  {/* Left accent: grows on hover */}
+                  <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-400 ease-out" />
+
+                  <div className="lg:col-span-1 flex items-start pt-0.5 pl-0 lg:pl-4">
+                    <span className="text-[11px] font-bold text-primary/35 tabular-nums">
+                      {row.num}
+                    </span>
                   </div>
-                  <div className="lg:col-span-4">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary/70 mb-2">
+
+                  <div className="lg:col-span-4 lg:pl-2">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/60 mb-2.5">
                       {row.category}
                     </p>
-                    <h3 className="text-xl font-display font-bold text-white group-hover:text-primary transition-colors duration-200 leading-snug">
+                    <h3
+                      className="font-display font-bold text-white group-hover:text-primary transition-colors duration-200 leading-snug"
+                      style={{ fontSize: "clamp(17px, 1.6vw, 20px)" }}
+                    >
                       {row.headline}
                     </h3>
                   </div>
+
                   <div className="lg:col-span-6">
-                    <p className="text-secondary-foreground/55 leading-[1.85] text-[15px]">
+                    <p className="text-secondary-foreground/50 leading-[1.9] text-[15px]">
                       {row.desc}
                     </p>
                   </div>
+
                   <div className="lg:col-span-1 flex items-center justify-end">
-                    <ArrowUpRight className="w-5 h-5 text-transparent group-hover:text-primary/70 transition-colors duration-200" />
+                    <ArrowUpRight className="w-4 h-4 text-transparent group-hover:text-primary/60 transition-colors duration-200" />
                   </div>
                 </div>
               </Link>
             </FadeIn>
           ))}
         </div>
+
       </div>
     </section>
   );
