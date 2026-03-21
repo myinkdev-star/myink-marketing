@@ -38,7 +38,7 @@ const SERVICE_ROWS = [
 
 export function ServicesPreview() {
   return (
-    <section className="py-32 md:py-44 bg-secondary text-secondary-foreground dark">
+    <section className="py-32 md:py-44 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -48,7 +48,7 @@ export function ServicesPreview() {
               What We Do
             </p>
             <h2
-              className="font-display font-bold text-white"
+              className="font-display font-bold text-foreground"
               style={{ fontSize: "clamp(32px, 4.5vw, 52px)", letterSpacing: "-0.025em" }}
             >
               Five disciplines. One standard.
@@ -57,7 +57,7 @@ export function ServicesPreview() {
           <Link href="/services">
             <Button
               variant="outline"
-              className="border-white/15 text-secondary-foreground/70 hover:bg-white hover:text-secondary hover:border-white shrink-0"
+              className="border-border text-foreground/70 hover:border-primary hover:text-primary shrink-0"
             >
               Full Service List <ArrowUpRight className="ml-2 w-3.5 h-3.5" />
             </Button>
@@ -65,7 +65,7 @@ export function ServicesPreview() {
         </FadeIn>
 
         {/* Service rows */}
-        <div className="divide-y divide-white/7">
+        <div className="divide-y divide-border">
           {SERVICE_ROWS.map((row, idx) => (
             <FadeIn key={row.num} delay={idx * 0.06}>
               <Link href="/services">
@@ -85,7 +85,7 @@ export function ServicesPreview() {
                       {row.category}
                     </p>
                     <h3
-                      className="font-display font-bold text-white group-hover:text-primary transition-colors duration-200 leading-snug"
+                      className="font-display font-bold text-foreground group-hover:text-primary transition-colors duration-200 leading-snug"
                       style={{ fontSize: "clamp(17px, 1.6vw, 20px)" }}
                     >
                       {row.headline}
