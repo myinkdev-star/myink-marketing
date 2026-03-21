@@ -1,11 +1,12 @@
-import { useRef, useState } from "react";
-import { Link } from "wouter";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/shared/PageHero";
+import { FadeIn } from "@/components/shared/FadeIn";
+import { CTASection } from "@/components/sections/CTASection";
 
-/* ───────────────────────────── DATA ───────────────────────────── */
+/* ─────────────────────── DATA ─────────────────────────── */
 
 const FILTERS = ["All", "Brand Strategy", "Campaigns", "Digital", "Press & Events"];
 
@@ -72,33 +73,7 @@ const CASE_STUDIES = [
   },
 ];
 
-/* ─────────────────────────── HELPERS ─────────────────────────── */
-
-function FadeIn({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ──────────────────────────── PAGE ───────────────────────────── */
+/* ─────────────────────────── PAGE ─────────────────────────── */
 
 export default function Work() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -111,49 +86,30 @@ export default function Work() {
   return (
     <PageLayout>
 
-      {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="pt-40 pb-16 md:pt-52 md:pb-20 bg-background border-b border-border relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-px h-full bg-primary/20" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.p
-            className="text-xs font-bold uppercase tracking-widest text-primary mb-6"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.1 }}
-          >
-            Our Portfolio
-          </motion.p>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-            <motion.h1
-              className="text-5xl md:text-7xl lg:text-[80px] font-display font-bold leading-[1.04]"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.2 }}
-            >
-              Selected{" "}
-              <span className="text-primary italic">Work.</span>
-            </motion.h1>
-
-            <motion.p
-              className="text-xl text-foreground/60 leading-[1.85] lg:pb-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.4 }}
-            >
+      {/* ── PAGE HERO ─────────────────────────────────────── */}
+      <PageHero
+        eyebrow="Our Portfolio"
+        headline={
+          <>
+            Selected{" "}
+            <span className="text-primary italic">Work.</span>
+          </>
+        }
+        intro={
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <p className="text-xl text-foreground/60 leading-[1.85]">
               Six engagements. Each one a real brief, a specific challenge, and a strategy
               built from the ground up. The results below are not projections — they are
               what happened.
-            </motion.p>
+            </p>
           </div>
-        </div>
-      </section>
+        }
+      />
 
-      {/* ── FILTER BAR ───────────────────────────────────────── */}
+      {/* ── FILTER BAR ────────────────────────────────────── */}
       <div className="bg-background sticky top-[72px] z-30 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-0 overflow-x-auto no-scrollbar">
+          <div className="flex gap-0 overflow-x-auto">
             {FILTERS.map((f) => (
               <button
                 key={f}
@@ -167,7 +123,7 @@ export default function Work() {
                 {f}
                 {activeFilter === f && (
                   <motion.div
-                    layoutId="filter-underline"
+                    layoutId="work-filter"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
                   />
                 )}
@@ -177,7 +133,7 @@ export default function Work() {
         </div>
       </div>
 
-      {/* ── CASE STUDIES ─────────────────────────────────────── */}
+      {/* ── CASE STUDIES GRID ─────────────────────────────── */}
       <section className="py-20 md:py-28 bg-background min-h-[60vh]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-20">
@@ -192,6 +148,7 @@ export default function Work() {
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
                 >
                   <div className="group cursor-pointer">
+                    {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden mb-6 bg-secondary">
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10" />
                       <img
@@ -209,6 +166,7 @@ export default function Work() {
                       </div>
                     </div>
 
+                    {/* Title row */}
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <h3 className="text-3xl font-display font-bold group-hover:text-primary transition-colors leading-tight">
                         {work.title}
@@ -216,12 +174,15 @@ export default function Work() {
                       <ArrowUpRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-2" />
                     </div>
 
+                    {/* Scope */}
                     <p className="text-xs font-bold uppercase tracking-widest text-foreground/35 mb-4">
                       {work.scope}
                     </p>
 
+                    {/* Description */}
                     <p className="text-foreground/60 leading-[1.85] mb-5">{work.desc}</p>
 
+                    {/* Result pill */}
                     <div className="inline-flex items-center gap-2 border border-primary/20 bg-primary/5 px-4 py-2 text-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                       <span className="text-foreground/70">{work.result}</span>
@@ -240,44 +201,14 @@ export default function Work() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="py-24 bg-secondary text-secondary-foreground dark border-t border-white/8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-5">
-                  Start Your Project
-                </p>
-                <h2 className="text-3xl md:text-4xl font-display font-bold text-white leading-tight mb-5">
-                  Every case study started as a phone call.
-                </h2>
-                <p className="text-secondary-foreground/55 leading-[1.85]">
-                  If you see a project above that reminds you of where your brand is — or where
-                  you want it to go — that is a useful starting point for a conversation.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
-                <Link href="/contact">
-                  <Button size="lg" className="w-full sm:w-auto px-8 group">
-                    Start a Project
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link href="/services">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto px-8 border-white/20 text-secondary-foreground hover:bg-white hover:text-secondary"
-                  >
-                    Our Services
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+      {/* ── CTA ───────────────────────────────────────────── */}
+      <CTASection
+        eyebrow="Start Your Project"
+        headline="Every case study started as a phone call."
+        subtext="If you see a project above that reminds you of where your brand is — or where you want it to go — that is a useful starting point for a conversation."
+        primaryCta={{ label: "Start a Project", href: "/contact" }}
+        secondaryCta={{ label: "Our Services", href: "/services" }}
+      />
 
     </PageLayout>
   );

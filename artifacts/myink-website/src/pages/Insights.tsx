@@ -1,15 +1,17 @@
-import { useRef, useState } from "react";
-import { Link } from "wouter";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { PageHero } from "@/components/shared/PageHero";
+import { InsightCard, Insight } from "@/components/shared/InsightCard";
+import { FadeIn } from "@/components/shared/FadeIn";
 import { Button } from "@/components/ui/button";
 
-/* ───────────────────────────── DATA ───────────────────────────── */
+/* ─────────────────────── DATA ─────────────────────────── */
 
 const FILTERS = ["All", "Strategy", "Brand", "Digital", "Press"];
 
-const ARTICLES = [
+const ARTICLES: Insight[] = [
   {
     id: 1,
     title: "The Anatomy of a Campaign That Actually Works",
@@ -37,7 +39,7 @@ const ARTICLES = [
     date: "January 2026",
     readTime: "6 min",
     excerpt:
-      "Authority is not declared — it is demonstrated, consistently, over time. A framework for brands that want to own the conversation in their category, and the patience it actually requires.",
+      "Authority is not declared — it is demonstrated, consistently, over time. A framework for brands that want to own the conversation in their category.",
     featured: false,
   },
   {
@@ -47,7 +49,7 @@ const ARTICLES = [
     date: "December 2025",
     readTime: "4 min",
     excerpt:
-      "When designed with intention, press events are still one of the most powerful tools in a brand's communications arsenal. The difference between that and expensive noise is entirely in the brief.",
+      "When designed with intention, press events are still one of the most powerful tools in a brand's communications arsenal. The difference is entirely in the brief.",
     featured: false,
   },
   {
@@ -57,7 +59,7 @@ const ARTICLES = [
     date: "November 2025",
     readTime: "5 min",
     excerpt:
-      "The most credible thought leaders in any industry share one thing: they say it well. What varies is how much of that they wrote themselves. A candid look at what ghostwriting is — and why it works.",
+      "The most credible thought leaders in any industry share one thing: they say it well. What varies is how much of that they wrote themselves.",
     featured: false,
   },
   {
@@ -67,7 +69,7 @@ const ARTICLES = [
     date: "October 2025",
     readTime: "8 min",
     excerpt:
-      "Data tells you what happened. It cannot tell you what to do about it. The agencies and brands that perform best use data to inform their intuition — not replace it.",
+      "Data tells you what happened. It cannot tell you what to do about it. The best agencies use data to inform their intuition — not replace it.",
     featured: false,
   },
   {
@@ -92,33 +94,7 @@ const ARTICLES = [
   },
 ];
 
-/* ─────────────────────────── HELPERS ─────────────────────────── */
-
-function FadeIn({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ──────────────────────────── PAGE ───────────────────────────── */
+/* ─────────────────────────── PAGE ─────────────────────────── */
 
 export default function Insights() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -126,59 +102,38 @@ export default function Insights() {
   const featured = ARTICLES.find((a) => a.featured);
   const rest = ARTICLES.filter((a) => !a.featured);
 
+  const filteredFeatured =
+    activeFilter === "All" || featured?.category === activeFilter ? featured : null;
+
   const filteredRest =
     activeFilter === "All"
       ? rest
       : rest.filter((a) => a.category === activeFilter);
 
-  const filteredFeatured =
-    activeFilter === "All" || featured?.category === activeFilter ? featured : null;
-
   return (
     <PageLayout>
 
-      {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="pt-40 pb-20 md:pt-52 md:pb-24 bg-background border-b border-border relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-px h-full bg-primary/20" />
+      {/* ── PAGE HERO ─────────────────────────────────────── */}
+      <PageHero
+        eyebrow="The Journal"
+        headline={
+          <>
+            Insights &{" "}
+            <span className="text-primary italic">Perspectives.</span>
+          </>
+        }
+        intro={
+          <p className="text-xl text-foreground/60 leading-[1.85] max-w-2xl">
+            Marketing intelligence from the team at M.Y. INK. We write when we have
+            something worth saying — not on a publishing schedule.
+          </p>
+        }
+      />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.p
-            className="text-xs font-bold uppercase tracking-widest text-primary mb-6"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.1 }}
-          >
-            The Journal
-          </motion.p>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-            <motion.h1
-              className="text-5xl md:text-7xl lg:text-[80px] font-display font-bold leading-[1.04]"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.2 }}
-            >
-              Insights &{" "}
-              <span className="text-primary italic">Perspectives.</span>
-            </motion.h1>
-
-            <motion.p
-              className="text-xl text-foreground/60 leading-[1.85] lg:pb-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.4 }}
-            >
-              Marketing intelligence from the team at M.Y. INK. We write when we have
-              something worth saying — not on a publishing schedule.
-            </motion.p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FILTER BAR ───────────────────────────────────────── */}
+      {/* ── FILTER BAR ────────────────────────────────────── */}
       <div className="bg-background sticky top-[72px] z-30 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-0 overflow-x-auto no-scrollbar">
+          <div className="flex gap-0 overflow-x-auto">
             {FILTERS.map((f) => (
               <button
                 key={f}
@@ -202,7 +157,7 @@ export default function Insights() {
         </div>
       </div>
 
-      {/* ── CONTENT ──────────────────────────────────────────── */}
+      {/* ── CONTENT ───────────────────────────────────────── */}
       <section className="py-20 md:py-28 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -210,6 +165,7 @@ export default function Insights() {
           {filteredFeatured && (
             <FadeIn className="mb-20">
               <div className="group grid grid-cols-1 lg:grid-cols-2 gap-0 border border-border hover:border-primary transition-colors duration-300 cursor-pointer">
+                {/* Image */}
                 <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-secondary">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500 z-10" />
                   <img
@@ -224,6 +180,7 @@ export default function Insights() {
                   </div>
                 </div>
 
+                {/* Text */}
                 <div className="p-8 lg:p-12 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-4 mb-6">
@@ -237,16 +194,13 @@ export default function Insights() {
                         <Clock className="w-3 h-3" /> {filteredFeatured.readTime}
                       </span>
                     </div>
-
                     <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-6 group-hover:text-primary transition-colors">
                       {filteredFeatured.title}
                     </h2>
-
                     <p className="text-foreground/60 leading-[1.85] text-lg">
                       {filteredFeatured.excerpt}
                     </p>
                   </div>
-
                   <div className="mt-10 flex items-center gap-3 font-bold text-sm uppercase tracking-widest group-hover:text-primary transition-colors">
                     Read Article
                     <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -264,38 +218,10 @@ export default function Insights() {
                   {activeFilter === "All" ? "All Articles" : activeFilter}
                 </p>
               </FadeIn>
-
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredRest.map((article, idx) => (
                   <FadeIn key={article.id} delay={idx * 0.07}>
-                    <article className="group border border-border hover:border-primary transition-colors duration-300 p-8 h-full flex flex-col cursor-pointer relative overflow-hidden">
-                      <div className="absolute top-0 left-0 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-500" />
-
-                      <div className="flex items-center gap-3 mb-6">
-                        <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                          {article.category}
-                        </span>
-                        <span className="text-foreground/25">·</span>
-                        <span className="flex items-center gap-1 text-xs text-foreground/40">
-                          <Clock className="w-3 h-3" /> {article.readTime}
-                        </span>
-                      </div>
-
-                      <h3 className="text-xl font-display font-bold leading-snug mb-4 group-hover:text-primary transition-colors flex-grow">
-                        {article.title}
-                      </h3>
-
-                      <p className="text-foreground/55 text-sm leading-relaxed mb-8">
-                        {article.excerpt}
-                      </p>
-
-                      <div className="flex items-center justify-between mt-auto pt-6 border-t border-border">
-                        <span className="text-xs text-foreground/40">{article.date}</span>
-                        <span className="flex items-center gap-1 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 text-primary transition-opacity">
-                          Read <ArrowUpRight className="w-3 h-3" />
-                        </span>
-                      </div>
-                    </article>
+                    <InsightCard article={article} />
                   </FadeIn>
                 ))}
               </div>
@@ -310,7 +236,7 @@ export default function Insights() {
         </div>
       </section>
 
-      {/* ── NEWSLETTER ───────────────────────────────────────── */}
+      {/* ── NEWSLETTER ────────────────────────────────────── */}
       <section className="py-28 bg-secondary text-secondary-foreground dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
@@ -327,12 +253,8 @@ export default function Insights() {
                   will not hear from us often. But when you do, it will be worth the time.
                 </p>
               </div>
-
               <div>
-                <form
-                  className="flex flex-col sm:flex-row gap-4"
-                  onSubmit={(e) => e.preventDefault()}
-                >
+                <form className="flex flex-col sm:flex-row gap-4" onSubmit={(e) => e.preventDefault()}>
                   <input
                     type="email"
                     placeholder="Your email address"

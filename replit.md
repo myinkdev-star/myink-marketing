@@ -2,7 +2,24 @@
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+pnpm workspace monorepo using TypeScript. Contains a premium marketing agency website (M.Y. INK) and a supporting API server. Each package manages its own dependencies.
+
+## Projects
+
+### M.Y. INK Marketing Website (`artifacts/myink-website`)
+
+Full-stack marketing agency website for **M.Y. INK Marketing** — a strategic marketing firm based in Nassau, Bahamas. Premium editorial aesthetic: Syne (display) + Inter (body), orange accent (`hsl(26 82% 52%)`), off-white background, charcoal dark sections.
+
+**6 Pages:** Home, About, Services, Work, Insights, Contact
+
+**Component Architecture:**
+- `components/layout/` — Navbar (scroll-aware, mobile overlay), Footer, PageLayout
+- `components/shared/` — FadeIn (framer-motion inView), PageHero, ServiceCategoryCard, InsightCard, ContactForm
+- `components/sections/` — HeroSection, BrandIntroSection, ServicesPreview, WhyChooseUs, CaseStudyGrid, TestimonialsSection, CTASection
+
+**Libraries:** React 19, TypeScript, Tailwind CSS, Wouter (routing with base), Framer Motion, react-hook-form + Zod, clsx + tailwind-merge
+
+**Design Rules:** Billboard headlines at `clamp(52px, 9vw, 130px)`. Editorial ruled lists instead of card grids for feature/differentiator lists. No faded giant numbers as section markers. Stacked blockquotes for testimonials. Asymmetric grids for work previews. Orange accent used with restraint on labels, highlights, and primary CTAs only.
 
 ## Stack
 

@@ -1,13 +1,15 @@
-import { useRef } from "react";
 import { Link } from "wouter";
-import { motion, useInView } from "framer-motion";
-import { ArrowRight, CheckCircle2, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { PageHero } from "@/components/shared/PageHero";
+import { ServiceCategoryCard, ServiceCategory } from "@/components/shared/ServiceCategoryCard";
+import { FadeIn } from "@/components/shared/FadeIn";
 import { Button } from "@/components/ui/button";
 
-/* ──────────────────────────── DATA ──────────────────────────── */
+/* ─────────────────────── DATA ─────────────────────────── */
 
-const CATEGORIES = [
+const CATEGORIES: ServiceCategory[] = [
   {
     num: "01",
     title: "Brand & Marketing Strategy",
@@ -142,86 +144,44 @@ const FAQS = [
   },
 ];
 
-/* ─────────────────────────── HELPERS ────────────────────────── */
-
-function FadeIn({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ─────────────────────────── PAGE ────────────────────────────── */
+/* ─────────────────────────── PAGE ─────────────────────────── */
 
 export default function Services() {
   return (
     <PageLayout>
 
-      {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="pt-40 pb-24 md:pt-48 md:pb-32 bg-background border-b border-border relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-px h-full bg-primary/20" />
-        <div className="absolute bottom-0 left-0 w-40 h-px bg-primary/30" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-            <div className="lg:col-span-7">
-              <motion.p
-                className="text-xs font-bold uppercase tracking-widest text-primary mb-6"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                Our Expertise
-              </motion.p>
-              <motion.h1
-                className="text-5xl md:text-7xl lg:text-[80px] font-display font-bold leading-[1.04] tracking-tight"
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                What We <br />
-                <span className="text-primary italic">Do Best.</span>
-              </motion.h1>
-            </div>
-
-            <motion.div
-              className="lg:col-span-5 lg:pb-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.4 }}
-            >
-              <p className="text-xl text-foreground/65 leading-relaxed mb-8">
-                Five capabilities — each one a distinct discipline, together forming the
-                complete strategic infrastructure most brands piece together from multiple
-                vendors and wonder why it never feels cohesive.
-              </p>
+      {/* ── PAGE HERO ─────────────────────────────────────── */}
+      <PageHero
+        eyebrow="Our Expertise"
+        headline={
+          <>
+            What We{" "}
+            <span className="text-primary italic">Do Best.</span>
+          </>
+        }
+        intro={
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+            <p className="text-xl text-foreground/65 leading-relaxed">
+              Five capabilities — each one a distinct discipline, together forming the
+              complete strategic infrastructure most brands piece together from multiple
+              vendors and wonder why it never feels cohesive.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact">
                 <Button size="lg" className="px-8">
                   Discuss Your Needs <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
-            </motion.div>
+            </div>
           </div>
+        }
+      />
 
+      {/* Category anchor nav */}
+      <div className="bg-background border-b border-border py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="mt-20 flex flex-wrap gap-3"
+            className="flex flex-wrap gap-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -237,89 +197,16 @@ export default function Services() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </div>
 
-      {/* ── SERVICE CATEGORIES ──────────────────────────────────── */}
+      {/* ── SERVICE CATEGORIES ────────────────────────────── */}
       <section className="bg-background">
-        {CATEGORIES.map((cat, idx) => {
-          const isEven = idx % 2 === 1;
-          return (
-            <div
-              key={cat.num}
-              id={`category-${cat.num}`}
-              className={`border-b border-border py-24 md:py-32 ${isEven ? "bg-card" : "bg-background"}`}
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-
-                  <FadeIn className="lg:col-span-4">
-                    <div className="lg:sticky lg:top-32">
-                      <span className="text-[80px] md:text-[100px] font-display font-bold text-primary/10 leading-none block -mb-4 select-none">
-                        {cat.num}
-                      </span>
-                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
-                        Service Category
-                      </p>
-                      <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-4">
-                        {cat.title}
-                      </h2>
-                      <p className="text-base text-foreground/50 italic mb-8 border-l-2 border-primary/40 pl-4">
-                        "{cat.tagline}"
-                      </p>
-                      <Link
-                        href="/contact"
-                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-foreground hover:text-primary transition-colors group"
-                      >
-                        Enquire About This
-                        <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </Link>
-                    </div>
-                  </FadeIn>
-
-                  <FadeIn delay={0.12} className="lg:col-span-8">
-                    <p className="text-lg text-foreground/70 leading-[1.85] mb-10">
-                      {cat.intro}
-                    </p>
-
-                    <div className="mb-10">
-                      <p className="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-5">
-                        What's Included
-                      </p>
-                      <ul className="space-y-3">
-                        {cat.services.map((s, i) => (
-                          <li key={i} className="flex items-start gap-3">
-                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                            <span className="text-foreground/75 text-base leading-relaxed">{s}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="bg-primary/5 border border-primary/15 p-6 mb-8">
-                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
-                        The Outcome
-                      </p>
-                      <p className="text-foreground/80 leading-relaxed">{cat.outcome}</p>
-                    </div>
-
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-widest text-foreground/35 mb-2">
-                        Ideal For
-                      </p>
-                      <p className="text-foreground/55 text-sm leading-relaxed italic">
-                        {cat.idealClient}
-                      </p>
-                    </div>
-                  </FadeIn>
-
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {CATEGORIES.map((cat, idx) => (
+          <ServiceCategoryCard key={cat.num} category={cat} isEven={idx % 2 === 1} />
+        ))}
       </section>
 
-      {/* ── PROCESS ─────────────────────────────────────────────── */}
+      {/* ── PROCESS ───────────────────────────────────────── */}
       <section className="py-28 md:py-40 bg-secondary text-secondary-foreground dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="mb-20">
@@ -355,7 +242,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ── FAQ ─────────────────────────────────────────────────── */}
+      {/* ── FAQ ───────────────────────────────────────────── */}
       <section className="py-28 md:py-40 bg-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="mb-16">
@@ -384,14 +271,9 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ── CTA ─────────────────────────────────────────────────── */}
-      <section className="py-28 md:py-40 bg-card border-t border-border relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/4 rounded-full translate-x-1/2 translate-y-1/2" />
-          <div className="absolute top-0 left-0 w-64 h-64 bg-primary/3 rounded-full -translate-x-1/2 -translate-y-1/2" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* ── CTA ───────────────────────────────────────────── */}
+      <section className="py-28 md:py-40 bg-card border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <FadeIn>
               <p className="text-xs font-bold uppercase tracking-widest text-primary mb-6">
@@ -409,14 +291,19 @@ export default function Services() {
 
             <FadeIn delay={0.15}>
               <div className="border border-border p-10">
-                <h3 className="text-2xl font-display font-bold mb-3">Begin the Conversation</h3>
+                <h3 className="text-2xl font-display font-bold mb-3">
+                  Begin the Conversation
+                </h3>
                 <p className="text-foreground/55 mb-8 text-sm leading-relaxed">
                   We review every enquiry personally and respond within 48 business hours.
                   If there's a fit, you'll know it from the first call.
                 </p>
                 <div className="space-y-4">
                   <Link href="/contact" className="block">
-                    <Button size="lg" className="w-full justify-between px-6 h-13 text-base group">
+                    <Button
+                      size="lg"
+                      className="w-full justify-between px-6 h-13 text-base group"
+                    >
                       Request a Consultation
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
@@ -428,7 +315,7 @@ export default function Services() {
                       className="w-full justify-between px-6 h-13 text-base bg-transparent border-border hover:border-primary hover:text-primary group"
                     >
                       Review Our Work First
-                      <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight className="w-4 h-4" />
                     </Button>
                   </Link>
                 </div>
