@@ -1,188 +1,415 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone, ArrowRight, Instagram, Linkedin, Twitter } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
+/* ───────────────────────────── SCHEMA ─────────────────────────── */
+
 const contactSchema = z.object({
-  name: z.string().min(2, "Name is required"),
+  name: z.string().min(2, "Please enter your name"),
   company: z.string().optional(),
-  email: z.string().email("Invalid email address"),
+  email: z.string().email("Please enter a valid email address"),
   phone: z.string().optional(),
   service: z.string().min(1, "Please select a service"),
   budget: z.string().min(1, "Please select a budget range"),
-  message: z.string().min(10, "Please provide a brief description"),
+  message: z.string().min(10, "Please tell us a bit about your project"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
+/* ─────────────────────────── HELPERS ─────────────────────────── */
+
+function FadeIn({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const inputClass = (hasError?: boolean) =>
+  `w-full bg-background border ${
+    hasError ? "border-destructive" : "border-border"
+  } px-5 py-4 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary transition-colors text-base`;
+
+const selectClass = (hasError?: boolean) =>
+  `${inputClass(hasError)} appearance-none cursor-pointer`;
+
+/* ──────────────────────────── PAGE ───────────────────────────── */
+
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema)
+  const [submitted, setSubmitted] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (data: ContactFormValues) => {
+  const onSubmit = async (_data: ContactFormValues) => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 1000));
-    
+    await new Promise((r) => setTimeout(r, 1200));
     toast({
-      title: "Inquiry Sent",
-      description: "Thank you for reaching out. We will get back to you within 48 business hours.",
+      title: "Inquiry received.",
+      description: "We'll be in touch within 48 business hours.",
     });
-    
     reset();
     setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   return (
     <PageLayout>
-      <section className="py-24 bg-background">
+
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section className="pt-40 pb-20 md:pt-52 md:pb-28 bg-background border-b border-border relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-px h-full bg-primary/20" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-16 max-w-4xl">
-            Let's Build Something <span className="text-primary italic">Worth</span> Talking About.
-          </h1>
+          <motion.p
+            className="text-xs font-bold uppercase tracking-widest text-primary mb-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+          >
+            Get in Touch
+          </motion.p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            
-            {/* Contact Info */}
-            <div className="lg:col-span-4 space-y-12">
-              <div>
-                <h3 className="text-sm font-bold uppercase tracking-widest text-primary mb-6">Contact Information</h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <MapPin className="text-foreground/50 w-6 h-6 shrink-0" />
-                    <div>
-                      <p className="font-bold mb-1">M.Y. INK Headquarters</p>
-                      <p className="text-foreground/70">Nassau, Bahamas</p>
-                    </div>
+          <motion.h1
+            className="text-5xl md:text-7xl lg:text-[80px] font-display font-bold leading-[1.04] max-w-4xl mb-8"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.2 }}
+          >
+            Let's build something{" "}
+            <span className="text-primary italic">worth talking about.</span>
+          </motion.h1>
+
+          <motion.p
+            className="text-xl text-foreground/60 max-w-2xl leading-[1.85]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.4 }}
+          >
+            We take a limited number of new clients each quarter. Fill in the form below and
+            we'll review your inquiry personally. If we're the right fit, we'll be in touch
+            quickly.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* ── MAIN CONTENT ─────────────────────────────────────── */}
+      <section className="py-20 md:py-28 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+
+            {/* ── LEFT: Info ── */}
+            <FadeIn className="lg:col-span-4">
+              <div className="lg:sticky lg:top-32 space-y-12">
+
+                {/* Contact details */}
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-6">
+                    Contact Information
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      {
+                        icon: <MapPin className="w-5 h-5 shrink-0 text-foreground/40" />,
+                        label: "M.Y. INK Headquarters",
+                        value: "Nassau, Bahamas",
+                        href: undefined,
+                      },
+                      {
+                        icon: <Mail className="w-5 h-5 shrink-0 text-foreground/40" />,
+                        label: "Email",
+                        value: "hello@myink.com",
+                        href: "mailto:hello@myink.com",
+                      },
+                      {
+                        icon: <Phone className="w-5 h-5 shrink-0 text-foreground/40" />,
+                        label: "Phone",
+                        value: "+1 (242) 000-0000",
+                        href: "tel:+12420000000",
+                      },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-4">
+                        {item.icon}
+                        <div>
+                          <p className="text-xs font-bold uppercase tracking-widest text-foreground/35 mb-1">
+                            {item.label}
+                          </p>
+                          {item.href ? (
+                            <a
+                              href={item.href}
+                              className="text-foreground hover:text-primary transition-colors"
+                            >
+                              {item.value}
+                            </a>
+                          ) : (
+                            <p className="text-foreground/70">{item.value}</p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex items-start gap-4">
-                    <Mail className="text-foreground/50 w-6 h-6 shrink-0" />
-                    <div>
-                      <p className="font-bold mb-1">Email Us</p>
-                      <a href="mailto:hello@myink.com" className="text-foreground/70 hover:text-primary transition-colors">hello@myink.com</a>
-                    </div>
+                </div>
+
+                {/* Social */}
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-5">
+                    Follow Us
+                  </p>
+                  <div className="flex gap-3">
+                    {[
+                      { icon: <Instagram size={18} />, href: "#", label: "Instagram" },
+                      { icon: <Linkedin size={18} />, href: "#", label: "LinkedIn" },
+                      { icon: <Twitter size={18} />, href: "#", label: "Twitter" },
+                    ].map((s) => (
+                      <a
+                        key={s.label}
+                        href={s.href}
+                        aria-label={s.label}
+                        className="w-11 h-11 border border-border flex items-center justify-center text-foreground/50 hover:border-primary hover:text-primary transition-colors"
+                      >
+                        {s.icon}
+                      </a>
+                    ))}
                   </div>
-                  <div className="flex items-start gap-4">
-                    <Phone className="text-foreground/50 w-6 h-6 shrink-0" />
-                    <div>
-                      <p className="font-bold mb-1">Call Us</p>
-                      <a href="tel:+12420000000" className="text-foreground/70 hover:text-primary transition-colors">+1 (242) 000-0000</a>
-                    </div>
-                  </div>
+                </div>
+
+                {/* Response note */}
+                <div className="border border-border p-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-foreground/35 mb-3">
+                    Response Time
+                  </p>
+                  <p className="text-foreground/65 text-sm leading-relaxed">
+                    We review every inquiry personally. You can expect to hear from us within{" "}
+                    <span className="font-bold text-foreground">48 business hours</span>. We
+                    don't use auto-responders — a real person will be in touch.
+                  </p>
                 </div>
               </div>
-              
-              <div className="p-8 bg-card border border-border">
-                <h4 className="font-display font-bold text-xl mb-3">Response Time</h4>
-                <p className="text-foreground/70 text-sm leading-relaxed">
-                  We typically review and respond to all inquiries within 48 business hours. We review every application to ensure we are the right strategic fit for your brand.
-                </p>
-              </div>
-            </div>
+            </FadeIn>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-8">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold uppercase tracking-wider">Full Name *</label>
-                    <input 
-                      {...register("name")}
-                      className={`w-full bg-card border ${errors.name ? 'border-destructive' : 'border-border'} px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors`}
-                      placeholder="Jane Doe"
-                    />
-                    {errors.name && <p className="text-destructive text-xs">{errors.name.message}</p>}
+            {/* ── RIGHT: Form ── */}
+            <FadeIn delay={0.15} className="lg:col-span-8">
+              {submitted ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="border border-primary/30 bg-primary/5 p-12 text-center"
+                >
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                    <div className="w-5 h-5 rounded-full bg-primary" />
                   </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold uppercase tracking-wider">Company / Brand</label>
-                    <input 
-                      {...register("company")}
-                      className="w-full bg-card border border-border px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
-                      placeholder="Your Company"
-                    />
+                  <h3 className="text-2xl font-display font-bold mb-3">Inquiry Received</h3>
+                  <p className="text-foreground/60 leading-relaxed max-w-md mx-auto">
+                    Thank you for reaching out. We'll review your inquiry and get back to you
+                    within 48 business hours.
+                  </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="mt-8 text-sm font-bold uppercase tracking-widest text-foreground/40 hover:text-primary transition-colors"
+                  >
+                    Submit another inquiry
+                  </button>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
+
+                  {/* Row 1 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+                        Full Name <span className="text-primary">*</span>
+                      </label>
+                      <input
+                        {...register("name")}
+                        className={inputClass(!!errors.name)}
+                        placeholder="Jane Smith"
+                      />
+                      {errors.name && (
+                        <p className="text-destructive text-xs">{errors.name.message}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+                        Company / Brand
+                      </label>
+                      <input
+                        {...register("company")}
+                        className={inputClass()}
+                        placeholder="Your Company"
+                      />
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold uppercase tracking-wider">Email Address *</label>
-                    <input 
-                      {...register("email")}
-                      type="email"
-                      className={`w-full bg-card border ${errors.email ? 'border-destructive' : 'border-border'} px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors`}
-                      placeholder="jane@example.com"
-                    />
-                    {errors.email && <p className="text-destructive text-xs">{errors.email.message}</p>}
+                  {/* Row 2 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+                        Email Address <span className="text-primary">*</span>
+                      </label>
+                      <input
+                        {...register("email")}
+                        type="email"
+                        className={inputClass(!!errors.email)}
+                        placeholder="jane@company.com"
+                      />
+                      {errors.email && (
+                        <p className="text-destructive text-xs">{errors.email.message}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+                        Phone Number
+                      </label>
+                      <input
+                        {...register("phone")}
+                        className={inputClass()}
+                        placeholder="+1 (242) 000-0000"
+                      />
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold uppercase tracking-wider">Phone Number</label>
-                    <input 
-                      {...register("phone")}
-                      className="w-full bg-card border border-border px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
-                      placeholder="+1 (555) 000-0000"
-                    />
+                  {/* Row 3 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+                        Service of Interest <span className="text-primary">*</span>
+                      </label>
+                      <select
+                        {...register("service")}
+                        className={selectClass(!!errors.service)}
+                      >
+                        <option value="">Select a service...</option>
+                        <option value="brand_strategy">Brand & Marketing Strategy</option>
+                        <option value="campaigns">Campaign Development & Execution</option>
+                        <option value="editorial">Content, Messaging & Editorial</option>
+                        <option value="press">Publicity & Communications</option>
+                        <option value="digital">Digital Presence & Growth</option>
+                        <option value="multiple">Multiple Services</option>
+                        <option value="other">Not Sure — Let's Talk</option>
+                      </select>
+                      {errors.service && (
+                        <p className="text-destructive text-xs">{errors.service.message}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+                        Estimated Budget <span className="text-primary">*</span>
+                      </label>
+                      <select
+                        {...register("budget")}
+                        className={selectClass(!!errors.budget)}
+                      >
+                        <option value="">Select a range...</option>
+                        <option value="under_5k">Under $5,000</option>
+                        <option value="5k_15k">$5,000 – $15,000</option>
+                        <option value="15k_50k">$15,000 – $50,000</option>
+                        <option value="50k_plus">$50,000+</option>
+                        <option value="tbd">To Be Discussed</option>
+                      </select>
+                      {errors.budget && (
+                        <p className="text-destructive text-xs">{errors.budget.message}</p>
+                      )}
+                    </div>
                   </div>
 
+                  {/* Textarea */}
                   <div className="space-y-2">
-                    <label className="text-sm font-bold uppercase tracking-wider">Service of Interest *</label>
-                    <select 
-                      {...register("service")}
-                      className={`w-full bg-card border ${errors.service ? 'border-destructive' : 'border-border'} px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors appearance-none`}
+                    <label className="text-xs font-bold uppercase tracking-widest text-foreground/50">
+                      Tell Us About Your Brand & Goals <span className="text-primary">*</span>
+                    </label>
+                    <textarea
+                      {...register("message")}
+                      rows={6}
+                      className={`${inputClass(!!errors.message)} resize-none leading-relaxed`}
+                      placeholder="Tell us where your brand is, where you want it to go, and what you're hoping we can help you achieve. The more context you give us, the better prepared we'll be for the conversation..."
+                    />
+                    {errors.message && (
+                      <p className="text-destructive text-xs">{errors.message.message}</p>
+                    )}
+                  </div>
+
+                  {/* Submit */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={isSubmitting}
+                      className="px-10 group"
                     >
-                      <option value="">Select a service...</option>
-                      <option value="brand_strategy">Brand Strategy</option>
-                      <option value="campaigns">Campaign Execution</option>
-                      <option value="ghostwriting">Ghostwriting</option>
-                      <option value="digital">Digital Marketing</option>
-                      <option value="press">Press Events / PR</option>
-                      <option value="other">Other / Multiple</option>
-                    </select>
-                    {errors.service && <p className="text-destructive text-xs">{errors.service.message}</p>}
+                      {isSubmitting ? "Sending..." : "Send Inquiry"}
+                      {!isSubmitting && (
+                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      )}
+                    </Button>
+                    <p className="text-xs text-foreground/35 leading-relaxed max-w-xs">
+                      Your information is kept strictly confidential. We don't share it with
+                      anyone.
+                    </p>
                   </div>
+                </form>
+              )}
+            </FadeIn>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold uppercase tracking-wider">Estimated Budget *</label>
-                    <select 
-                      {...register("budget")}
-                      className={`w-full bg-card border ${errors.budget ? 'border-destructive' : 'border-border'} px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors appearance-none`}
-                    >
-                      <option value="">Select budget range...</option>
-                      <option value="under_5k">Under $5K</option>
-                      <option value="5k_15k">$5K - $15K</option>
-                      <option value="15k_50k">$15K - $50K</option>
-                      <option value="50k_plus">$50K+</option>
-                    </select>
-                    {errors.budget && <p className="text-destructive text-xs">{errors.budget.message}</p>}
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-bold uppercase tracking-wider">Project Brief *</label>
-                  <textarea 
-                    {...register("message")}
-                    rows={5}
-                    className={`w-full bg-card border ${errors.message ? 'border-destructive' : 'border-border'} px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors resize-none`}
-                    placeholder="Tell us about your brand, your goals, and what you're looking to achieve..."
-                  />
-                  {errors.message && <p className="text-destructive text-xs">{errors.message.message}</p>}
-                </div>
-
-                <Button type="submit" size="lg" disabled={isSubmitting} className="w-full md:w-auto">
-                  {isSubmitting ? "Sending..." : "Send Inquiry"}
-                </Button>
-              </form>
-            </div>
           </div>
         </div>
       </section>
+
+      {/* ── BOTTOM STRIP ─────────────────────────────────────── */}
+      <section className="py-16 bg-secondary text-secondary-foreground dark border-t border-white/8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div>
+                <p className="font-display font-bold text-2xl text-white mb-1">M.Y. INK Marketing</p>
+                <p className="text-secondary-foreground/45 text-sm">
+                  Creative Thinking That Moves Brands Forward · Nassau, Bahamas
+                </p>
+              </div>
+              <div className="text-center md:text-right">
+                <p className="text-secondary-foreground/45 text-sm mb-1">Direct inquiry</p>
+                <a
+                  href="mailto:hello@myink.com"
+                  className="text-white hover:text-primary transition-colors font-medium"
+                >
+                  hello@myink.com
+                </a>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
     </PageLayout>
   );
 }
