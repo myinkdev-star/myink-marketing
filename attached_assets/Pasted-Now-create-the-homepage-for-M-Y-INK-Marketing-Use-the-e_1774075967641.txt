@@ -1,0 +1,64 @@
+Now create the homepage for M.Y. INK Marketing.
+
+Use the existing brand essence from the current website, but rewrite and elevate everything so it feels premium, modern, strategic, and attractive to higher-end clients.
+
+Important:
+- Keep the spirit of “Creative Thinking That Moves Brands Forward”
+- Keep the company identity as M.Y. INK Marketing
+- Keep the existing service foundation, but present it in a higher-end way
+- Do not make it sound cheap, generic, or like basic social media management
+- The homepage should feel like a premium strategic marketing agency
+
+Create the homepage with these sections:
+
+1. Hero section
+- premium headline
+- refined subheadline
+- 2 CTA buttons
+- subtle supporting text
+- optional trust line
+
+2. Brand positioning section
+- explain who M.Y. INK is
+- explain what makes the agency different
+- make it sound strategic and high-end
+
+3. Services preview
+Group the current core services into premium service categories while keeping the original service meaning.
+For example, elevate and organize:
+- Customized Marketing Strategies
+- Promotion & Campaign Design & Execution
+- Advertising Concepts & Execution
+- Ghostwriting
+- Script Writing
+- Press Releases
+- Press Events
+- Digital Strategies & Implementation
+
+4. Why M.Y. INK section
+- strategic thinking
+- tailored campaigns
+- refined creative direction
+- execution with purpose
+- strong market presence
+
+5. Selected work / proof section
+- use premium placeholders
+- show how results/case studies would be presented
+
+6. Testimonial section
+- elegant quote cards
+- premium styling
+- placeholder content
+
+7. Final CTA section
+- make it feel selective and high-end
+- encourage consultation/inquiry
+
+Requirements:
+- write all homepage copy
+- make the messaging conversion-focused
+- make clients feel that M.Y. INK is polished, capable, and worth premium investment
+- keep it rooted in the current brand, not a totally different identity
+
+Then generate the full React + Tailwind code for the homepage using reusable components.
