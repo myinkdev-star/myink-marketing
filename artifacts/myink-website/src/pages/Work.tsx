@@ -360,7 +360,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
         </div>
 
         {/* Scope */}
-        <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/22">
+        <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/40">
           {study.scope}
         </p>
       </div>

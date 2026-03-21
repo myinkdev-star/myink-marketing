@@ -38,7 +38,7 @@ export function Footer() {
             <Link href="/" className="font-display font-bold text-[22px] tracking-[-0.04em] text-white mb-5 block">
               M.Y. INK
             </Link>
-            <p className="text-secondary-foreground/45 text-[14px] max-w-[220px] mb-8 leading-[1.8]">
+            <p className="text-secondary-foreground/65 text-[14px] max-w-[220px] mb-8 leading-[1.8]">
               A strategic marketing firm for brands that are serious about where they are going.
             </p>
             {/* Social links */}
@@ -87,7 +87,7 @@ export function Footer() {
               Get in Touch
             </h4>
             <ul className="space-y-3.5 mb-8">
-              <li className="text-secondary-foreground/40 text-[14px]">Nassau, Bahamas</li>
+              <li className="text-secondary-foreground/55 text-[14px]">Nassau, Bahamas</li>
               <li>
                 <a
                   href="mailto:hello@myink.com"

@@ -93,7 +93,7 @@ export function ServicesPreview() {
                   </div>
 
                   <div className="lg:col-span-6">
-                    <p className="text-secondary-foreground/50 leading-[1.9] text-[15px]">
+                    <p className="text-secondary-foreground/70 leading-[1.9] text-[15px]">
                       {row.desc}
                     </p>
                   </div>

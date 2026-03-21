@@ -43,13 +43,13 @@ export function InsightCard({ article }: InsightCardProps) {
       </h3>
 
       {/* Excerpt */}
-      <p className="text-foreground/50 text-[15px] leading-[1.85] mb-7">
+      <p className="text-foreground/65 text-[15px] leading-[1.85] mb-7">
         {article.excerpt}
       </p>
 
       {/* Footer */}
       <div className="flex items-center justify-between mt-auto">
-        <span className="text-[11px] text-foreground/35 font-medium">{article.date}</span>
+        <span className="text-[11px] text-foreground/50 font-medium">{article.date}</span>
         <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           Read
           <ArrowUpRight className="w-3.5 h-3.5" />

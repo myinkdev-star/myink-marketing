@@ -25,13 +25,13 @@ export function BrandIntroSection() {
             {/* Elaboration */}
             <div className="lg:col-span-6 flex flex-col justify-between gap-10">
               <div className="space-y-6">
-                <p className="text-[17px] text-foreground/55 leading-[1.9]">
+                <p className="text-[17px] text-foreground/68 leading-[1.9]">
                   M.Y. INK functions as a senior strategic partner. We sit at the table
                   where decisions are made, not downstream from them. We build the strategy,
                   shape the creative direction, and take ownership of the execution —
                   with the same rigour at every stage.
                 </p>
-                <p className="text-[17px] text-foreground/55 leading-[1.9]">
+                <p className="text-[17px] text-foreground/68 leading-[1.9]">
                   We do not take on more clients than we can serve at the highest level.
                   If you work with us, you have our full attention and our best thinking —
                   without the dilution that comes from an agency that scales for revenue

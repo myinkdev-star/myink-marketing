@@ -1,0 +1,118 @@
+Act as a senior brand designer, UI designer, and front-end engineer.
+
+I am rebuilding the M.Y. INK Marketing website and I need you to update the current color system so the text stands out more clearly while keeping the M.Y. INK brand identity.
+
+Brand direction:
+- high-end marketing agency
+- premium, modern, strategic
+- bold but refined
+- clean, confident, and visually strong
+- better readability and stronger contrast than the current version
+
+Use these core brand colors only:
+- White
+- Orange
+- Black
+- Grey
+
+Primary goal:
+Improve text contrast, readability, and visual hierarchy across the entire website while keeping the site recognizably M.Y. INK.
+
+Important rules:
+- Keep the site premium and modern
+- Do not use too many competing colors
+- Orange should be used as a strategic accent, not everywhere
+- Black and white should do most of the heavy lifting
+- Grey should be used for secondary text, section backgrounds, borders, and subtle depth
+- Text must always stand out clearly against backgrounds
+- Prioritize accessibility and strong contrast
+- Avoid low-contrast combinations
+- Avoid washed-out sections
+- Avoid clutter
+
+LOGO INTEGRATION:
+I am providing the M.Y. INK logo and want it integrated throughout the site in a polished, premium way.
+
+Tasks:
+1. Use the uploaded M.Y. INK logo as the official site logo
+2. Add the logo in the top navigation
+3. Add the logo in the footer
+4. Use the logo tastefully in key brand moments throughout the website
+5. Keep logo usage clean, balanced, and professional
+6. Do not distort the logo
+7. Respect spacing around the logo
+8. Provide both light-background and dark-background logo treatment recommendations
+9. If needed, create placement rules for the logo depending on section background color
+
+COLOR SYSTEM REQUIREMENTS:
+Create a refined brand color system such as:
+- Primary background: white or soft off-white
+- Primary text: black / near-black
+- Secondary text: grey
+- Accent color: signature orange
+- Dark sections: black/charcoal with white text and orange accents
+- Cards: white or light grey with strong text contrast
+- Buttons: premium, clear, high-contrast states
+- Links and hover states: subtle but visible
+
+Build a complete color usage system for:
+- page backgrounds
+- section backgrounds
+- headings
+- body text
+- muted text
+- buttons
+- CTA sections
+- navigation
+- footer
+- cards
+- borders
+- dividers
+- links
+- hover states
+- form fields
+
+VISUAL GOAL:
+The site should feel like a premium strategic agency website where:
+- headlines are bold and easy to read
+- body text is crisp and clear
+- buttons stand out
+- the orange feels intentional and branded
+- the black adds authority
+- the white creates space and polish
+- the grey supports hierarchy without reducing clarity
+
+DESIGN RULES:
+- use strong visual hierarchy
+- large readable headings
+- easy-to-scan sections
+- clear separation between light and dark sections
+- elegant whitespace
+- premium contrast
+- no muddy backgrounds
+- no orange text on light grey if it hurts readability
+- no thin low-contrast body text
+- no overly soft UI that loses impact
+
+ENGINEERING TASKS:
+1. Audit the current color scheme and identify where readability is weak
+2. Replace the old color scheme with a more premium brand system using white, orange, black, and grey
+3. Update all components to the new color rules
+4. Apply the logo across navbar, hero, footer, and any relevant brand sections
+5. Ensure the site remains modern, polished, and consistent
+6. Keep the brand recognizable as M.Y. INK
+7. Improve mobile readability too
+
+OUTPUT I WANT:
+Step 1: Recommended brand color palette with hex suggestions
+Step 2: Exact usage rules for each color
+Step 3: Logo placement rules
+Step 4: Updated UI styling recommendations
+Step 5: Full implementation in React + Tailwind CSS
+
+If the uploaded logo has more than one version, use the best one for:
+- dark backgrounds
+- light backgrounds
+- favicon/app icon recommendation
+
+The final result should make M.Y. INK feel stronger, clearer, more premium, and more memorable.

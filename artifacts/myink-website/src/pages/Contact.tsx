@@ -251,12 +251,12 @@ export default function Contact() {
                 <p className="font-display font-bold text-xl text-white mb-1">
                   M.Y. INK Marketing
                 </p>
-                <p className="text-secondary-foreground/40 text-sm">
+                <p className="text-secondary-foreground/60 text-sm">
                   Strategic Marketing · Nassau, Bahamas · Caribbean &amp; Beyond
                 </p>
               </div>
               <div className="flex flex-col md:items-end gap-1">
-                <p className="text-secondary-foreground/35 text-xs uppercase tracking-widest font-bold">
+                <p className="text-secondary-foreground/50 text-xs uppercase tracking-widest font-bold">
                   Direct Enquiry
                 </p>
                 <a

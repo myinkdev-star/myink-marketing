@@ -32,51 +32,73 @@
   --animate-marquee: marquee 55s linear infinite;
 }
 
+/* ─────────────────────────────────────────────────────────
+   LIGHT MODE — M.Y. INK Brand Color System
+   White · Orange · Black · Grey
+   ───────────────────────────────────────────────────────── */
 :root {
-  --background: 34 23% 95%;
-  --foreground: 0 0% 10%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 10%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 10%;
-  --primary: 26 82% 52%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 10%;
-  --secondary-foreground: 34 23% 95%;
-  --muted: 0 0% 90%;
-  --muted-foreground: 0 0% 54%;
-  --accent: 26 82% 52%;
+  /* Backgrounds */
+  --background:   0 0% 97%;        /* #F7F7F7  — crisp neutral near-white       */
+  --card:         0 0% 100%;       /* #FFFFFF  — pure white for cards            */
+  --popover:      0 0% 100%;
+
+  /* Text */
+  --foreground:            0 0% 5%;    /* #0D0D0D — rich near-black               */
+  --card-foreground:       0 0% 5%;
+  --popover-foreground:    0 0% 5%;
+  --muted-foreground:      0 0% 38%;   /* #616161 — neutral mid-grey, strong      */
+
+  /* Brand orange */
+  --primary:               26 82% 52%; /* #E87722 — signature orange              */
+  --primary-foreground:    0 0% 100%;
+
+  /* Dark sections — charcoal-black */
+  --secondary:             0 0% 7%;    /* #121212 — deep charcoal                 */
+  --secondary-foreground:  0 0% 96%;   /* #F5F5F5 — near-white text on dark       */
+
+  /* Supporting */
+  --muted:        0 0% 92%;       /* #EBEBEB — light grey for muted bg          */
+  --accent:       26 82% 52%;
   --accent-foreground: 0 0% 100%;
-  --destructive: 0 84% 60%;
+  --destructive:  0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border: 36 18% 88%;
-  --input: 36 18% 88%;
-  --ring: 26 82% 52%;
+
+  /* Borders & inputs — clean neutral grey */
+  --border:  0 0% 87%;            /* #DEDEDE — no warm cast                     */
+  --input:   0 0% 87%;
+  --ring:    26 82% 52%;
+
   --radius: 0.25rem;
 }
 
+/* ─────────────────────────────────────────────────────────
+   DARK MODE — used inside .dark sections (not page-level)
+   ───────────────────────────────────────────────────────── */
 .dark {
-  --background: 0 0% 10%;
-  --foreground: 34 23% 95%;
-  --card: 0 0% 13%;
-  --card-foreground: 34 23% 95%;
-  --popover: 0 0% 13%;
-  --popover-foreground: 34 23% 95%;
-  --primary: 26 82% 52%;
+  --background:   0 0% 7%;        /* #121212 — deep charcoal page bg            */
+  --foreground:   0 0% 96%;       /* #F5F5F5 — crisp white text                 */
+  --card:         0 0% 11%;       /* #1C1C1C — slightly raised dark card        */
+  --card-foreground:    0 0% 96%;
+  --popover:      0 0% 11%;
+  --popover-foreground: 0 0% 96%;
+  --primary:      26 82% 52%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 34 23% 95%;
-  --secondary-foreground: 0 0% 10%;
-  --muted: 0 0% 18%;
-  --muted-foreground: 0 0% 62%;
-  --accent: 26 82% 52%;
+  --secondary:    0 0% 96%;
+  --secondary-foreground: 0 0% 7%;
+  --muted:        0 0% 16%;       /* #292929                                    */
+  --muted-foreground: 0 0% 58%;   /* #949494 — readable on dark                 */
+  --accent:       26 82% 52%;
   --accent-foreground: 0 0% 100%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 34 23% 95%;
-  --border: 0 0% 18%;
-  --input: 0 0% 18%;
-  --ring: 26 82% 52%;
+  --destructive:  0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 96%;
+  --border:  0 0% 16%;            /* #292929 — defined without being harsh       */
+  --input:   0 0% 16%;
+  --ring:    26 82% 52%;
 }
 
+/* ─────────────────────────────────────────────────────────
+   BASE STYLES
+   ───────────────────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -96,31 +118,21 @@
   }
 
   ::selection {
-    background: hsl(var(--primary) / 0.18);
+    background: hsl(var(--primary) / 0.15);
     color: hsl(var(--foreground));
   }
 
-  /* Display headings — tight tracking on large type */
-  h1 {
-    letter-spacing: -0.03em;
-  }
-  h2 {
-    letter-spacing: -0.025em;
-  }
-  h3 {
-    letter-spacing: -0.015em;
-  }
+  /* Typography — negative tracking on display sizes */
+  h1 { letter-spacing: -0.03em; }
+  h2 { letter-spacing: -0.025em; }
+  h3 { letter-spacing: -0.015em; }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
   }
 
-  /* Elegant thin scrollbar */
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  /* Scrollbar — thin, unobtrusive */
+  ::-webkit-scrollbar       { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
     border-radius: 2px;
@@ -129,27 +141,32 @@
     background: hsl(var(--primary) / 0.4);
   }
 
-  /* Refined focus ring */
+  /* Focus ring */
   :focus-visible {
     outline: 1.5px solid hsl(var(--primary) / 0.6);
     outline-offset: 3px;
   }
 
-  /* Better numeric rendering */
+  /* Numeric rendering */
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
 }
 
-/* ─── Marquee ────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   ANIMATIONS
+   ───────────────────────────────────────────────────────── */
 @keyframes marquee {
   0%   { transform: translateX(0%); }
   100% { transform: translateX(-100%); }
 }
 
-/* ─── Utilities ──────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   UTILITIES
+   ───────────────────────────────────────────────────────── */
 @layer utilities {
-  /* Reveal underline from left */
+
+  /* Growing underline from left — for inline links */
   .link-line {
     position: relative;
     display: inline-block;
@@ -164,20 +181,20 @@
     background: currentColor;
     transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .link-line:hover::after {
-    width: 100%;
-  }
+  .link-line:hover::after { width: 100%; }
 
-  /* Hide scrollbar for clean horizontal scrolls */
+  /* Hide scrollbar */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* Transition easing tokens */
-  .ease-expo { transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  /* Easing tokens */
+  .ease-expo   { transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
   .ease-smooth { transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 }
 
-/* ─── Premium text gradient ──────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   TEXT GRADIENT
+   ───────────────────────────────────────────────────────── */
 .text-gradient {
   background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
   -webkit-background-clip: text;
