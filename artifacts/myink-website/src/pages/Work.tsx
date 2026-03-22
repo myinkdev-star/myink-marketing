@@ -563,7 +563,7 @@ export default function Work() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
               <p className="text-[17px] text-muted-foreground leading-[1.72] max-w-2xl">
                 It is a difficult task picking just a few of our client projects to display.
-                Follow us to see everything we are up to.
+                Please follow us on Facebook, Instagram, YouTube or LinkedIn to see what we are up to!
               </p>
               <div className="flex items-center gap-3 shrink-0">
                 {[
