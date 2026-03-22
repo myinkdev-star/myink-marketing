@@ -1,6 +1,18 @@
 import { Link } from "wouter";
 import { Instagram, Linkedin, Facebook, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/hooks/useContent";
+
+interface Settings {
+  site_name: string;
+  footer_tagline: string;
+  location: string;
+  email: string;
+  facebook_url: string;
+  instagram_url: string;
+  youtube_url: string;
+  linkedin_url: string;
+}
 
 const NAV_COLS = [
   {
@@ -25,14 +37,38 @@ const NAV_COLS = [
   },
 ];
 
-const SOCIAL_LINKS = [
-  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com" },
-  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com" },
-  { Icon: Youtube, label: "YouTube", href: "https://www.youtube.com" },
-  { Icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com" },
-];
-
 export function Footer() {
+  const { data: settings } = useContent<Settings>("settings.md");
+
+  const tagline =
+    settings.footer_tagline ||
+    "Targeted Marketing Solutions. Building revenue-generating campaigns driven by KPIs.";
+  const location = settings.location || "Nassau, Bahamas";
+  const email = settings.email || "hello@myink.com";
+
+  const socialLinks = [
+    {
+      Icon: Facebook,
+      label: "Facebook",
+      href: settings.facebook_url || "https://www.facebook.com",
+    },
+    {
+      Icon: Instagram,
+      label: "Instagram",
+      href: settings.instagram_url || "https://www.instagram.com",
+    },
+    {
+      Icon: Youtube,
+      label: "YouTube",
+      href: settings.youtube_url || "https://www.youtube.com",
+    },
+    {
+      Icon: Linkedin,
+      label: "LinkedIn",
+      href: settings.linkedin_url || "https://www.linkedin.com",
+    },
+  ];
+
   return (
     <footer className="bg-secondary text-secondary-foreground border-t border-white/5 dark pt-24 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,14 +79,14 @@ export function Footer() {
           {/* Brand col */}
           <div className="lg:col-span-1">
             <Link href="/" className="font-display font-bold text-[22px] tracking-[-0.04em] text-white mb-5 block">
-              M.Y. INK
+              {settings.site_name || "M.Y. INK"}
             </Link>
             <p className="text-secondary-foreground/65 text-[14px] max-w-[240px] mb-8 leading-[1.8]">
-              Targeted Marketing Solutions. Building revenue-generating campaigns driven by KPIs.
+              {tagline}
             </p>
             {/* Social links */}
             <div className="flex gap-3">
-              {SOCIAL_LINKS.map(({ Icon, label, href }) => (
+              {socialLinks.map(({ Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
@@ -92,13 +128,13 @@ export function Footer() {
               Get in Touch
             </h4>
             <ul className="space-y-3.5 mb-8">
-              <li className="text-secondary-foreground/55 text-[14px]">Nassau, Bahamas</li>
+              <li className="text-secondary-foreground/55 text-[14px]">{location}</li>
               <li>
                 <a
-                  href="mailto:hello@myink.com"
+                  href={`mailto:${email}`}
                   className="text-secondary-foreground/70 hover:text-white transition-colors duration-200 text-[14px] link-line"
                 >
-                  hello@myink.com
+                  {email}
                 </a>
               </li>
             </ul>

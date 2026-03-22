@@ -2,8 +2,28 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/hooks/useContent";
+
+interface HomeContent {
+  hero_headline_line1: string;
+  hero_headline_line2: string;
+  hero_headline_italic: string;
+  hero_body: string;
+  location_badge: string;
+}
 
 export function HeroSection() {
+  const { data: home } = useContent<HomeContent>("home.md");
+
+  const line1 = home.hero_headline_line1 || "Creative Thinking.";
+  const line2 = home.hero_headline_line2 || "Strategic Execution.";
+  const lineItalic = home.hero_headline_italic || "Meaningful Growth.";
+  const body =
+    home.hero_body ||
+    "Creative thinking that moves brands forward. M.Y. INK builds revenue-generating campaigns driven by KPIs — for ambitious brands that are serious about where they are going.";
+  const locationBadge =
+    home.location_badge || "Nassau, Bahamas · Strategic Marketing Firm";
+
   return (
     <section className="relative min-h-screen flex flex-col justify-end pb-20 pt-48 overflow-hidden bg-background">
 
@@ -35,7 +55,7 @@ export function HeroSection() {
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           />
           <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/35">
-            Nassau, Bahamas · Strategic Marketing Firm
+            {locationBadge}
           </span>
         </motion.div>
 
@@ -47,11 +67,11 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
         >
-          Creative Thinking.
+          {line1}
           <br />
-          Strategic Execution.
+          {line2}
           <br />
-          <span className="text-primary italic">Meaningful Growth.</span>
+          <span className="text-primary italic">{lineItalic}</span>
         </motion.h1>
 
         {/* Bottom strip */}
@@ -62,9 +82,7 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.55 }}
         >
           <p className="text-[17px] text-muted-foreground leading-[1.72] max-w-xl">
-            Creative thinking that moves brands forward. M.Y. INK builds
-            revenue-generating campaigns driven by KPIs — for ambitious brands
-            that are serious about where they are going.
+            {body}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3.5 lg:justify-end">

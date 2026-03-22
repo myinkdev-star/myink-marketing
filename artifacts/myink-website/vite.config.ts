@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { readFileSync } from "fs";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 const rawPort = process.env.PORT;
@@ -26,12 +27,34 @@ if (!basePath) {
   );
 }
 
+// Plugin: serve public/admin/index.html for /admin routes in dev
+// (On Netlify, static files are served before the SPA catch-all automatically)
+const serveAdminPlugin = {
+  name: "serve-admin-static",
+  configureServer(server: import("vite").ViteDevServer) {
+    server.middlewares.use((req, res, next) => {
+      const url = req.url ?? "";
+      if (url === "/admin" || url === "/admin/" || url === "/admin/index.html") {
+        const adminHtml = readFileSync(
+          path.resolve(import.meta.dirname, "public/admin/index.html"),
+          "utf-8"
+        );
+        res.setHeader("Content-Type", "text/html");
+        res.end(adminHtml);
+        return;
+      }
+      next();
+    });
+  },
+};
+
 export default defineConfig({
   base: basePath,
   plugins: [
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),
+    serveAdminPlugin,
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [

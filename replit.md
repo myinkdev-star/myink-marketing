@@ -17,7 +17,21 @@ Full-stack marketing agency website for **M.Y. INK Marketing** — a strategic m
 - `components/shared/` — FadeIn (framer-motion inView), PageHero, ServiceCategoryCard, InsightCard, ContactForm
 - `components/sections/` — HeroSection, BrandIntroSection, ServicesPreview, WhyChooseUs, CaseStudyGrid, TestimonialsSection, CTASection
 
-**Libraries:** React 19, TypeScript, Tailwind CSS, Wouter (routing with base), Framer Motion, react-hook-form + Zod, clsx + tailwind-merge
+**Libraries:** React 19, TypeScript, Tailwind CSS, Wouter (routing with base), Framer Motion, react-hook-form + Zod, clsx + tailwind-merge, js-yaml (runtime frontmatter parsing)
+
+**CMS: Decap CMS (Netlify Identity)**
+- Admin panel: `/admin/` — served from `public/admin/index.html` + `public/admin/config.yml`
+- Auth: Netlify Identity (git-gateway backend) — requires Netlify deployment with Identity enabled
+- Content files: `public/content/` — served as static files, fetched at runtime by React
+  - `home.md` — hero headline, body, location badge, brand intro copy, What We Do headline
+  - `settings.md` — site name, footer tagline, location, email, all four social URLs
+  - `work.md` — work page eyebrow, headline, intro columns, social invite note
+  - `services/01-brand-strategy.md` through `05-digital-presence.md` — per-category title, tagline, intro, services[], outcome, idealClient
+- Hooks: `src/hooks/useContent.ts` exports `useContent<T>(path)` and `useContentCollection<T>(paths[])`
+- Components using CMS: HeroSection, BrandIntroSection, Footer, Services (all 5 categories), Work (overview + social note)
+- All CMS-driven components include hardcoded fallbacks — site renders correctly even if fetch fails
+- Vite plugin (`serveAdminPlugin`) intercepts `/admin/` in dev to serve the correct static HTML
+- `netlify.toml`: build command = `pnpm run build`, publish = `dist`, SPA redirect, content cache headers (60s/300s stale)
 
 **Design Rules:** Billboard headlines at `clamp(48px, 8.5vw, 122px)`. Editorial ruled lists instead of card grids for feature/differentiator lists. No faded giant numbers as section markers. Stacked blockquotes for testimonials. Asymmetric grids for work previews. Orange accent used with restraint on labels, highlights, and primary CTAs only.
 

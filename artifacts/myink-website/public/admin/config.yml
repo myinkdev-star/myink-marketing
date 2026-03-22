@@ -1,0 +1,191 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# M.Y. INK — Decap CMS Configuration
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# IMPORTANT — FILE PATHS:
+#   These paths are relative to your git repository root.
+#   If you deploy from a subdirectory (e.g. a monorepo where the
+#   site lives in artifacts/myink-website/), prefix every `file:`
+#   and `folder:` value with that subdirectory path.
+#   Example: "public/content/home.md"
+#         → "artifacts/myink-website/public/content/home.md"
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Uncomment the line below to test the CMS locally
+# (run: npx decap-server in a separate terminal)
+# local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+locale: en
+
+# ── COLLECTIONS ────────────────────────────────────────────────
+
+collections:
+
+  # ── HOME PAGE ─────────────────────────────────────────────
+  - name: "home"
+    label: "Home Page"
+    files:
+      - name: "home"
+        label: "Home Page Content"
+        file: "public/content/home.md"
+        fields:
+          - label: "Hero Headline — Line 1"
+            name: "hero_headline_line1"
+            widget: "string"
+            default: "Creative Thinking."
+          - label: "Hero Headline — Line 2"
+            name: "hero_headline_line2"
+            widget: "string"
+            default: "Strategic Execution."
+          - label: "Hero Headline — Italic Payoff"
+            name: "hero_headline_italic"
+            widget: "string"
+            default: "Meaningful Growth."
+          - label: "Hero Body Copy"
+            name: "hero_body"
+            widget: "text"
+            hint: "The paragraph below the main headline on the homepage."
+          - label: "Location Badge"
+            name: "location_badge"
+            widget: "string"
+            default: "Nassau, Bahamas · Strategic Marketing Firm"
+          - label: "Brand Intro Headline — Part 1"
+            name: "intro_headline_part1"
+            widget: "string"
+            hint: "Text before the italic section."
+          - label: "Brand Intro Headline — Italic"
+            name: "intro_headline_italic"
+            widget: "string"
+            hint: "This portion renders in orange italic."
+          - label: "Brand Intro Headline — Part 2"
+            name: "intro_headline_part2"
+            widget: "string"
+            hint: "Text after the italic section."
+          - label: "Brand Intro Body — Paragraph 1"
+            name: "intro_body1"
+            widget: "text"
+          - label: "Brand Intro Body — Paragraph 2"
+            name: "intro_body2"
+            widget: "text"
+          - label: "What We Do — Section Headline"
+            name: "services_headline"
+            widget: "string"
+            default: "Five disciplines. One standard."
+
+  # ── SERVICE CATEGORIES ─────────────────────────────────────
+  - name: "service_categories"
+    label: "Service Categories"
+    folder: "public/content/services"
+    create: false
+    slug: "{{num}}"
+    fields:
+      - label: "Number"
+        name: "num"
+        widget: "string"
+        hint: "e.g. 01, 02, 03…"
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Tagline"
+        name: "tagline"
+        widget: "string"
+        hint: "Short italic quote shown under the title."
+      - label: "Introduction"
+        name: "intro"
+        widget: "text"
+        hint: "Opening paragraph for this service category."
+      - label: "Services Offered"
+        name: "services"
+        widget: "list"
+        label_singular: "Service Item"
+        field:
+          label: "Service"
+          name: "item"
+          widget: "string"
+          hint: "Lead with the exact service name, then add context after a dash."
+      - label: "The Outcome"
+        name: "outcome"
+        widget: "text"
+        hint: "What the client gets at the end."
+      - label: "Ideal Client"
+        name: "idealClient"
+        widget: "text"
+        hint: "Who this service is best suited for."
+
+  # ── WORK PAGE ─────────────────────────────────────────────
+  - name: "work_page"
+    label: "Work Page"
+    files:
+      - name: "work"
+        label: "Work Page Content"
+        file: "public/content/work.md"
+        fields:
+          - label: "Page Eyebrow"
+            name: "page_eyebrow"
+            widget: "string"
+            default: "Our Work"
+          - label: "Headline"
+            name: "headline"
+            widget: "string"
+            hint: "The main headline, e.g. 'Work that earns'"
+          - label: "Headline Italic"
+            name: "headline_italic"
+            widget: "string"
+            hint: "The orange italic portion, e.g. 'its results.'"
+          - label: "Intro Column 1"
+            name: "intro_col1"
+            widget: "text"
+          - label: "Intro Column 2"
+            name: "intro_col2"
+            widget: "text"
+          - label: "Social Invite Note"
+            name: "social_note"
+            widget: "text"
+            hint: "Shown at the bottom of the Work page above social platform links."
+
+  # ── GLOBAL SETTINGS ───────────────────────────────────────
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "settings"
+        label: "Global Settings"
+        file: "public/content/settings.md"
+        fields:
+          - label: "Site Name"
+            name: "site_name"
+            widget: "string"
+            default: "M.Y. INK"
+          - label: "Footer Tagline"
+            name: "footer_tagline"
+            widget: "text"
+            hint: "The descriptor shown under the logo in the footer."
+          - label: "Location"
+            name: "location"
+            widget: "string"
+            default: "Nassau, Bahamas"
+          - label: "Email Address"
+            name: "email"
+            widget: "string"
+            default: "hello@myink.com"
+          - label: "Facebook URL"
+            name: "facebook_url"
+            widget: "string"
+            required: false
+          - label: "Instagram URL"
+            name: "instagram_url"
+            widget: "string"
+            required: false
+          - label: "YouTube URL"
+            name: "youtube_url"
+            widget: "string"
+            required: false
+          - label: "LinkedIn URL"
+            name: "linkedin_url"
+            widget: "string"
+            required: false

@@ -6,10 +6,19 @@ import { PageHero } from "@/components/shared/PageHero";
 import { ServiceCategoryCard, ServiceCategory } from "@/components/shared/ServiceCategoryCard";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { Button } from "@/components/ui/button";
+import { useContentCollection } from "@/hooks/useContent";
 
 /* ─────────────────────── DATA ─────────────────────────── */
 
-const CATEGORIES: ServiceCategory[] = [
+const SERVICE_FILES = [
+  "services/01-brand-strategy.md",
+  "services/02-campaigns.md",
+  "services/03-content-editorial.md",
+  "services/04-publicity.md",
+  "services/05-digital-presence.md",
+];
+
+const FALLBACK_CATEGORIES: ServiceCategory[] = [
   {
     num: "01",
     title: "Brand & Marketing Strategy",
@@ -157,6 +166,9 @@ const FAQS = [
 /* ─────────────────────────── PAGE ─────────────────────────── */
 
 export default function Services() {
+  const { items: cmsCategories } = useContentCollection<ServiceCategory>(SERVICE_FILES);
+  const CATEGORIES = cmsCategories.length > 0 ? cmsCategories : FALLBACK_CATEGORIES;
+
   return (
     <PageLayout>
 

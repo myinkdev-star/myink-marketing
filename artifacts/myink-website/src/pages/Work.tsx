@@ -6,6 +6,16 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { CTASection } from "@/components/sections/CTASection";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/hooks/useContent";
+
+interface WorkPageContent {
+  page_eyebrow: string;
+  headline: string;
+  headline_italic: string;
+  intro_col1: string;
+  intro_col2: string;
+  social_note: string;
+}
 
 /* ─────────────────────── DATA MODEL ───────────────────── */
 
@@ -371,6 +381,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
 /* ─── Page ──────────────────────────────────────────────── */
 
 export default function Work() {
+  const { data: workContent } = useContent<WorkPageContent>("work.md");
   const [activeFilter, setActiveFilter] = useState("All");
 
   const filtered =
@@ -393,7 +404,7 @@ export default function Work() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.1 }}
           >
-            Our Work
+            {workContent.page_eyebrow || "Our Work"}
           </motion.p>
 
           <motion.h1
@@ -402,10 +413,11 @@ export default function Work() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.2 }}
           >
-            Work that earns
+            {workContent.headline || "Work that earns"}
             <br />
-            its{" "}
-            <span className="text-primary italic">results.</span>
+            <span className="text-primary italic">
+              {workContent.headline_italic || "its results."}
+            </span>
           </motion.h1>
 
           <motion.div
@@ -415,14 +427,12 @@ export default function Work() {
             transition={{ duration: 0.65, delay: 0.4 }}
           >
             <p className="text-xl text-muted-foreground leading-[1.72]">
-              Six engagements. Each one a real brief, a specific challenge, and a
-              strategy built from the ground up. The results listed are not projections
-              — they are what happened.
+              {workContent.intro_col1 ||
+                "Six engagements. Each one a real brief, a specific challenge, and a strategy built from the ground up. The results listed are not projections — they are what happened."}
             </p>
             <p className="text-xl text-muted-foreground leading-[1.72]">
-              Every case study follows the same structure: the problem as it actually
-              presented itself, the strategy we built to address it, how we executed it,
-              and what it produced.
+              {workContent.intro_col2 ||
+                "Every case study follows the same structure: the problem as it actually presented itself, the strategy we built to address it, how we executed it, and what it produced."}
             </p>
           </motion.div>
         </div>
@@ -562,8 +572,8 @@ export default function Work() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
               <p className="text-[17px] text-muted-foreground leading-[1.72] max-w-2xl">
-                It is a difficult task picking just a few of our client projects to display.
-                Please follow us on Facebook, Instagram, YouTube or LinkedIn to see what we are up to!
+                {workContent.social_note ||
+                  "It is a difficult task picking just a few of our client projects to display. Please follow us on Facebook, Instagram, YouTube or LinkedIn to see what we are up to!"}
               </p>
               <div className="flex items-center gap-3 shrink-0">
                 {[
