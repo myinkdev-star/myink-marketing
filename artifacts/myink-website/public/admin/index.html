@@ -7,8 +7,6 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
 
@@ -18,7 +16,7 @@
          Colors: #F7F7F7 bg · #0D0D0D fg · #E87722 primary · #121212 dark
       ═══════════════════════════════════════════════════════════ */
 
-      var React = window.React || CMS.React;
+      var React = CMS.getBackend ? window.React : (typeof React !== "undefined" ? React : null);
       var h = React.createElement;
 
       /* ── Design tokens (match index.css exactly) ─────────────── */
