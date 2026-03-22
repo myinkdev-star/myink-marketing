@@ -19,7 +19,7 @@ backend:
 
 # local_backend: true
 
-media_folder: "public/images"
+media_folder: "artifacts/myink-website/public/images"
 public_folder: "/images"
 
 locale: en
@@ -39,7 +39,7 @@ collections:
     files:
       - name: "home"
         label: "Home Page Sections"
-        file: "public/content/home.md"
+        file: "artifacts/myink-website/public/content/home.md"
         fields:
 
           - label: "▸ Hero Section"
@@ -111,7 +111,7 @@ collections:
     files:
       - name: "about"
         label: "About Page Sections"
-        file: "public/content/about.md"
+        file: "artifacts/myink-website/public/content/about.md"
         fields:
 
           - label: "▸ Hero Section"
@@ -296,7 +296,7 @@ collections:
   # ────────────────────────────────────────────────────────────
   - name: "service_categories"
     label: "🔧  Service Categories"
-    folder: "public/content/services"
+    folder: "artifacts/myink-website/public/content/services"
     create: false
     slug: "{{num}}"
     fields:
@@ -342,7 +342,7 @@ collections:
     files:
       - name: "work"
         label: "Work Page Content"
-        file: "public/content/work.md"
+        file: "artifacts/myink-website/public/content/work.md"
         fields:
           - label: "Page Eyebrow"
             name: "page_eyebrow"
@@ -372,7 +372,7 @@ collections:
     files:
       - name: "settings"
         label: "Global Settings"
-        file: "public/content/settings.md"
+        file: "artifacts/myink-website/public/content/settings.md"
         fields:
 
           - label: "▸ Brand & Identity"
