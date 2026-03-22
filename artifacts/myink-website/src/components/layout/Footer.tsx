@@ -3,15 +3,40 @@ import { Instagram, Linkedin, Facebook, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContent } from "@/hooks/useContent";
 
+interface BrandSettings {
+  site_name?: string;
+  tagline?: string;
+  location?: string;
+  email?: string;
+  primary_color?: string;
+  /* legacy flat fields */
+  footer_tagline?: string;
+}
+
+interface Socials {
+  facebook?: string;
+  instagram?: string;
+  youtube?: string;
+  linkedin?: string;
+  /* legacy flat fields */
+  facebook_url?: string;
+  instagram_url?: string;
+  youtube_url?: string;
+  linkedin_url?: string;
+}
+
 interface Settings {
-  site_name: string;
-  footer_tagline: string;
-  location: string;
-  email: string;
-  facebook_url: string;
-  instagram_url: string;
-  youtube_url: string;
-  linkedin_url: string;
+  brand?: BrandSettings;
+  socials?: Socials;
+  /* legacy flat fields */
+  site_name?: string;
+  footer_tagline?: string;
+  location?: string;
+  email?: string;
+  facebook_url?: string;
+  instagram_url?: string;
+  youtube_url?: string;
+  linkedin_url?: string;
 }
 
 const NAV_COLS = [
@@ -40,33 +65,20 @@ const NAV_COLS = [
 export function Footer() {
   const { data: settings } = useContent<Settings>("settings.md");
 
-  const tagline =
-    settings.footer_tagline ||
+  const b = settings.brand ?? {};
+  const s = settings.socials ?? {};
+
+  const siteName = b.site_name     ?? settings.site_name     ?? "M.Y. INK";
+  const tagline  = b.tagline       ?? settings.footer_tagline ??
     "Targeted Marketing Solutions. Building revenue-generating campaigns driven by KPIs.";
-  const location = settings.location || "Nassau, Bahamas";
-  const email = settings.email || "hello@myink.com";
+  const location = b.location      ?? settings.location      ?? "Nassau, Bahamas";
+  const email    = b.email         ?? settings.email         ?? "hello@myink.com";
 
   const socialLinks = [
-    {
-      Icon: Facebook,
-      label: "Facebook",
-      href: settings.facebook_url || "https://www.facebook.com",
-    },
-    {
-      Icon: Instagram,
-      label: "Instagram",
-      href: settings.instagram_url || "https://www.instagram.com",
-    },
-    {
-      Icon: Youtube,
-      label: "YouTube",
-      href: settings.youtube_url || "https://www.youtube.com",
-    },
-    {
-      Icon: Linkedin,
-      label: "LinkedIn",
-      href: settings.linkedin_url || "https://www.linkedin.com",
-    },
+    { Icon: Facebook,  label: "Facebook",  href: s.facebook  ?? settings.facebook_url  ?? "https://www.facebook.com" },
+    { Icon: Instagram, label: "Instagram", href: s.instagram ?? settings.instagram_url ?? "https://www.instagram.com" },
+    { Icon: Youtube,   label: "YouTube",   href: s.youtube   ?? settings.youtube_url   ?? "https://www.youtube.com" },
+    { Icon: Linkedin,  label: "LinkedIn",  href: s.linkedin  ?? settings.linkedin_url  ?? "https://www.linkedin.com" },
   ];
 
   return (
@@ -79,12 +91,11 @@ export function Footer() {
           {/* Brand col */}
           <div className="lg:col-span-1">
             <Link href="/" className="font-display font-bold text-[22px] tracking-[-0.04em] text-white mb-5 block">
-              {settings.site_name || "M.Y. INK"}
+              {siteName}
             </Link>
             <p className="text-secondary-foreground/65 text-[14px] max-w-[240px] mb-8 leading-[1.8]">
               {tagline}
             </p>
-            {/* Social links */}
             <div className="flex gap-3">
               {socialLinks.map(({ Icon, label, href }) => (
                 <a

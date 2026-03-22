@@ -4,25 +4,34 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContent } from "@/hooks/useContent";
 
+interface Hero {
+  headline_line1?: string;
+  headline_line2?: string;
+  headline_italic?: string;
+  body?: string;
+  location_badge?: string;
+}
+
 interface HomeContent {
-  hero_headline_line1: string;
-  hero_headline_line2: string;
-  hero_headline_italic: string;
-  hero_body: string;
-  location_badge: string;
+  hero?: Hero;
+  /* legacy flat fields — kept for backwards compatibility */
+  hero_headline_line1?: string;
+  hero_headline_line2?: string;
+  hero_headline_italic?: string;
+  hero_body?: string;
+  location_badge?: string;
 }
 
 export function HeroSection() {
   const { data: home } = useContent<HomeContent>("home.md");
 
-  const line1 = home.hero_headline_line1 || "Creative Thinking.";
-  const line2 = home.hero_headline_line2 || "Strategic Execution.";
-  const lineItalic = home.hero_headline_italic || "Meaningful Growth.";
-  const body =
-    home.hero_body ||
+  const h = home.hero ?? {};
+  const line1       = h.headline_line1   ?? home.hero_headline_line1   ?? "Creative Thinking.";
+  const line2       = h.headline_line2   ?? home.hero_headline_line2   ?? "Strategic Execution.";
+  const lineItalic  = h.headline_italic  ?? home.hero_headline_italic  ?? "Meaningful Growth.";
+  const body        = h.body             ?? home.hero_body              ??
     "Creative thinking that moves brands forward. M.Y. INK builds revenue-generating campaigns driven by KPIs — for ambitious brands that are serious about where they are going.";
-  const locationBadge =
-    home.location_badge || "Nassau, Bahamas · Strategic Marketing Firm";
+  const badge       = h.location_badge   ?? home.location_badge        ?? "Nassau, Bahamas · Strategic Marketing Firm";
 
   return (
     <section className="relative min-h-screen flex flex-col justify-end pb-20 pt-48 overflow-hidden bg-background">
@@ -55,7 +64,7 @@ export function HeroSection() {
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           />
           <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/35">
-            {locationBadge}
+            {badge}
           </span>
         </motion.div>
 
@@ -93,11 +102,7 @@ export function HeroSection() {
               </Button>
             </Link>
             <Link href="/work">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto border-foreground/20"
-              >
+              <Button variant="outline" size="lg" className="w-full sm:w-auto border-foreground/20">
                 See Our Work
               </Button>
             </Link>

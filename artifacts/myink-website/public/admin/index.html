@@ -8,5 +8,453 @@
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         M.Y. INK — Decap CMS Preview Templates
+         Live preview with mobile/desktop toggle for every
+         editable collection: Home, Work, Settings, Services.
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+      // ── PREVIEW FONTS ───────────────────────────────────────
+      CMS.registerPreviewStyle(
+        'https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap'
+      );
+
+      // ── PREVIEW BASE STYLES ─────────────────────────────────
+      CMS.registerPreviewStyle(`
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; font-weight: 700; margin: 0; }
+        p { margin: 0; }
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; font-family: inherit; border: none; }
+        em { font-style: italic; }
+        ul { list-style: none; margin: 0; padding: 0; }
+      `, { raw: true });
+
+      // ── DESIGN TOKENS ───────────────────────────────────────
+      const T = {
+        primary:   '#E87722',
+        bg:        '#F7F7F7',
+        fg:        '#0D0D0D',
+        muted:     '#474747',
+        secondary: '#121212',
+        border:    '#DEDEDE',
+        white:     '#FFFFFF',
+      };
+
+      const h = React.createElement;
+      const { useState } = React;
+
+      // ── SHARED: PREVIEW SHELL (mobile / desktop toggle) ─────
+      function PreviewShell({ children, accent }) {
+        const [mobile, setMobile] = useState(false);
+        const brand = accent || T.primary;
+
+        const tab = (active, label, action) =>
+          h('button', {
+            onClick: action,
+            style: {
+              background: active ? brand : 'transparent',
+              color: active ? '#fff' : 'rgba(255,255,255,0.35)',
+              border: '1px solid ' + (active ? brand : 'rgba(255,255,255,0.12)'),
+              padding: '4px 14px',
+              fontSize: 9,
+              fontWeight: 700,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              transition: 'all 0.2s',
+            },
+          }, label);
+
+        return h('div', { style: { fontFamily: 'Inter, sans-serif', background: T.bg, minHeight: '100vh' } },
+          // ── Control bar ──────────────────────────────────────
+          h('div', {
+            style: {
+              position: 'sticky', top: 0, zIndex: 9999,
+              background: T.secondary,
+              borderBottom: '1px solid rgba(255,255,255,0.05)',
+              padding: '10px 24px',
+              display: 'flex', alignItems: 'center', gap: 12,
+            },
+          },
+            h('span', {
+              style: {
+                fontFamily: 'Syne, sans-serif', fontWeight: 700,
+                fontSize: 14, color: '#fff', letterSpacing: '-0.02em',
+              },
+            }, 'M.Y. INK'),
+            h('span', {
+              style: {
+                fontSize: 9, fontWeight: 700, color: brand,
+                textTransform: 'uppercase', letterSpacing: '0.18em',
+                background: brand + '18', padding: '2px 8px',
+              },
+            }, 'Live Preview'),
+            h('div', {
+              style: {
+                marginLeft: 'auto', display: 'flex',
+                gap: 6, alignItems: 'center',
+              },
+            },
+              h('span', {
+                style: {
+                  fontSize: 9, color: 'rgba(255,255,255,0.22)',
+                  textTransform: 'uppercase', letterSpacing: '0.12em', marginRight: 4,
+                },
+              }, 'View as:'),
+              tab(!mobile, '⊡  Desktop', () => setMobile(false)),
+              tab(mobile, '📱  Mobile', () => setMobile(true)),
+            ),
+          ),
+          // ── Page canvas ──────────────────────────────────────
+          h('div', {
+            style: {
+              margin: mobile ? '20px auto' : 0,
+              maxWidth: mobile ? 390 : '100%',
+              boxShadow: mobile
+                ? '0 0 0 1px rgba(0,0,0,0.1), 0 8px 40px rgba(0,0,0,0.15)'
+                : 'none',
+              transition: 'max-width 0.35s cubic-bezier(0.16,1,0.3,1)',
+              overflow: 'hidden',
+              background: T.bg,
+            },
+          }, children),
+        );
+      }
+
+      // ── SHARED: SECTION LABEL BAR ────────────────────────────
+      function SectionLabel({ text, accent }) {
+        const brand = accent || T.primary;
+        return h('div', {
+          style: { background: T.secondary, padding: '5px 48px', borderTop: '1px solid rgba(255,255,255,0.04)' },
+        },
+          h('span', {
+            style: {
+              fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em',
+              color: brand,
+            },
+          }, '▸ ' + text),
+        );
+      }
+
+      // ── HOME PAGE PREVIEW ────────────────────────────────────
+      function HomePreview({ entry }) {
+        const d = entry.getIn(['data']);
+        if (!d) return null;
+
+        const hero = d.get('hero') || d; // supports both flat & nested
+        const bi   = d.get('brand_intro') || d;
+        const wwd  = d.get('what_we_do') || d;
+
+        const line1   = hero.get ? hero.get('headline_line1') : d.get('hero_headline_line1') || 'Creative Thinking.';
+        const line2   = hero.get ? hero.get('headline_line2') : d.get('hero_headline_line2') || 'Strategic Execution.';
+        const italic  = hero.get ? hero.get('headline_italic') : d.get('hero_headline_italic') || 'Meaningful Growth.';
+        const body    = hero.get ? hero.get('body') : d.get('hero_body') || '';
+        const badge   = hero.get ? hero.get('location_badge') : d.get('location_badge') || 'Nassau, Bahamas · Strategic Marketing Firm';
+
+        const ip1     = bi.get ? bi.get('headline_part1') : d.get('intro_headline_part1') || '';
+        const iItalic = bi.get ? bi.get('headline_italic') : d.get('intro_headline_italic') || '';
+        const ip2     = bi.get ? bi.get('headline_part2') : d.get('intro_headline_part2') || '';
+        const ib1     = bi.get ? bi.get('body1') : d.get('intro_body1') || '';
+        const ib2     = bi.get ? bi.get('body2') : d.get('intro_body2') || '';
+
+        const servHl  = wwd.get ? wwd.get('headline') : d.get('services_headline') || 'Five disciplines. One standard.';
+
+        return h(PreviewShell, null,
+          // ── HERO ──────────────────────────────────────────────
+          h(SectionLabel, { text: 'Hero Section' }),
+          h('section', {
+            style: { background: T.bg, padding: '64px 48px 48px', borderBottom: '1px solid ' + T.border },
+          },
+            h('div', {
+              style: { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36 },
+            },
+              h('span', {
+                style: { width: 6, height: 6, borderRadius: '50%', background: T.primary, display: 'inline-block' },
+              }),
+              h('span', {
+                style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(0,0,0,0.3)' },
+              }, badge),
+            ),
+            h('h1', {
+              style: {
+                fontFamily: 'Syne, sans-serif', fontWeight: 800,
+                fontSize: 'clamp(40px, 7vw, 88px)', lineHeight: 0.94,
+                letterSpacing: '-0.03em', color: T.fg,
+              },
+            },
+              line1, h('br'), line2, h('br'),
+              h('em', { style: { color: T.primary } }, italic),
+            ),
+            h('div', {
+              style: { marginTop: 40, paddingTop: 32, borderTop: '1px solid ' + T.border,
+                display: 'grid', gridTemplateColumns: '1fr auto', gap: 32, alignItems: 'end' },
+            },
+              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted, maxWidth: 480 } }, body),
+              h('div', { style: { display: 'flex', gap: 10, flexShrink: 0 } },
+                h('div', {
+                  style: { background: T.primary, color: '#fff', padding: '12px 22px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em' },
+                }, 'Begin a Conversation'),
+                h('div', {
+                  style: { border: '1px solid ' + T.border, color: T.fg, padding: '12px 22px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em' },
+                }, 'See Our Work'),
+              ),
+            ),
+          ),
+
+          // ── BRAND INTRO ───────────────────────────────────────
+          h(SectionLabel, { text: 'Brand Intro Section' }),
+          h('section', {
+            style: { background: T.bg, padding: '64px 48px', borderBottom: '1px solid ' + T.border },
+          },
+            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56 } },
+              h('div', null,
+                h('h2', {
+                  style: {
+                    fontFamily: 'Syne, sans-serif', fontWeight: 700,
+                    fontSize: 'clamp(22px, 2.8vw, 38px)', lineHeight: 1.1,
+                    letterSpacing: '-0.025em', color: T.fg,
+                  },
+                },
+                  ip1 + ' ',
+                  h('em', { style: { color: T.primary } }, iItalic),
+                  ' ' + ip2,
+                ),
+              ),
+              h('div', { style: { display: 'flex', flexDirection: 'column', gap: 20 } },
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, ib1),
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, ib2),
+              ),
+            ),
+          ),
+
+          // ── WHAT WE DO ────────────────────────────────────────
+          h(SectionLabel, { text: 'What We Do Section' }),
+          h('section', {
+            style: { background: T.secondary, padding: '64px 48px' },
+          },
+            h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 16 } }, 'Our Expertise'),
+            h('h2', {
+              style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 40, lineHeight: 1.1, letterSpacing: '-0.025em', color: '#fff' },
+            }, servHl),
+            h('div', {
+              style: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, marginTop: 48, borderTop: '1px solid rgba(255,255,255,0.08)' },
+            },
+              ...[
+                'Brand & Marketing Strategy',
+                'Campaign Development',
+                'Content & Editorial',
+                'Publicity & Communications',
+                'Digital Presence & Growth',
+              ].map((title, i) =>
+                h('div', { key: i, style: { padding: '24px 28px', borderRight: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none', borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' } },
+                  h('span', { style: { display: 'block', fontSize: 10, fontWeight: 700, color: T.primary, marginBottom: 8, letterSpacing: '0.1em' } }, '0' + (i + 1)),
+                  h('span', { style: { fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.4 } }, title),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+
+      CMS.registerPreviewTemplate('home', HomePreview);
+
+      // ── WORK PAGE PREVIEW ─────────────────────────────────────
+      function WorkPreview({ entry }) {
+        const d = entry.getIn(['data']);
+        if (!d) return null;
+
+        const eyebrow   = d.get('page_eyebrow') || 'Our Work';
+        const headline  = d.get('headline') || 'Work that earns';
+        const hItalic   = d.get('headline_italic') || 'its results.';
+        const col1      = d.get('intro_col1') || '';
+        const col2      = d.get('intro_col2') || '';
+        const socialNote = d.get('social_note') || '';
+
+        return h(PreviewShell, null,
+          h(SectionLabel, { text: 'Page Hero' }),
+          h('section', {
+            style: { background: T.bg, padding: '80px 48px', borderBottom: '1px solid ' + T.border },
+          },
+            h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 28 } }, eyebrow),
+            h('h1', {
+              style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(40px, 6vw, 78px)', lineHeight: 1.02, letterSpacing: '-0.03em', color: T.fg, marginBottom: 40 },
+            },
+              headline, h('br'),
+              h('em', { style: { color: T.primary } }, hItalic),
+            ),
+            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 } },
+              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, col1),
+              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, col2),
+            ),
+          ),
+
+          h(SectionLabel, { text: 'Social Invite' }),
+          h('section', {
+            style: { background: T.bg, padding: '40px 48px', borderTop: '1px solid ' + T.border },
+          },
+            h('div', { style: { display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 40 } },
+              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted, maxWidth: 600 } }, socialNote),
+              h('div', { style: { display: 'flex', gap: 8, flexShrink: 0 } },
+                ...['Facebook', 'Instagram', 'YouTube', 'LinkedIn'].map(label =>
+                  h('div', { key: label, style: { border: '1px solid ' + T.border, padding: '6px 12px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', color: T.muted } }, label),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+
+      CMS.registerPreviewTemplate('work_page', WorkPreview);
+
+      // ── SITE SETTINGS PREVIEW ─────────────────────────────────
+      function SettingsPreview({ entry }) {
+        const d = entry.getIn(['data']);
+        if (!d) return null;
+
+        const brand    = d.get('brand') || d;
+        const socials  = d.get('socials') || d;
+
+        const siteName = (brand.get ? brand.get('site_name') : d.get('site_name')) || 'M.Y. INK';
+        const tagline  = (brand.get ? brand.get('tagline') : d.get('footer_tagline')) || '';
+        const location = (brand.get ? brand.get('location') : d.get('location')) || 'Nassau, Bahamas';
+        const email    = (brand.get ? brand.get('email') : d.get('email')) || 'hello@myink.com';
+        const colour   = (brand.get ? brand.get('primary_color') : d.get('primary_color')) || T.primary;
+
+        return h(PreviewShell, { accent: colour },
+          // Nav preview
+          h(SectionLabel, { text: 'Navigation', accent: colour }),
+          h('div', {
+            style: {
+              background: 'rgba(247,247,247,0.97)',
+              borderBottom: '1px solid ' + T.border,
+              padding: '18px 48px',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            },
+          },
+            h('a', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 18, color: T.fg, letterSpacing: '-0.04em' } }, siteName),
+            h('div', { style: { display: 'flex', gap: 28 } },
+              ...['Home', 'About', 'Services', 'Work', 'Insights'].map(l =>
+                h('span', { key: l, style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: T.fg } }, l),
+              ),
+            ),
+            h('div', { style: { background: colour, color: '#fff', padding: '10px 20px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' } }, 'Begin a Conversation'),
+          ),
+
+          // Colour swatch
+          h(SectionLabel, { text: 'Brand Accent Colour', accent: colour }),
+          h('div', { style: { background: colour, padding: '28px 48px', display: 'flex', alignItems: 'center', gap: 32 } },
+            h('div', { style: { width: 48, height: 48, background: '#fff', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 4, flexShrink: 0 } }),
+            h('div', null,
+              h('p', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.6)', marginBottom: 6 } }, 'Brand Accent — Applied Sitewide'),
+              h('p', { style: { fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em', marginBottom: 6 } }, colour),
+              h('p', { style: { fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 } }, 'Buttons · labels · highlights · hover states · icons across every page'),
+            ),
+          ),
+
+          // Footer preview
+          h(SectionLabel, { text: 'Footer', accent: colour }),
+          h('footer', {
+            style: { background: T.secondary, padding: '64px 48px 40px' },
+          },
+            h('div', { style: { display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 56, marginBottom: 48 } },
+              h('div', null,
+                h('a', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 22, color: '#fff', letterSpacing: '-0.04em', display: 'block', marginBottom: 20 } }, siteName),
+                h('p', { style: { fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.6)', maxWidth: 300, marginBottom: 24 } }, tagline),
+                h('div', { style: { display: 'flex', gap: 8 } },
+                  ...['FB', 'IG', 'YT', 'LI'].map(s =>
+                    h('div', { key: s, style: { width: 36, height: 36, border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.35)', fontSize: 10, fontWeight: 700 } }, s),
+                  ),
+                ),
+              ),
+              h('div', null,
+                h('h4', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)', marginBottom: 24 } }, 'Contact'),
+                h('p', { style: { fontSize: 14, color: 'rgba(255,255,255,0.55)', marginBottom: 12 } }, location),
+                h('p', { style: { fontSize: 14, color: 'rgba(255,255,255,0.7)' } }, email),
+              ),
+              h('div', null,
+                h('h4', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)', marginBottom: 24 } }, 'Pages'),
+                ...['Home', 'About', 'Services', 'Work', 'Insights', 'Contact'].map(l =>
+                  h('div', { key: l, style: { fontSize: 14, color: 'rgba(255,255,255,0.45)', marginBottom: 14 } }, l),
+                ),
+              ),
+            ),
+            h('div', { style: { borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 24 } },
+              h('p', { style: { fontSize: 12, color: 'rgba(255,255,255,0.28)' } },
+                '\u00a9 ' + new Date().getFullYear() + ' M.Y. INK Marketing. All rights reserved.',
+              ),
+            ),
+          ),
+        );
+      }
+
+      CMS.registerPreviewTemplate('settings', SettingsPreview);
+
+      // ── SERVICE CATEGORY PREVIEW ──────────────────────────────
+      function ServicePreview({ entry }) {
+        const d = entry.getIn(['data']);
+        if (!d) return null;
+
+        const num         = d.get('num') || '01';
+        const title       = d.get('title') || '';
+        const tagline     = d.get('tagline') || '';
+        const intro       = d.get('intro') || '';
+        const servicesRaw = d.get('services');
+        const outcome     = d.get('outcome') || '';
+        const idealClient = d.get('idealClient') || '';
+
+        const services = servicesRaw && servicesRaw.toJS ? servicesRaw.toJS() : [];
+
+        return h(PreviewShell, null,
+          h(SectionLabel, { text: 'Service Category — ' + num }),
+          h('section', {
+            style: { background: T.bg, padding: '80px 48px', borderBottom: '1px solid ' + T.border },
+          },
+            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'start' } },
+              // ── Left: intro ──
+              h('div', null,
+                h('span', {
+                  style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 120, color: 'rgba(0,0,0,0.04)', lineHeight: 0.85, display: 'block', marginBottom: 24 },
+                }, num),
+                h('h2', {
+                  style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.025em', color: T.fg, marginBottom: 12 },
+                }, title),
+                h('p', { style: { fontSize: 15, color: T.primary, fontStyle: 'italic', lineHeight: 1.6, marginBottom: 32 } }, tagline),
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, intro),
+              ),
+              // ── Right: services list ──
+              h('div', null,
+                h('p', {
+                  style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 20 },
+                }, 'What this includes'),
+                h('ul', null,
+                  ...services.map((svc, i) =>
+                    h('li', { key: i, style: { borderTop: '1px solid ' + T.border, padding: '13px 0', fontSize: 15, lineHeight: 1.5, color: T.fg } }, svc),
+                  ),
+                ),
+                services.length > 0 && h('div', { style: { borderTop: '1px solid ' + T.border } }),
+
+                outcome && h('div', {
+                  style: { marginTop: 32, padding: '20px 24px', background: '#F0EEE9', borderLeft: '3px solid ' + T.primary },
+                },
+                  h('p', { style: { fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: T.primary, marginBottom: 10 } }, 'The Outcome'),
+                  h('p', { style: { fontSize: 14, lineHeight: 1.72, color: T.muted } }, outcome),
+                ),
+
+                idealClient && h('div', {
+                  style: { marginTop: 16, padding: '20px 24px', border: '1px solid ' + T.border },
+                },
+                  h('p', { style: { fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: T.muted, marginBottom: 10 } }, 'Ideal For'),
+                  h('p', { style: { fontSize: 14, lineHeight: 1.72, color: T.muted } }, idealClient),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+
+      CMS.registerPreviewTemplate('service_categories', ServicePreview);
+    </script>
   </body>
 </html>

@@ -30,8 +30,14 @@ Full-stack marketing agency website for **M.Y. INK Marketing** — a strategic m
 - Hooks: `src/hooks/useContent.ts` exports `useContent<T>(path)` and `useContentCollection<T>(paths[])`
 - Components using CMS: HeroSection, BrandIntroSection, Footer, Services (all 5 categories), Work (overview + social note)
 - All CMS-driven components include hardcoded fallbacks — site renders correctly even if fetch fails
+- Data model: `home.md` uses nested YAML (`hero:`, `brand_intro:`, `what_we_do:` objects); `settings.md` uses `brand:` and `socials:` objects; all components support both nested and legacy flat fields via `??` fallback chains
 - Vite plugin (`serveAdminPlugin`) intercepts `/admin/` in dev to serve the correct static HTML
-- `netlify.toml`: build command = `pnpm run build`, publish = `dist`, SPA redirect, content cache headers (60s/300s stale)
+- `netlify.toml`: build command = `pnpm run build`, publish = `dist/public`, SPA redirect, content cache headers
+- Preview templates: registered for all 4 collections (Home, Work, Settings, Service Categories) via `CMS.registerPreviewTemplate()` in `public/admin/index.html` — renders styled HTML matching the actual site with mobile/desktop toggle
+- ThemeProvider (`src/components/ThemeProvider.tsx`): reads `settings.brand.primary_color` (hex), converts to HSL via `hexToHslValues()`, sets `--primary` and `--ring` CSS variables on `document.documentElement` — changes propagate to all Tailwind primary utilities sitewide
+- Style control: brand accent colour picker in Settings CMS collection (color widget) — client can change the brand colour and it applies sitewide without code changes
+- Media library: `public/images/` is the configured media folder; service categories have an optional `image` field using the Decap image widget
+- Section organisation: Home and Settings use Decap `object` widgets to show collapsible sections (Hero Section, Brand Intro, What We Do; Brand & Identity, Social Media) in the CMS editor
 
 **Design Rules:** Billboard headlines at `clamp(48px, 8.5vw, 122px)`. Editorial ruled lists instead of card grids for feature/differentiator lists. No faded giant numbers as section markers. Stacked blockquotes for testimonials. Asymmetric grids for work previews. Orange accent used with restraint on labels, highlights, and primary CTAs only.
 
