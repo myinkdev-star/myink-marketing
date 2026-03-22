@@ -62,9 +62,9 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.55 }}
         >
           <p className="text-[17px] text-muted-foreground leading-[1.72] max-w-xl">
-            M.Y. INK partners with ambitious brands to sharpen their message,
-            strengthen their market presence, and execute campaigns with clarity,
-            creativity, and purpose.
+            Creative thinking that moves brands forward. M.Y. INK builds
+            revenue-generating campaigns driven by KPIs — for ambitious brands
+            that are serious about where they are going.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3.5 lg:justify-end">

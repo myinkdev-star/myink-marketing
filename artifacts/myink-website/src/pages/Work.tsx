@@ -393,7 +393,7 @@ export default function Work() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.1 }}
           >
-            Selected Work
+            Our Work
           </motion.p>
 
           <motion.h1
@@ -551,6 +551,38 @@ export default function Work() {
                   <p className="text-sm text-muted-foreground leading-[1.72]">{item.body}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </FadeIn>
+
+      {/* ── SOCIAL INVITE ─────────────────────────────────── */}
+      <FadeIn>
+        <div className="py-16 border-t border-border bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+              <p className="text-[17px] text-muted-foreground leading-[1.72] max-w-2xl">
+                It is a difficult task picking just a few of our client projects to display.
+                Follow us to see everything we are up to.
+              </p>
+              <div className="flex items-center gap-3 shrink-0">
+                {[
+                  { label: "Facebook", href: "https://www.facebook.com" },
+                  { label: "Instagram", href: "https://www.instagram.com" },
+                  { label: "YouTube", href: "https://www.youtube.com" },
+                  { label: "LinkedIn", href: "https://www.linkedin.com" },
+                ].map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-bold uppercase tracking-[0.15em] text-foreground/55 hover:text-primary transition-colors duration-200 border border-border px-3.5 py-2 hover:border-primary"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

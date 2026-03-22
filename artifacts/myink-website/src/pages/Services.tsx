@@ -20,6 +20,7 @@ const CATEGORIES: ServiceCategory[] = [
       "Customized marketing strategies built around your specific market context",
       "Brand positioning and competitive differentiation analysis",
       "Target audience profiling and market segmentation",
+      "Consumer research and audience insight studies",
       "Growth roadmapping and opportunity identification",
       "Messaging hierarchy and brand voice development",
     ],
@@ -38,8 +39,10 @@ const CATEGORIES: ServiceCategory[] = [
       "Full-service campaign strategy, concepting, and creative development",
       "Promotion design and campaign architecture across all channels",
       "Advertising concepts for traditional, digital, and out-of-home media",
+      "Webinar hosting and live virtual event production",
       "Production oversight — photography, video, design, and copy",
       "Campaign management, pacing, and performance review",
+      "Creative impact reporting — measurable results, documented",
     ],
     outcome:
       "A campaign that earns attention, communicates with clarity, and drives audiences to take the specific action your business needs — not just impressions, awareness, or reach.",
@@ -51,16 +54,20 @@ const CATEGORIES: ServiceCategory[] = [
     title: "Content, Messaging & Editorial Support",
     tagline: "The words that separate authorities from the rest.",
     intro:
-      "Your reputation in your market is built, in large part, by what you say and how you say it. We help brands and their leadership teams develop the written and spoken work that positions them as the definitive authorities in their field — in the publications, platforms, and conversations that matter to their buyers.",
+      "Your reputation in your market is built, in large part, by what you say and how you say it. We help brands and their leadership teams develop the written and spoken work that positions them as the definitive authorities in their field — and the visual content that stops the scroll and starts the conversation.",
     services: [
       "Ghostwriting — op-eds, thought leadership articles, white papers, speeches",
       "Script writing for video, broadcast, podcast, and digital content",
+      "Social asset creation — graphics, banners, and platform-specific visuals",
+      "Motion graphics and kinetic design",
+      "Animated social posts and micro-content production",
+      "How-to video scripting and production",
+      "Social influencer collaboration and partnership management",
       "Brand messaging documents and key message frameworks",
-      "Executive communications and stakeholder presentations",
       "Long-form content strategy and editorial calendar development",
     ],
     outcome:
-      "A consistent, credible voice across every written and spoken platform — one that attracts the right attention, builds trust with discerning audiences, and compounds in value the longer it is sustained.",
+      "A consistent, credible voice across every written, visual, and spoken platform — one that attracts the right attention, builds trust with discerning audiences, and compounds in value the longer it is sustained.",
     idealClient:
       "Executives and founders who understand that thought leadership is a long game worth playing, and brands that want content to do more than fill a content calendar.",
   },
@@ -72,7 +79,9 @@ const CATEGORIES: ServiceCategory[] = [
       "Earned media is more valuable than paid media — and significantly harder to get right. We build publicity strategies that place the right story in the right room at the right moment, generating coverage that does more than mention a brand: it repositions one.",
     services: [
       "Press release development and strategic media distribution",
-      "Press event concept, design, and full execution",
+      "Press coverage strategy and earned media placement",
+      "Live news appearance planning, coaching, and coordination",
+      "Press night concept, design, and full event execution",
       "Media relations and journalist outreach",
       "Brand narrative development and story positioning",
       "Crisis communications preparation and response support",
@@ -91,6 +100,7 @@ const CATEGORIES: ServiceCategory[] = [
     services: [
       "Digital marketing strategy and channel planning",
       "Social media strategy and content direction",
+      "Website builds and edits — strategy-led development and optimisation",
       "Search engine optimisation — technical and content-focused",
       "Paid media strategy and campaign management",
       "Digital analytics, reporting, and performance optimisation",

@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Instagram, Linkedin, Twitter } from "lucide-react";
+import { Instagram, Linkedin, Facebook, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const NAV_COLS = [
@@ -8,7 +8,7 @@ const NAV_COLS = [
     links: [
       { label: "Home", href: "/" },
       { label: "About Us", href: "/about" },
-      { label: "Selected Work", href: "/work" },
+      { label: "Our Work", href: "/work" },
       { label: "The Journal", href: "/insights" },
       { label: "Contact", href: "/contact" },
     ],
@@ -25,6 +25,13 @@ const NAV_COLS = [
   },
 ];
 
+const SOCIAL_LINKS = [
+  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com" },
+  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com" },
+  { Icon: Youtube, label: "YouTube", href: "https://www.youtube.com" },
+  { Icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com" },
+];
+
 export function Footer() {
   return (
     <footer className="bg-secondary text-secondary-foreground border-t border-white/5 dark pt-24 pb-10">
@@ -38,20 +45,18 @@ export function Footer() {
             <Link href="/" className="font-display font-bold text-[22px] tracking-[-0.04em] text-white mb-5 block">
               M.Y. INK
             </Link>
-            <p className="text-secondary-foreground/65 text-[14px] max-w-[220px] mb-8 leading-[1.8]">
-              A strategic marketing firm for brands that are serious about where they are going.
+            <p className="text-secondary-foreground/65 text-[14px] max-w-[240px] mb-8 leading-[1.8]">
+              Targeted Marketing Solutions. Building revenue-generating campaigns driven by KPIs.
             </p>
             {/* Social links */}
             <div className="flex gap-3">
-              {[
-                { Icon: Instagram, label: "Instagram" },
-                { Icon: Linkedin, label: "LinkedIn" },
-                { Icon: Twitter, label: "X / Twitter" },
-              ].map(({ Icon, label }) => (
+              {SOCIAL_LINKS.map(({ Icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
                   aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 border border-white/10 flex items-center justify-center text-secondary-foreground/40 hover:text-white hover:border-primary hover:bg-primary/10 transition-all duration-200"
                 >
                   <Icon size={15} />
