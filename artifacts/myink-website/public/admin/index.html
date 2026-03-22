@@ -9,452 +9,552 @@
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         M.Y. INK — Decap CMS Preview Templates
-         Live preview with mobile/desktop toggle for every
-         editable collection: Home, Work, Settings, Services.
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+      /* ═══════════════════════════════════════════════════════════
+         M.Y. INK — Decap CMS Live Preview Templates
+         All templates use React.Component class syntax (no hooks)
+         for maximum reliability in the preview iframe context.
+      ═══════════════════════════════════════════════════════════ */
 
-      // ── PREVIEW FONTS ───────────────────────────────────────
+      // ── Load fonts into every preview iframe ─────────────────
       CMS.registerPreviewStyle(
         'https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap'
       );
 
-      // ── PREVIEW BASE STYLES ─────────────────────────────────
-      CMS.registerPreviewStyle(`
-        *, *::before, *::after { box-sizing: border-box; }
-        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; font-weight: 700; margin: 0; }
-        p { margin: 0; }
-        a { text-decoration: none; color: inherit; }
-        button { cursor: pointer; font-family: inherit; border: none; }
-        em { font-style: italic; }
-        ul { list-style: none; margin: 0; padding: 0; }
-      `, { raw: true });
+      CMS.registerPreviewStyle([
+        '*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }',
+        'body { font-family: Inter, sans-serif; background: #F7F7F7; color: #0D0D0D; }',
+        'h1,h2,h3,h4,h5 { font-family: Syne, sans-serif; font-weight: 700; margin: 0; }',
+        'p { margin: 0; }',
+        'a { text-decoration: none; color: inherit; }',
+        'button { cursor: pointer; font-family: inherit; }',
+        'ul { list-style: none; margin: 0; padding: 0; }',
+        'em { font-style: italic; }',
+        '.section-label { background: #121212; padding: 6px 48px; }',
+        '.section-label span { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: #E87722; }',
+        '.mobile-wrap { transition: max-width 0.3s ease; overflow: hidden; }',
+      ].join(' '), { raw: true });
 
-      // ── DESIGN TOKENS ───────────────────────────────────────
-      const T = {
+      // ── Design tokens ────────────────────────────────────────
+      var T = {
         primary:   '#E87722',
         bg:        '#F7F7F7',
         fg:        '#0D0D0D',
         muted:     '#474747',
-        secondary: '#121212',
+        dark:      '#121212',
         border:    '#DEDEDE',
-        white:     '#FFFFFF',
+        card:      '#FFFFFF',
       };
 
-      const h = React.createElement;
-      const { useState } = React;
+      var h = React.createElement;
 
-      // ── SHARED: PREVIEW SHELL (mobile / desktop toggle) ─────
-      function PreviewShell({ children, accent }) {
-        const [mobile, setMobile] = useState(false);
-        const brand = accent || T.primary;
+      /* ─────────────────────────────────────────────────────────
+         SAFE DATA HELPER
+         Wraps all Immutable.js access in try/catch.
+         Returns '' for missing fields, JS array for list fields.
+      ───────────────────────────────────────────────────────── */
+      function gf(entry) {
+        return function() {
+          try {
+            var path = ['data'].concat(Array.prototype.slice.call(arguments));
+            var val = entry.getIn(path);
+            if (val === null || val === undefined) return '';
+            if (val && typeof val.toJS === 'function') return val.toJS();
+            return String(val);
+          } catch (e) { return ''; }
+        };
+      }
 
-        const tab = (active, label, action) =>
-          h('button', {
-            onClick: action,
-            style: {
-              background: active ? brand : 'transparent',
-              color: active ? '#fff' : 'rgba(255,255,255,0.35)',
-              border: '1px solid ' + (active ? brand : 'rgba(255,255,255,0.12)'),
-              padding: '4px 14px',
-              fontSize: 9,
-              fontWeight: 700,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              transition: 'all 0.2s',
-            },
-          }, label);
-
-        return h('div', { style: { fontFamily: 'Inter, sans-serif', background: T.bg, minHeight: '100vh' } },
-          // ── Control bar ──────────────────────────────────────
-          h('div', {
-            style: {
-              position: 'sticky', top: 0, zIndex: 9999,
-              background: T.secondary,
-              borderBottom: '1px solid rgba(255,255,255,0.05)',
-              padding: '10px 24px',
-              display: 'flex', alignItems: 'center', gap: 12,
-            },
-          },
-            h('span', {
-              style: {
-                fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                fontSize: 14, color: '#fff', letterSpacing: '-0.02em',
-              },
-            }, 'M.Y. INK'),
-            h('span', {
-              style: {
-                fontSize: 9, fontWeight: 700, color: brand,
-                textTransform: 'uppercase', letterSpacing: '0.18em',
-                background: brand + '18', padding: '2px 8px',
-              },
-            }, 'Live Preview'),
-            h('div', {
-              style: {
-                marginLeft: 'auto', display: 'flex',
-                gap: 6, alignItems: 'center',
-              },
-            },
-              h('span', {
-                style: {
-                  fontSize: 9, color: 'rgba(255,255,255,0.22)',
-                  textTransform: 'uppercase', letterSpacing: '0.12em', marginRight: 4,
-                },
-              }, 'View as:'),
-              tab(!mobile, '⊡  Desktop', () => setMobile(false)),
-              tab(mobile, '📱  Mobile', () => setMobile(true)),
-            ),
-          ),
-          // ── Page canvas ──────────────────────────────────────
-          h('div', {
-            style: {
-              margin: mobile ? '20px auto' : 0,
-              maxWidth: mobile ? 390 : '100%',
-              boxShadow: mobile
-                ? '0 0 0 1px rgba(0,0,0,0.1), 0 8px 40px rgba(0,0,0,0.15)'
-                : 'none',
-              transition: 'max-width 0.35s cubic-bezier(0.16,1,0.3,1)',
-              overflow: 'hidden',
-              background: T.bg,
-            },
-          }, children),
+      /* ─────────────────────────────────────────────────────────
+         SECTION LABEL  (static functional component)
+      ───────────────────────────────────────────────────────── */
+      function SectionLabel(props) {
+        return h('div', { className: 'section-label' },
+          h('span', null, props.text),
         );
       }
 
-      // ── SHARED: SECTION LABEL BAR ────────────────────────────
-      function SectionLabel({ text, accent }) {
-        const brand = accent || T.primary;
-        return h('div', {
-          style: { background: T.secondary, padding: '5px 48px', borderTop: '1px solid rgba(255,255,255,0.04)' },
-        },
-          h('span', {
-            style: {
-              fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em',
-              color: brand,
-            },
-          }, '▸ ' + text),
-        );
-      }
+      /* ─────────────────────────────────────────────────────────
+         PREVIEW SHELL  (class component — mobile / desktop toggle)
+      ───────────────────────────────────────────────────────── */
+      var PreviewShell = (function(_super) {
+        function PreviewShell(props) {
+          _super.call(this, props);
+          this.state = { mobile: false };
+          this.toMobile  = this.toMobile.bind(this);
+          this.toDesktop = this.toDesktop.bind(this);
+        }
+        PreviewShell.prototype = Object.create(_super.prototype);
+        PreviewShell.prototype.constructor = PreviewShell;
+        PreviewShell.prototype.toMobile  = function() { this.setState({ mobile: true }); };
+        PreviewShell.prototype.toDesktop = function() { this.setState({ mobile: false }); };
 
-      // ── HOME PAGE PREVIEW ────────────────────────────────────
-      function HomePreview({ entry }) {
-        const d = entry.getIn(['data']);
-        if (!d) return null;
+        PreviewShell.prototype.render = function() {
+          var mobile = this.state.mobile;
+          var accent = this.props.accent || T.primary;
 
-        const hero = d.get('hero') || d; // supports both flat & nested
-        const bi   = d.get('brand_intro') || d;
-        const wwd  = d.get('what_we_do') || d;
+          var btnBase = {
+            padding: '4px 14px',
+            fontSize: 9,
+            fontWeight: 700,
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            border: '1px solid',
+            cursor: 'pointer',
+          };
 
-        const line1   = hero.get ? hero.get('headline_line1') : d.get('hero_headline_line1') || 'Creative Thinking.';
-        const line2   = hero.get ? hero.get('headline_line2') : d.get('hero_headline_line2') || 'Strategic Execution.';
-        const italic  = hero.get ? hero.get('headline_italic') : d.get('hero_headline_italic') || 'Meaningful Growth.';
-        const body    = hero.get ? hero.get('body') : d.get('hero_body') || '';
-        const badge   = hero.get ? hero.get('location_badge') : d.get('location_badge') || 'Nassau, Bahamas · Strategic Marketing Firm';
-
-        const ip1     = bi.get ? bi.get('headline_part1') : d.get('intro_headline_part1') || '';
-        const iItalic = bi.get ? bi.get('headline_italic') : d.get('intro_headline_italic') || '';
-        const ip2     = bi.get ? bi.get('headline_part2') : d.get('intro_headline_part2') || '';
-        const ib1     = bi.get ? bi.get('body1') : d.get('intro_body1') || '';
-        const ib2     = bi.get ? bi.get('body2') : d.get('intro_body2') || '';
-
-        const servHl  = wwd.get ? wwd.get('headline') : d.get('services_headline') || 'Five disciplines. One standard.';
-
-        return h(PreviewShell, null,
-          // ── HERO ──────────────────────────────────────────────
-          h(SectionLabel, { text: 'Hero Section' }),
-          h('section', {
-            style: { background: T.bg, padding: '64px 48px 48px', borderBottom: '1px solid ' + T.border },
-          },
+          return h('div', { style: { fontFamily: 'Inter, sans-serif', background: T.bg, minHeight: '100vh' } },
+            // ── Control bar ──────────────────────────────────
             h('div', {
-              style: { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36 },
-            },
-              h('span', {
-                style: { width: 6, height: 6, borderRadius: '50%', background: T.primary, display: 'inline-block' },
-              }),
-              h('span', {
-                style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(0,0,0,0.3)' },
-              }, badge),
-            ),
-            h('h1', {
               style: {
-                fontFamily: 'Syne, sans-serif', fontWeight: 800,
-                fontSize: 'clamp(40px, 7vw, 88px)', lineHeight: 0.94,
-                letterSpacing: '-0.03em', color: T.fg,
+                position: 'sticky', top: 0, zIndex: 9999,
+                background: T.dark, borderBottom: '1px solid rgba(255,255,255,0.05)',
+                padding: '10px 24px', display: 'flex', alignItems: 'center', gap: 12,
               },
             },
-              line1, h('br'), line2, h('br'),
-              h('em', { style: { color: T.primary } }, italic),
-            ),
-            h('div', {
-              style: { marginTop: 40, paddingTop: 32, borderTop: '1px solid ' + T.border,
-                display: 'grid', gridTemplateColumns: '1fr auto', gap: 32, alignItems: 'end' },
-            },
-              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted, maxWidth: 480 } }, body),
-              h('div', { style: { display: 'flex', gap: 10, flexShrink: 0 } },
-                h('div', {
-                  style: { background: T.primary, color: '#fff', padding: '12px 22px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em' },
-                }, 'Begin a Conversation'),
-                h('div', {
-                  style: { border: '1px solid ' + T.border, color: T.fg, padding: '12px 22px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em' },
-                }, 'See Our Work'),
+              h('span', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 14, color: '#fff', letterSpacing: '-0.02em' } }, 'M.Y. INK'),
+              h('span', { style: { fontSize: 9, fontWeight: 700, color: accent, textTransform: 'uppercase', letterSpacing: '0.18em', background: accent + '22', padding: '2px 8px' } }, 'Live Preview'),
+              h('div', { style: { marginLeft: 'auto', display: 'flex', gap: 6, alignItems: 'center' } },
+                h('span', { style: { fontSize: 9, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.12em', marginRight: 4 } }, 'View as:'),
+                h('button', {
+                  onClick: this.toDesktop,
+                  style: Object.assign({}, btnBase, {
+                    background: !mobile ? accent : 'transparent',
+                    color: !mobile ? '#fff' : 'rgba(255,255,255,0.35)',
+                    borderColor: !mobile ? accent : 'rgba(255,255,255,0.15)',
+                  }),
+                }, 'Desktop'),
+                h('button', {
+                  onClick: this.toMobile,
+                  style: Object.assign({}, btnBase, {
+                    background: mobile ? accent : 'transparent',
+                    color: mobile ? '#fff' : 'rgba(255,255,255,0.35)',
+                    borderColor: mobile ? accent : 'rgba(255,255,255,0.15)',
+                  }),
+                }, 'Mobile'),
               ),
             ),
-          ),
+            // ── Page canvas ──────────────────────────────────
+            h('div', {
+              style: {
+                margin: mobile ? '20px auto' : 0,
+                maxWidth: mobile ? 390 : '100%',
+                boxShadow: mobile ? '0 0 0 1px rgba(0,0,0,0.1), 0 8px 40px rgba(0,0,0,0.15)' : 'none',
+                background: T.bg,
+              },
+            }, this.props.children),
+          );
+        };
 
-          // ── BRAND INTRO ───────────────────────────────────────
-          h(SectionLabel, { text: 'Brand Intro Section' }),
-          h('section', {
-            style: { background: T.bg, padding: '64px 48px', borderBottom: '1px solid ' + T.border },
-          },
-            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56 } },
-              h('div', null,
-                h('h2', {
-                  style: {
-                    fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                    fontSize: 'clamp(22px, 2.8vw, 38px)', lineHeight: 1.1,
-                    letterSpacing: '-0.025em', color: T.fg,
-                  },
-                },
-                  ip1 + ' ',
-                  h('em', { style: { color: T.primary } }, iItalic),
-                  ' ' + ip2,
+        return PreviewShell;
+      }(React.Component));
+
+      /* ═══════════════════════════════════════════════════════════
+         HOME PAGE PREVIEW
+      ═══════════════════════════════════════════════════════════ */
+      var HomePreview = (function(_super) {
+        function HomePreview() { _super.apply(this, arguments); }
+        HomePreview.prototype = Object.create(_super.prototype);
+        HomePreview.prototype.constructor = HomePreview;
+
+        HomePreview.prototype.render = function() {
+          var g = gf(this.props.entry);
+          var line1   = g('hero', 'headline_line1')  || 'Creative Thinking.';
+          var line2   = g('hero', 'headline_line2')  || 'Strategic Execution.';
+          var italic  = g('hero', 'headline_italic') || 'Meaningful Growth.';
+          var body    = g('hero', 'body')            || '';
+          var badge   = g('hero', 'location_badge')  || 'Nassau, Bahamas · Strategic Marketing Firm';
+
+          var ip1     = g('brand_intro', 'headline_part1')  || 'We are not an agency for everyone.';
+          var iItalic = g('brand_intro', 'headline_italic') || 'We work with brands';
+          var ip2     = g('brand_intro', 'headline_part2')  || 'that have something real to say.';
+          var ib1     = g('brand_intro', 'body1') || '';
+          var ib2     = g('brand_intro', 'body2') || '';
+
+          var servHl  = g('what_we_do', 'headline') || 'Five disciplines. One standard.';
+
+          return h(PreviewShell, null,
+            // ── Hero ──────────────────────────────────────────
+            h(SectionLabel, { text: 'Hero Section' }),
+            h('section', { style: { background: T.bg, padding: '64px 48px 48px', borderBottom: '1px solid ' + T.border } },
+              h('div', { style: { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36 } },
+                h('span', { style: { width: 6, height: 6, borderRadius: '50%', background: T.primary, display: 'inline-block' } }),
+                h('span', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(0,0,0,0.3)' } }, badge),
+              ),
+              h('h1', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(40px, 7vw, 88px)', lineHeight: 0.94, letterSpacing: '-0.03em', color: T.fg } },
+                line1, h('br'), line2, h('br'),
+                h('em', { style: { color: T.primary } }, italic),
+              ),
+              h('div', { style: { marginTop: 40, paddingTop: 32, borderTop: '1px solid ' + T.border } },
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted, maxWidth: 560 } }, body),
+              ),
+            ),
+
+            // ── Brand Intro ────────────────────────────────────
+            h(SectionLabel, { text: 'Brand Intro Section' }),
+            h('section', { style: { background: T.bg, padding: '64px 48px', borderBottom: '1px solid ' + T.border } },
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56 } },
+                h('div', null,
+                  h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 2.8vw, 38px)', lineHeight: 1.1, letterSpacing: '-0.025em', color: T.fg } },
+                    ip1 + ' ',
+                    h('em', { style: { color: T.primary } }, iItalic),
+                    ' ' + ip2,
+                  ),
                 ),
-              ),
-              h('div', { style: { display: 'flex', flexDirection: 'column', gap: 20 } },
-                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, ib1),
-                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, ib2),
-              ),
-            ),
-          ),
-
-          // ── WHAT WE DO ────────────────────────────────────────
-          h(SectionLabel, { text: 'What We Do Section' }),
-          h('section', {
-            style: { background: T.secondary, padding: '64px 48px' },
-          },
-            h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 16 } }, 'Our Expertise'),
-            h('h2', {
-              style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 40, lineHeight: 1.1, letterSpacing: '-0.025em', color: '#fff' },
-            }, servHl),
-            h('div', {
-              style: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, marginTop: 48, borderTop: '1px solid rgba(255,255,255,0.08)' },
-            },
-              ...[
-                'Brand & Marketing Strategy',
-                'Campaign Development',
-                'Content & Editorial',
-                'Publicity & Communications',
-                'Digital Presence & Growth',
-              ].map((title, i) =>
-                h('div', { key: i, style: { padding: '24px 28px', borderRight: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none', borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' } },
-                  h('span', { style: { display: 'block', fontSize: 10, fontWeight: 700, color: T.primary, marginBottom: 8, letterSpacing: '0.1em' } }, '0' + (i + 1)),
-                  h('span', { style: { fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.4 } }, title),
+                h('div', { style: { display: 'flex', flexDirection: 'column', gap: 20 } },
+                  h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, ib1),
+                  h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, ib2),
                 ),
               ),
             ),
-          ),
-        );
-      }
+
+            // ── What We Do ─────────────────────────────────────
+            h(SectionLabel, { text: 'What We Do Section' }),
+            h('section', { style: { background: T.dark, padding: '64px 48px' } },
+              h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 16 } }, 'Our Expertise'),
+              h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 40, lineHeight: 1.1, letterSpacing: '-0.025em', color: '#fff' } }, servHl),
+            ),
+          );
+        };
+
+        return HomePreview;
+      }(React.Component));
 
       CMS.registerPreviewTemplate('home', HomePreview);
 
-      // ── WORK PAGE PREVIEW ─────────────────────────────────────
-      function WorkPreview({ entry }) {
-        const d = entry.getIn(['data']);
-        if (!d) return null;
+      /* ═══════════════════════════════════════════════════════════
+         ABOUT PAGE PREVIEW
+      ═══════════════════════════════════════════════════════════ */
+      var AboutPreview = (function(_super) {
+        function AboutPreview() { _super.apply(this, arguments); }
+        AboutPreview.prototype = Object.create(_super.prototype);
+        AboutPreview.prototype.constructor = AboutPreview;
 
-        const eyebrow   = d.get('page_eyebrow') || 'Our Work';
-        const headline  = d.get('headline') || 'Work that earns';
-        const hItalic   = d.get('headline_italic') || 'its results.';
-        const col1      = d.get('intro_col1') || '';
-        const col2      = d.get('intro_col2') || '';
-        const socialNote = d.get('social_note') || '';
+        AboutPreview.prototype.render = function() {
+          var g = gf(this.props.entry);
 
-        return h(PreviewShell, null,
-          h(SectionLabel, { text: 'Page Hero' }),
-          h('section', {
-            style: { background: T.bg, padding: '80px 48px', borderBottom: '1px solid ' + T.border },
-          },
-            h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 28 } }, eyebrow),
-            h('h1', {
-              style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(40px, 6vw, 78px)', lineHeight: 1.02, letterSpacing: '-0.03em', color: T.fg, marginBottom: 40 },
-            },
-              headline, h('br'),
-              h('em', { style: { color: T.primary } }, hItalic),
+          var hEyebrow = g('hero', 'eyebrow')         || 'Who We Are';
+          var hLine1   = g('hero', 'headline_1')       || 'We believe every brand has a';
+          var hItalic  = g('hero', 'headline_italic')  || 'story';
+          var hLine2   = g('hero', 'headline_2')       || 'worth telling well.';
+          var hCol1    = g('hero', 'intro_col1')       || '';
+          var hCol2    = g('hero', 'intro_col2')       || '';
+
+          var sEyebrow = g('story', 'eyebrow')  || 'Our Story';
+          var sHl      = g('story', 'headline') || 'Built for brands serious about where they are going.';
+          var sBody1   = g('story', 'body1')    || '';
+          var sBody2   = g('story', 'body2')    || '';
+          var sBody3   = g('story', 'body3')    || '';
+
+          var statsArr = g('stats') || [];
+
+          var pHl      = g('principles', 'headline') || 'Four principles we do not negotiate on.';
+          var pSub     = g('principles', 'subtext')  || '';
+          var pItems   = g('principles', 'items')    || [];
+
+          var philEy   = g('philosophy', 'eyebrow')  || 'How We Think';
+          var philHl   = g('philosophy', 'headline') || 'The philosophy behind the work.';
+          var philItems = g('philosophy', 'items')   || [];
+
+          var tEyebrow = g('team', 'eyebrow')  || 'The Team';
+          var tHl      = g('team', 'headline') || 'Senior people on every account.';
+          var tSub     = g('team', 'subtext')  || '';
+          var tMembers = g('team', 'members')  || [];
+
+          var ctaEy    = g('cta', 'eyebrow')         || 'Work With Us';
+          var ctaL1    = g('cta', 'headline_1')       || 'The right relationship starts with';
+          var ctaItal  = g('cta', 'headline_italic')  || 'the right conversation.';
+          var ctaSub   = g('cta', 'subtext')          || '';
+
+          return h(PreviewShell, null,
+            // ── Hero ────────────────────────────────────────────
+            h(SectionLabel, { text: 'Hero Section' }),
+            h('section', { style: { background: T.bg, padding: '80px 48px', borderBottom: '1px solid ' + T.border } },
+              h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 24 } }, hEyebrow),
+              h('h1', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(32px, 5.5vw, 72px)', lineHeight: 1.0, letterSpacing: '-0.03em', color: T.fg, marginBottom: 40 } },
+                hLine1 + ' ',
+                h('em', { style: { color: T.primary } }, hItalic),
+                ' ' + hLine2,
+              ),
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 } },
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, hCol1),
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, hCol2),
+              ),
             ),
-            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 } },
-              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, col1),
-              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, col2),
-            ),
-          ),
 
-          h(SectionLabel, { text: 'Social Invite' }),
-          h('section', {
-            style: { background: T.bg, padding: '40px 48px', borderTop: '1px solid ' + T.border },
-          },
-            h('div', { style: { display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 40 } },
-              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted, maxWidth: 600 } }, socialNote),
-              h('div', { style: { display: 'flex', gap: 8, flexShrink: 0 } },
-                ...['Facebook', 'Instagram', 'YouTube', 'LinkedIn'].map(label =>
-                  h('div', { key: label, style: { border: '1px solid ' + T.border, padding: '6px 12px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', color: T.muted } }, label),
+            // ── Our Story ───────────────────────────────────────
+            h(SectionLabel, { text: 'Our Story Section' }),
+            h('section', { style: { background: T.card, padding: '64px 48px', borderBottom: '1px solid ' + T.border } },
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'start' } },
+                h('div', { style: { background: T.dark, aspectRatio: '4/5', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+                  h('span', { style: { color: 'rgba(255,255,255,0.2)', fontSize: 13 } }, 'Story Image'),
+                ),
+                h('div', null,
+                  h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 16 } }, sEyebrow),
+                  h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 28, lineHeight: 1.15, letterSpacing: '-0.02em', color: T.fg, marginBottom: 24 } }, sHl),
+                  h('div', { style: { display: 'flex', flexDirection: 'column', gap: 16 } },
+                    h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, sBody1),
+                    h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, sBody2),
+                    h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, sBody3),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      }
+
+            // ── Stats ────────────────────────────────────────────
+            h(SectionLabel, { text: 'Stats Section' }),
+            h('section', { style: { background: T.bg, padding: '40px 48px', borderBottom: '1px solid ' + T.border } },
+              h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + Math.max(statsArr.length, 4) + ', 1fr)' } },
+                statsArr.map(function(stat, i) {
+                  return h('div', { key: i, style: { padding: '12px 24px', borderRight: i < statsArr.length - 1 ? '1px solid ' + T.border : 'none', textAlign: 'center' } },
+                    h('span', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 48, color: T.primary, display: 'block', lineHeight: 1 } }, stat.value || ''),
+                    h('span', { style: { fontSize: 13, color: T.muted, marginTop: 8, display: 'block', lineHeight: 1.4 } }, stat.label || ''),
+                  );
+                }),
+              ),
+            ),
+
+            // ── Principles ──────────────────────────────────────
+            h(SectionLabel, { text: 'Principles Section' }),
+            h('section', { style: { background: T.bg, padding: '64px 48px', borderBottom: '1px solid ' + T.border } },
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, marginBottom: 48 } },
+                h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em', color: T.fg } }, pHl),
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted, alignSelf: 'end' } }, pSub),
+              ),
+              h('div', null,
+                pItems.map(function(item, i) {
+                  return h('div', { key: i, style: { display: 'grid', gridTemplateColumns: 'auto 1fr 2fr', gap: '16px 48px', padding: '24px 0', borderTop: '1px solid ' + T.border } },
+                    h('span', { style: { fontSize: 11, fontWeight: 700, color: T.primary + '66', letterSpacing: '0.1em', paddingTop: 4 } }, item.num || ''),
+                    h('h3', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 20, lineHeight: 1.2, color: T.fg } }, item.title || ''),
+                    h('p', { style: { fontSize: 15, lineHeight: 1.72, color: T.muted } }, item.desc || ''),
+                  );
+                }),
+              ),
+            ),
+
+            // ── Philosophy ──────────────────────────────────────
+            h(SectionLabel, { text: 'Philosophy Section' }),
+            h('section', { style: { background: T.dark, padding: '64px 48px' } },
+              h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 16 } }, philEy),
+              h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em', color: '#fff', marginBottom: 48 } }, philHl),
+              h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(' + Math.max(philItems.length, 3) + ', 1fr)', gap: 0 } },
+                philItems.map(function(item, i) {
+                  return h('div', { key: i, style: { padding: '32px', borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.07)' : 'none' } },
+                    h('div', { style: { width: 28, height: 2, background: T.primary, marginBottom: 28 } }),
+                    h('h3', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 18, color: '#fff', lineHeight: 1.3, marginBottom: 16 } }, item.title || ''),
+                    h('p', { style: { fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.5)' } }, item.desc || ''),
+                  );
+                }),
+              ),
+            ),
+
+            // ── Team ────────────────────────────────────────────
+            h(SectionLabel, { text: 'Team Section' }),
+            h('section', { style: { background: T.card, padding: '64px 48px', borderBottom: '1px solid ' + T.border } },
+              h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 16 } }, tEyebrow),
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 40 } },
+                h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 32, lineHeight: 1.1, letterSpacing: '-0.02em', color: T.fg } }, tHl),
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, tSub),
+              ),
+              h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 } },
+                tMembers.map(function(member, i) {
+                  return h('div', { key: i },
+                    h('div', { style: { background: T.dark, aspectRatio: '3/4', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, overflow: 'hidden' } },
+                      member.photo
+                        ? h('img', { src: member.photo, style: { width: '100%', height: '100%', objectFit: 'cover', opacity: 0.7 } })
+                        : h('span', { style: { color: 'rgba(255,255,255,0.2)', fontSize: 12 } }, 'Photo'),
+                    ),
+                    h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', color: T.primary, marginBottom: 6 } }, member.role || ''),
+                    h('p', { style: { fontSize: 13, color: T.muted } }, member.specialty || ''),
+                  );
+                }),
+              ),
+            ),
+
+            // ── CTA ─────────────────────────────────────────────
+            h(SectionLabel, { text: 'CTA Section' }),
+            h('section', { style: { background: T.dark, padding: '64px 48px' } },
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, alignItems: 'end' } },
+                h('div', null,
+                  h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 20 } }, ctaEy),
+                  h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.08, letterSpacing: '-0.025em', color: '#fff', marginBottom: 20 } },
+                    ctaL1 + ' ',
+                    h('em', { style: { color: T.primary } }, ctaItal),
+                  ),
+                  h('p', { style: { fontSize: 17, lineHeight: 1.72, color: 'rgba(255,255,255,0.5)' } }, ctaSub),
+                ),
+                h('div', { style: { display: 'flex', flexDirection: 'column', gap: 12 } },
+                  h('div', { style: { background: T.primary, color: '#fff', padding: '16px 24px', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', textAlign: 'center' } }, 'Start a Conversation'),
+                  h('div', { style: { border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.7)', padding: '16px 24px', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', textAlign: 'center' } }, 'See Our Work'),
+                ),
+              ),
+            ),
+          );
+        };
+
+        return AboutPreview;
+      }(React.Component));
+
+      CMS.registerPreviewTemplate('about', AboutPreview);
+
+      /* ═══════════════════════════════════════════════════════════
+         WORK PAGE PREVIEW
+      ═══════════════════════════════════════════════════════════ */
+      var WorkPreview = (function(_super) {
+        function WorkPreview() { _super.apply(this, arguments); }
+        WorkPreview.prototype = Object.create(_super.prototype);
+        WorkPreview.prototype.constructor = WorkPreview;
+
+        WorkPreview.prototype.render = function() {
+          var g = gf(this.props.entry);
+          var eyebrow    = g('page_eyebrow')   || 'Our Work';
+          var headline   = g('headline')       || 'Work that earns';
+          var hItalic    = g('headline_italic') || 'its results.';
+          var col1       = g('intro_col1')     || '';
+          var col2       = g('intro_col2')     || '';
+          var socialNote = g('social_note')    || '';
+
+          return h(PreviewShell, null,
+            h(SectionLabel, { text: 'Page Hero' }),
+            h('section', { style: { background: T.bg, padding: '80px 48px', borderBottom: '1px solid ' + T.border } },
+              h('p', { style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 28 } }, eyebrow),
+              h('h1', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(40px, 6vw, 78px)', lineHeight: 1.02, letterSpacing: '-0.03em', color: T.fg, marginBottom: 40 } },
+                headline, h('br'),
+                h('em', { style: { color: T.primary } }, hItalic),
+              ),
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 } },
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, col1),
+                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, col2),
+              ),
+            ),
+            h(SectionLabel, { text: 'Social Invite' }),
+            h('section', { style: { background: T.bg, padding: '40px 48px' } },
+              h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted, maxWidth: 640 } }, socialNote),
+            ),
+          );
+        };
+
+        return WorkPreview;
+      }(React.Component));
 
       CMS.registerPreviewTemplate('work_page', WorkPreview);
 
-      // ── SITE SETTINGS PREVIEW ─────────────────────────────────
-      function SettingsPreview({ entry }) {
-        const d = entry.getIn(['data']);
-        if (!d) return null;
+      /* ═══════════════════════════════════════════════════════════
+         SITE SETTINGS PREVIEW
+      ═══════════════════════════════════════════════════════════ */
+      var SettingsPreview = (function(_super) {
+        function SettingsPreview() { _super.apply(this, arguments); }
+        SettingsPreview.prototype = Object.create(_super.prototype);
+        SettingsPreview.prototype.constructor = SettingsPreview;
 
-        const brand    = d.get('brand') || d;
-        const socials  = d.get('socials') || d;
+        SettingsPreview.prototype.render = function() {
+          var g = gf(this.props.entry);
+          var siteName = g('brand', 'site_name')       || 'M.Y. INK';
+          var tagline  = g('brand', 'tagline')          || '';
+          var location = g('brand', 'location')         || 'Nassau, Bahamas';
+          var email    = g('brand', 'email')            || 'hello@myink.com';
+          var colour   = g('brand', 'primary_color')    || T.primary;
+          var accent   = colour || T.primary;
 
-        const siteName = (brand.get ? brand.get('site_name') : d.get('site_name')) || 'M.Y. INK';
-        const tagline  = (brand.get ? brand.get('tagline') : d.get('footer_tagline')) || '';
-        const location = (brand.get ? brand.get('location') : d.get('location')) || 'Nassau, Bahamas';
-        const email    = (brand.get ? brand.get('email') : d.get('email')) || 'hello@myink.com';
-        const colour   = (brand.get ? brand.get('primary_color') : d.get('primary_color')) || T.primary;
+          return h(PreviewShell, { accent: accent },
+            h(SectionLabel, { text: 'Navigation (Brand Name)' }),
+            h('div', { style: { background: T.bg, borderBottom: '1px solid ' + T.border, padding: '18px 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' } },
+              h('span', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 18, letterSpacing: '-0.04em', color: T.fg } }, siteName),
+              h('div', { style: { display: 'flex', gap: 28 } },
+                ['Home', 'About', 'Services', 'Work', 'Insights'].map(function(l) { return h('span', { key: l, style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: T.fg } }, l); }),
+              ),
+              h('div', { style: { background: accent, color: '#fff', padding: '10px 20px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' } }, 'Begin a Conversation'),
+            ),
 
-        return h(PreviewShell, { accent: colour },
-          // Nav preview
-          h(SectionLabel, { text: 'Navigation', accent: colour }),
-          h('div', {
-            style: {
-              background: 'rgba(247,247,247,0.97)',
-              borderBottom: '1px solid ' + T.border,
-              padding: '18px 48px',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            },
-          },
-            h('a', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 18, color: T.fg, letterSpacing: '-0.04em' } }, siteName),
-            h('div', { style: { display: 'flex', gap: 28 } },
-              ...['Home', 'About', 'Services', 'Work', 'Insights'].map(l =>
-                h('span', { key: l, style: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: T.fg } }, l),
+            h(SectionLabel, { text: 'Brand Accent Colour' }),
+            h('div', { style: { background: accent, padding: '28px 48px', display: 'flex', alignItems: 'center', gap: 24 } },
+              h('div', { style: { width: 48, height: 48, background: 'rgba(255,255,255,0.25)', flexShrink: 0 } }),
+              h('div', null,
+                h('p', { style: { fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.6)', marginBottom: 6 } }, 'Current Brand Colour — Applied Sitewide'),
+                h('p', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 22, color: '#fff', letterSpacing: '-0.02em', marginBottom: 6 } }, accent),
+                h('p', { style: { fontSize: 13, color: 'rgba(255,255,255,0.65)' } }, 'Buttons · labels · highlights · hover states · icons across every page.'),
               ),
             ),
-            h('div', { style: { background: colour, color: '#fff', padding: '10px 20px', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' } }, 'Begin a Conversation'),
-          ),
 
-          // Colour swatch
-          h(SectionLabel, { text: 'Brand Accent Colour', accent: colour }),
-          h('div', { style: { background: colour, padding: '28px 48px', display: 'flex', alignItems: 'center', gap: 32 } },
-            h('div', { style: { width: 48, height: 48, background: '#fff', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 4, flexShrink: 0 } }),
-            h('div', null,
-              h('p', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.6)', marginBottom: 6 } }, 'Brand Accent — Applied Sitewide'),
-              h('p', { style: { fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: 'Syne, sans-serif', letterSpacing: '-0.02em', marginBottom: 6 } }, colour),
-              h('p', { style: { fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 } }, 'Buttons · labels · highlights · hover states · icons across every page'),
-            ),
-          ),
-
-          // Footer preview
-          h(SectionLabel, { text: 'Footer', accent: colour }),
-          h('footer', {
-            style: { background: T.secondary, padding: '64px 48px 40px' },
-          },
-            h('div', { style: { display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 56, marginBottom: 48 } },
-              h('div', null,
-                h('a', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 22, color: '#fff', letterSpacing: '-0.04em', display: 'block', marginBottom: 20 } }, siteName),
-                h('p', { style: { fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.6)', maxWidth: 300, marginBottom: 24 } }, tagline),
-                h('div', { style: { display: 'flex', gap: 8 } },
-                  ...['FB', 'IG', 'YT', 'LI'].map(s =>
-                    h('div', { key: s, style: { width: 36, height: 36, border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.35)', fontSize: 10, fontWeight: 700 } }, s),
-                  ),
+            h(SectionLabel, { text: 'Footer' }),
+            h('footer', { style: { background: T.dark, padding: '56px 48px 32px' } },
+              h('div', { style: { display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 48, marginBottom: 40 } },
+                h('div', null,
+                  h('span', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 22, color: '#fff', letterSpacing: '-0.04em', display: 'block', marginBottom: 16 } }, siteName),
+                  h('p', { style: { fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.55)', marginBottom: 20, maxWidth: 280 } }, tagline),
+                ),
+                h('div', null,
+                  h('h4', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)', marginBottom: 20 } }, 'Contact'),
+                  h('p', { style: { fontSize: 14, color: 'rgba(255,255,255,0.55)', marginBottom: 10 } }, location),
+                  h('p', { style: { fontSize: 14, color: 'rgba(255,255,255,0.7)' } }, email),
                 ),
               ),
-              h('div', null,
-                h('h4', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)', marginBottom: 24 } }, 'Contact'),
-                h('p', { style: { fontSize: 14, color: 'rgba(255,255,255,0.55)', marginBottom: 12 } }, location),
-                h('p', { style: { fontSize: 14, color: 'rgba(255,255,255,0.7)' } }, email),
-              ),
-              h('div', null,
-                h('h4', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)', marginBottom: 24 } }, 'Pages'),
-                ...['Home', 'About', 'Services', 'Work', 'Insights', 'Contact'].map(l =>
-                  h('div', { key: l, style: { fontSize: 14, color: 'rgba(255,255,255,0.45)', marginBottom: 14 } }, l),
-                ),
+              h('div', { style: { borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 20 } },
+                h('p', { style: { fontSize: 12, color: 'rgba(255,255,255,0.28)' } }, '\u00a9 ' + new Date().getFullYear() + ' M.Y. INK Marketing. All rights reserved.'),
               ),
             ),
-            h('div', { style: { borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 24 } },
-              h('p', { style: { fontSize: 12, color: 'rgba(255,255,255,0.28)' } },
-                '\u00a9 ' + new Date().getFullYear() + ' M.Y. INK Marketing. All rights reserved.',
-              ),
-            ),
-          ),
-        );
-      }
+          );
+        };
+
+        return SettingsPreview;
+      }(React.Component));
 
       CMS.registerPreviewTemplate('settings', SettingsPreview);
 
-      // ── SERVICE CATEGORY PREVIEW ──────────────────────────────
-      function ServicePreview({ entry }) {
-        const d = entry.getIn(['data']);
-        if (!d) return null;
+      /* ═══════════════════════════════════════════════════════════
+         SERVICE CATEGORY PREVIEW
+      ═══════════════════════════════════════════════════════════ */
+      var ServicePreview = (function(_super) {
+        function ServicePreview() { _super.apply(this, arguments); }
+        ServicePreview.prototype = Object.create(_super.prototype);
+        ServicePreview.prototype.constructor = ServicePreview;
 
-        const num         = d.get('num') || '01';
-        const title       = d.get('title') || '';
-        const tagline     = d.get('tagline') || '';
-        const intro       = d.get('intro') || '';
-        const servicesRaw = d.get('services');
-        const outcome     = d.get('outcome') || '';
-        const idealClient = d.get('idealClient') || '';
+        ServicePreview.prototype.render = function() {
+          var g = gf(this.props.entry);
+          var num       = g('num')       || '01';
+          var title     = g('title')     || '';
+          var tagline   = g('tagline')   || '';
+          var intro     = g('intro')     || '';
+          var services  = g('services')  || [];
+          var outcome   = g('outcome')   || '';
+          var idealClient = g('idealClient') || '';
 
-        const services = servicesRaw && servicesRaw.toJS ? servicesRaw.toJS() : [];
-
-        return h(PreviewShell, null,
-          h(SectionLabel, { text: 'Service Category — ' + num }),
-          h('section', {
-            style: { background: T.bg, padding: '80px 48px', borderBottom: '1px solid ' + T.border },
-          },
-            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'start' } },
-              // ── Left: intro ──
-              h('div', null,
-                h('span', {
-                  style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 120, color: 'rgba(0,0,0,0.04)', lineHeight: 0.85, display: 'block', marginBottom: 24 },
-                }, num),
-                h('h2', {
-                  style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.025em', color: T.fg, marginBottom: 12 },
-                }, title),
-                h('p', { style: { fontSize: 15, color: T.primary, fontStyle: 'italic', lineHeight: 1.6, marginBottom: 32 } }, tagline),
-                h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, intro),
-              ),
-              // ── Right: services list ──
-              h('div', null,
-                h('p', {
-                  style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 20 },
-                }, 'What this includes'),
-                h('ul', null,
-                  ...services.map((svc, i) =>
-                    h('li', { key: i, style: { borderTop: '1px solid ' + T.border, padding: '13px 0', fontSize: 15, lineHeight: 1.5, color: T.fg } }, svc),
+          return h(PreviewShell, null,
+            h(SectionLabel, { text: 'Service Category — ' + num }),
+            h('section', { style: { background: T.bg, padding: '80px 48px' } },
+              h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'start' } },
+                h('div', null,
+                  h('span', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 120, color: 'rgba(0,0,0,0.04)', lineHeight: 0.85, display: 'block', marginBottom: 20 } }, num),
+                  h('h2', { style: { fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 34, lineHeight: 1.1, letterSpacing: '-0.025em', color: T.fg, marginBottom: 12 } }, title),
+                  h('p', { style: { fontSize: 15, color: T.primary, fontStyle: 'italic', lineHeight: 1.6, marginBottom: 28 } }, tagline),
+                  h('p', { style: { fontSize: 17, lineHeight: 1.72, color: T.muted } }, intro),
+                ),
+                h('div', null,
+                  h('p', { style: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: T.primary, marginBottom: 20 } }, 'What this includes'),
+                  h('ul', null,
+                    services.map(function(svc, i) {
+                      return h('li', { key: i, style: { borderTop: '1px solid ' + T.border, padding: '13px 0', fontSize: 15, lineHeight: 1.5, color: T.fg } }, svc);
+                    }),
                   ),
-                ),
-                services.length > 0 && h('div', { style: { borderTop: '1px solid ' + T.border } }),
-
-                outcome && h('div', {
-                  style: { marginTop: 32, padding: '20px 24px', background: '#F0EEE9', borderLeft: '3px solid ' + T.primary },
-                },
-                  h('p', { style: { fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: T.primary, marginBottom: 10 } }, 'The Outcome'),
-                  h('p', { style: { fontSize: 14, lineHeight: 1.72, color: T.muted } }, outcome),
-                ),
-
-                idealClient && h('div', {
-                  style: { marginTop: 16, padding: '20px 24px', border: '1px solid ' + T.border },
-                },
-                  h('p', { style: { fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: T.muted, marginBottom: 10 } }, 'Ideal For'),
-                  h('p', { style: { fontSize: 14, lineHeight: 1.72, color: T.muted } }, idealClient),
+                  services.length > 0 && h('div', { style: { borderTop: '1px solid ' + T.border } }),
+                  outcome && h('div', { style: { marginTop: 28, padding: '20px 24px', background: '#F0EEE9', borderLeft: '3px solid ' + T.primary } },
+                    h('p', { style: { fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: T.primary, marginBottom: 10 } }, 'The Outcome'),
+                    h('p', { style: { fontSize: 14, lineHeight: 1.72, color: T.muted } }, outcome),
+                  ),
+                  idealClient && h('div', { style: { marginTop: 14, padding: '18px 24px', border: '1px solid ' + T.border } },
+                    h('p', { style: { fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: T.muted, marginBottom: 10 } }, 'Ideal For'),
+                    h('p', { style: { fontSize: 14, lineHeight: 1.72, color: T.muted } }, idealClient),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      }
+          );
+        };
+
+        return ServicePreview;
+      }(React.Component));
 
       CMS.registerPreviewTemplate('service_categories', ServicePreview);
+
     </script>
   </body>
 </html>

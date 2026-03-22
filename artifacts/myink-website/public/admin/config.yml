@@ -2,11 +2,11 @@
 # M.Y. INK — Decap CMS Configuration
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
-# DEPLOYMENT NOTE — MONOREPO FILE PATHS:
-#   Decap CMS paths are always relative to the git repository root.
-#   If your git repo is the full monorepo (not just this site folder),
-#   prefix every `file:` and `folder:` value with the site subdirectory.
-#   Example:  "public/content/home.md"
+# DEPLOYMENT — MONOREPO FILE PATHS:
+#   These paths are relative to your git repository root.
+#   If the full monorepo is the git root, prefix every `file:` and
+#   `folder:` path with "artifacts/myink-website/".
+#   Example: "public/content/home.md"
 #         →  "artifacts/myink-website/public/content/home.md"
 #
 # LOCAL TESTING:
@@ -32,7 +32,7 @@ show_preview_links: true
 collections:
 
   # ────────────────────────────────────────────────────────────
-  # HOME PAGE  ·  Section-by-section editing
+  # HOME PAGE
   # ────────────────────────────────────────────────────────────
   - name: "home"
     label: "🏠  Home Page"
@@ -42,57 +42,49 @@ collections:
         file: "public/content/home.md"
         fields:
 
-          # ── Hero Section ─────────────────────────────────────
-          - label: "Hero Section"
+          - label: "▸ Hero Section"
             name: "hero"
             widget: "object"
             collapsed: false
-            summary: "The full-screen opening section with billboard headline"
+            summary: "Headlines & opening copy"
             fields:
               - label: "Headline — Line 1"
                 name: "headline_line1"
                 widget: "string"
-                default: "Creative Thinking."
-                hint: "First line of the large hero headline."
+                hint: "First line of the billboard headline."
               - label: "Headline — Line 2"
                 name: "headline_line2"
                 widget: "string"
-                default: "Strategic Execution."
-                hint: "Second line of the hero headline."
+                hint: "Second line of the headline."
               - label: "Headline — Italic Payoff (orange)"
                 name: "headline_italic"
                 widget: "string"
-                default: "Meaningful Growth."
-                hint: "Third line — renders in italic orange text."
+                hint: "Third line, renders in italic orange."
               - label: "Hero Body Copy"
                 name: "body"
                 widget: "text"
-                hint: "The paragraph below the main headline."
+                hint: "Paragraph below the headline."
               - label: "Location Badge"
                 name: "location_badge"
                 widget: "string"
-                default: "Nassau, Bahamas · Strategic Marketing Firm"
-                hint: "Small badge above the headline."
+                hint: "Small badge above the headline, e.g. 'Nassau, Bahamas · Strategic Marketing Firm'"
 
-          # ── Brand Intro Section ───────────────────────────────
-          - label: "Brand Intro Section"
+          - label: "▸ Brand Intro Section"
             name: "brand_intro"
             widget: "object"
-            collapsed: false
-            summary: "Positioning statement and brand philosophy"
+            collapsed: true
+            summary: "Positioning statement and philosophy"
             fields:
-              - label: "Headline — Part 1"
+              - label: "Headline — Part 1 (before orange)"
                 name: "headline_part1"
                 widget: "string"
-                hint: "Text before the italic (orange) portion."
-              - label: "Headline — Italic (orange)"
+              - label: "Headline — Italic Word (orange)"
                 name: "headline_italic"
                 widget: "string"
-                hint: "This portion renders in italic orange."
-              - label: "Headline — Part 2"
+                hint: "Renders in italic orange."
+              - label: "Headline — Part 2 (after orange)"
                 name: "headline_part2"
                 widget: "string"
-                hint: "Text after the italic portion."
               - label: "Body Paragraph 1"
                 name: "body1"
                 widget: "text"
@@ -100,24 +92,210 @@ collections:
                 name: "body2"
                 widget: "text"
 
-          # ── What We Do Section ────────────────────────────────
-          - label: "What We Do Section"
+          - label: "▸ What We Do Section"
             name: "what_we_do"
             widget: "object"
-            collapsed: false
-            summary: "The five-services overview teaser"
+            collapsed: true
+            summary: "Services teaser headline"
             fields:
               - label: "Section Headline"
                 name: "headline"
                 widget: "string"
-                default: "Five disciplines. One standard."
-                hint: "The bold heading above the five service cards."
+                hint: "Bold heading above the five service cards."
 
   # ────────────────────────────────────────────────────────────
-  # SERVICE CATEGORIES  ·  One file per service
+  # ABOUT PAGE
+  # ────────────────────────────────────────────────────────────
+  - name: "about"
+    label: "📋  About Page"
+    files:
+      - name: "about"
+        label: "About Page Sections"
+        file: "public/content/about.md"
+        fields:
+
+          - label: "▸ Hero Section"
+            name: "hero"
+            widget: "object"
+            collapsed: false
+            summary: "Page headline and introduction"
+            fields:
+              - label: "Eyebrow Label"
+                name: "eyebrow"
+                widget: "string"
+                hint: "Small uppercase label, e.g. 'Who We Are'"
+              - label: "Headline — Before Italic"
+                name: "headline_1"
+                widget: "string"
+              - label: "Headline — Italic Word (orange)"
+                name: "headline_italic"
+                widget: "string"
+              - label: "Headline — After Italic"
+                name: "headline_2"
+                widget: "string"
+              - label: "Intro Column 1"
+                name: "intro_col1"
+                widget: "text"
+              - label: "Intro Column 2"
+                name: "intro_col2"
+                widget: "text"
+
+          - label: "▸ Our Story Section"
+            name: "story"
+            widget: "object"
+            collapsed: true
+            summary: "Agency origin story and image"
+            fields:
+              - label: "Eyebrow Label"
+                name: "eyebrow"
+                widget: "string"
+              - label: "Section Headline"
+                name: "headline"
+                widget: "string"
+              - label: "Body Paragraph 1"
+                name: "body1"
+                widget: "text"
+              - label: "Body Paragraph 2"
+                name: "body2"
+                widget: "text"
+              - label: "Body Paragraph 3"
+                name: "body3"
+                widget: "text"
+              - label: "Section Image"
+                name: "image"
+                widget: "image"
+                required: false
+                hint: "Image shown alongside the story text."
+
+          - label: "▸ Stats Section"
+            name: "stats"
+            widget: "list"
+            collapsed: true
+            label_singular: "Stat"
+            summary: "{{fields.value}} — {{fields.label}}"
+            max: 4
+            fields:
+              - label: "Number / Value"
+                name: "value"
+                widget: "string"
+                hint: "e.g. 10+, 50+, 100%"
+              - label: "Descriptor"
+                name: "label"
+                widget: "string"
+
+          - label: "▸ Principles Section"
+            name: "principles"
+            widget: "object"
+            collapsed: true
+            summary: "Four core operating principles"
+            fields:
+              - label: "Section Headline"
+                name: "headline"
+                widget: "string"
+              - label: "Section Subtext"
+                name: "subtext"
+                widget: "text"
+              - label: "Principles"
+                name: "items"
+                widget: "list"
+                label_singular: "Principle"
+                summary: "{{fields.num}} — {{fields.title}}"
+                max: 4
+                fields:
+                  - label: "Number"
+                    name: "num"
+                    widget: "string"
+                    hint: "e.g. 01, 02, 03"
+                  - label: "Title"
+                    name: "title"
+                    widget: "string"
+                  - label: "Description"
+                    name: "desc"
+                    widget: "text"
+
+          - label: "▸ Philosophy Section"
+            name: "philosophy"
+            widget: "object"
+            collapsed: true
+            summary: "How we think"
+            fields:
+              - label: "Eyebrow Label"
+                name: "eyebrow"
+                widget: "string"
+              - label: "Section Headline"
+                name: "headline"
+                widget: "string"
+              - label: "Philosophy Points"
+                name: "items"
+                widget: "list"
+                label_singular: "Point"
+                summary: "{{fields.title}}"
+                max: 3
+                fields:
+                  - label: "Title"
+                    name: "title"
+                    widget: "string"
+                  - label: "Description"
+                    name: "desc"
+                    widget: "text"
+
+          - label: "▸ Team Section"
+            name: "team"
+            widget: "object"
+            collapsed: true
+            summary: "Team members"
+            fields:
+              - label: "Eyebrow Label"
+                name: "eyebrow"
+                widget: "string"
+              - label: "Section Headline"
+                name: "headline"
+                widget: "string"
+              - label: "Section Subtext"
+                name: "subtext"
+                widget: "text"
+              - label: "Team Members"
+                name: "members"
+                widget: "list"
+                label_singular: "Team Member"
+                summary: "{{fields.role}}"
+                max: 6
+                fields:
+                  - label: "Role / Title"
+                    name: "role"
+                    widget: "string"
+                  - label: "Specialty"
+                    name: "specialty"
+                    widget: "string"
+                  - label: "Photo"
+                    name: "photo"
+                    widget: "image"
+                    required: false
+
+          - label: "▸ CTA Section"
+            name: "cta"
+            widget: "object"
+            collapsed: true
+            summary: "Call to action at the bottom"
+            fields:
+              - label: "Eyebrow Label"
+                name: "eyebrow"
+                widget: "string"
+              - label: "Headline — Before Italic"
+                name: "headline_1"
+                widget: "string"
+              - label: "Headline — Italic Part (orange)"
+                name: "headline_italic"
+                widget: "string"
+              - label: "Subtext"
+                name: "subtext"
+                widget: "text"
+
+  # ────────────────────────────────────────────────────────────
+  # SERVICE CATEGORIES
   # ────────────────────────────────────────────────────────────
   - name: "service_categories"
-    label: "⚙️  Service Categories"
+    label: "🔧  Service Categories"
     folder: "public/content/services"
     create: false
     slug: "{{num}}"
@@ -125,41 +303,36 @@ collections:
       - label: "Number"
         name: "num"
         widget: "string"
-        hint: "e.g. 01, 02, 03 — used for display ordering."
+        hint: "e.g. 01 — used for ordering."
       - label: "Category Title"
         name: "title"
         widget: "string"
-        hint: "e.g. Brand & Marketing Strategy"
       - label: "Italic Tagline"
         name: "tagline"
         widget: "string"
-        hint: "Short italicised quote shown below the title."
-      - label: "Introduction Paragraph"
+        hint: "Short italicised line shown below the title."
+      - label: "Introduction"
         name: "intro"
         widget: "text"
-        hint: "Opening paragraph for this service category."
       - label: "Services Offered"
         name: "services"
         widget: "list"
         label_singular: "Service"
-        hint: "Lead each item with the exact service name, then add context after a dash."
+        hint: "Lead each item with the service name, then context after a dash."
         field:
-          label: "Service Item"
+          label: "Service"
           name: "item"
           widget: "string"
       - label: "The Outcome"
         name: "outcome"
         widget: "text"
-        hint: "What the client receives at the end of this engagement."
       - label: "Ideal Client"
         name: "idealClient"
         widget: "text"
-        hint: "Who this service is best suited for."
       - label: "Section Image (optional)"
         name: "image"
         widget: "image"
         required: false
-        hint: "Optional header image for this service category."
 
   # ────────────────────────────────────────────────────────────
   # WORK PAGE
@@ -174,31 +347,25 @@ collections:
           - label: "Page Eyebrow"
             name: "page_eyebrow"
             widget: "string"
-            default: "Our Work"
-            hint: "Small uppercase label above the headline."
           - label: "Headline"
             name: "headline"
             widget: "string"
-            hint: "Main headline, e.g. 'Work that earns'"
-          - label: "Headline Italic (orange)"
+          - label: "Headline — Italic Part (orange)"
             name: "headline_italic"
             widget: "string"
-            hint: "The italic orange portion, e.g. 'its results.'"
           - label: "Intro Column 1"
             name: "intro_col1"
             widget: "text"
-            hint: "Left paragraph below the headline."
           - label: "Intro Column 2"
             name: "intro_col2"
             widget: "text"
-            hint: "Right paragraph below the headline."
           - label: "Social Invite Note"
             name: "social_note"
             widget: "text"
-            hint: "Text shown above the social platform links at the bottom of the page."
+            hint: "Text shown above the social platform links."
 
   # ────────────────────────────────────────────────────────────
-  # GLOBAL SETTINGS  ·  Brand, colour, contact, social
+  # GLOBAL SETTINGS
   # ────────────────────────────────────────────────────────────
   - name: "settings"
     label: "⚙️  Site Settings"
@@ -208,42 +375,35 @@ collections:
         file: "public/content/settings.md"
         fields:
 
-          # ── Brand & Identity ──────────────────────────────────
-          - label: "Brand & Identity"
+          - label: "▸ Brand & Identity"
             name: "brand"
             widget: "object"
             collapsed: false
-            summary: "Site name, accent colour, tagline, and contact details"
+            summary: "Site name, colour, tagline, contact"
             fields:
               - label: "Site Name"
                 name: "site_name"
                 widget: "string"
-                default: "M.Y. INK"
               - label: "Brand Accent Colour"
                 name: "primary_color"
                 widget: "color"
-                default: "#E87722"
                 allow_input: true
-                hint: "Applied to buttons, labels, highlights, and links everywhere on the site. Change with care."
+                hint: "Applied to buttons, labels, and highlights everywhere on the site."
               - label: "Footer Tagline"
                 name: "tagline"
                 widget: "text"
-                hint: "The descriptor shown under the logo in the footer."
               - label: "Location"
                 name: "location"
                 widget: "string"
-                default: "Nassau, Bahamas"
               - label: "Email Address"
                 name: "email"
                 widget: "string"
-                default: "hello@myink.com"
 
-          # ── Social Media ──────────────────────────────────────
-          - label: "Social Media Links"
+          - label: "▸ Social Media Links"
             name: "socials"
             widget: "object"
-            collapsed: false
-            summary: "Facebook, Instagram, YouTube and LinkedIn URLs"
+            collapsed: true
+            summary: "Facebook, Instagram, YouTube, LinkedIn"
             fields:
               - label: "Facebook URL"
                 name: "facebook"
