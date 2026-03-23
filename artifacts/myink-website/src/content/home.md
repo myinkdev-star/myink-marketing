@@ -1,6 +1,6 @@
 ---
 hero:
-  headline_line1: Creative Thinking.
+  headline_line1: emnkbfcsjd
   headline_line2: Strategic Execution.
   headline_italic: Meaningful Growth.
   body: Creative thinking that moves brands forward. M.Y. INK builds
@@ -22,4 +22,13 @@ brand_intro:
     rather than quality.
 what_we_do:
   headline: Five disciplines. One standard.
+marquee: []
+cta:
+  eyebrow: d
+  headline_1: d
+  headline_italic: d
+  subtext: d
+  primary_label: d
+  secondary_label: d
+  note: d
 ---
