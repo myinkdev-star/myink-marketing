@@ -9,7 +9,7 @@ hero:
   location_badge: Nassau, Bahamas · Strategic Marketing Firm
 brand_intro:
   headline_part1: We are not an agency for everyone.
-  headline_italic: we work
+  headline_italic: We work with brands
   headline_part2: that have something real to say — and the conviction to say it
     at a level that makes it impossible to ignore.
   body1: M.Y. INK functions as a senior strategic partner. We sit at the table
