@@ -14,7 +14,8 @@
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 backend:
-  name: git-gateway
+  name: github
+  repo: myinkdev-star/myink-marketing
   branch: master
 
 # local_backend: true
