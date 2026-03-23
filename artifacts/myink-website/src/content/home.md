@@ -1,6 +1,6 @@
 ---
 hero:
-  headline_line1: emnkbfcsjd
+  headline_line1: "emnkbfcsjd "
   headline_line2: Strategic Execution.
   headline_italic: Meaningful Growth.
   body: Creative thinking that moves brands forward. M.Y. INK builds
