@@ -2,41 +2,34 @@ import { Link } from "wouter";
 import { ArrowUpRight } from "lucide-react";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { Button } from "@/components/ui/button";
+import { useContentCollection, useContent } from "@/hooks/useContent";
 
-const SERVICE_ROWS = [
-  {
-    num: "01",
-    category: "Strategy & Planning",
-    headline: "Before a single decision is made.",
-    desc: "We don't begin with creative. We begin with your market, your competitors, and the specific advantage your brand has — or could have. Every engagement starts here.",
-  },
-  {
-    num: "02",
-    category: "Campaigns & Advertising",
-    headline: "Campaigns built to convert, not just impress.",
-    desc: "Every creative decision has a strategic rationale behind it. We build campaigns from the insight outward and measure the outcomes that matter to your business.",
-  },
-  {
-    num: "03",
-    category: "Editorial & Voice",
-    headline: "The words that separate authorities from the rest.",
-    desc: "Your reputation is built by what you say and how you say it. We craft the written and spoken work that makes your brand impossible to dismiss — every word deliberate.",
-  },
-  {
-    num: "04",
-    category: "Media & Press",
-    headline: "Stories placed where they shift perception.",
-    desc: "Earned media is more valuable than paid — and harder to get right. We design press strategies that generate coverage that does more than mention a brand: it repositions one.",
-  },
-  {
-    num: "05",
-    category: "Digital Execution",
-    headline: "Every platform that matters. Not all of them.",
-    desc: "We identify where your audience actually lives, build a clear strategy for each platform, and execute with data-backed discipline. Digital without noise.",
-  },
+interface ServiceFile {
+  num: string;
+  title: string;
+  tagline: string;
+  intro: string;
+}
+
+interface HomeContent {
+  what_we_do?: { headline?: string };
+}
+
+const SERVICE_FILES = [
+  "services/01-brand-strategy.md",
+  "services/02-campaigns.md",
+  "services/03-content-editorial.md",
+  "services/04-publicity.md",
+  "services/05-digital-presence.md",
 ];
 
 export function ServicesPreview() {
+  const { items } = useContentCollection<ServiceFile>(SERVICE_FILES);
+  const { data: home } = useContent<HomeContent>("home.md");
+
+  const headline =
+    home.what_we_do?.headline ?? "Five disciplines. One standard.";
+
   return (
     <section className="py-32 md:py-44 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +44,7 @@ export function ServicesPreview() {
               className="font-display font-bold text-foreground"
               style={{ fontSize: "clamp(32px, 4.5vw, 52px)", letterSpacing: "-0.025em" }}
             >
-              Five disciplines. One standard.
+              {headline}
             </h2>
           </div>
           <Link href="/services">
@@ -66,8 +59,8 @@ export function ServicesPreview() {
 
         {/* Service rows */}
         <div className="divide-y divide-border">
-          {SERVICE_ROWS.map((row, idx) => (
-            <FadeIn key={row.num} delay={idx * 0.06}>
+          {items.map((row, idx) => (
+            <FadeIn key={row.num ?? idx} delay={idx * 0.06}>
               <Link href="/services">
                 <div className="group relative grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 py-10 cursor-pointer transition-colors duration-300">
 
@@ -82,19 +75,19 @@ export function ServicesPreview() {
 
                   <div className="lg:col-span-4 lg:pl-2">
                     <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary mb-2.5">
-                      {row.category}
+                      {row.title}
                     </p>
                     <h3
                       className="font-display font-bold text-foreground group-hover:text-primary transition-colors duration-200 leading-snug"
                       style={{ fontSize: "clamp(17px, 1.6vw, 20px)" }}
                     >
-                      {row.headline}
+                      {row.tagline}
                     </h3>
                   </div>
 
                   <div className="lg:col-span-6">
                     <p className="text-muted-foreground leading-[1.72] text-[15px]">
-                      {row.desc}
+                      {row.intro}
                     </p>
                   </div>
 

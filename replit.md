@@ -17,27 +17,29 @@ Full-stack marketing agency website for **M.Y. INK Marketing** — a strategic m
 - `components/shared/` — FadeIn (framer-motion inView), PageHero, ServiceCategoryCard, InsightCard, ContactForm
 - `components/sections/` — HeroSection, BrandIntroSection, ServicesPreview, WhyChooseUs, CaseStudyGrid, TestimonialsSection, CTASection
 
-**Libraries:** React 19, TypeScript, Tailwind CSS, Wouter (routing with base), Framer Motion, react-hook-form + Zod, clsx + tailwind-merge, js-yaml (runtime frontmatter parsing)
+**Libraries:** React 19, TypeScript, Tailwind CSS, Wouter (routing with base), Framer Motion, react-hook-form + Zod, clsx + tailwind-merge, js-yaml (build-time frontmatter parsing in Vite plugin)
 
-**CMS: Decap CMS (Netlify Identity)**
+**CMS: Netlify CMS v2.10.192 (Netlify Identity)**
 - Admin panel: `/admin/` — served from `public/admin/index.html` + `public/admin/config.yml`
-- Auth: Netlify Identity (git-gateway backend) — requires Netlify deployment with Identity enabled
-- Content files: `public/content/` — served as static files, fetched at runtime by React
-  - `home.md` — hero headline, body, location badge, brand intro copy, What We Do headline
-  - `settings.md` — site name, footer tagline, location, email, all four social URLs
-  - `work.md` — work page eyebrow, headline, intro columns, social invite note
-  - `services/01-brand-strategy.md` through `05-digital-presence.md` — per-category title, tagline, intro, services[], outcome, idealClient
-- Hooks: `src/hooks/useContent.ts` exports `useContent<T>(path)` and `useContentCollection<T>(paths[])`
-- Components using CMS: HeroSection, BrandIntroSection, Footer, Services (all 5 categories), Work (overview + social note)
-- All CMS-driven components include hardcoded fallbacks — site renders correctly even if fetch fails
-- Data model: `home.md` uses nested YAML (`hero:`, `brand_intro:`, `what_we_do:` objects); `settings.md` uses `brand:` and `socials:` objects; all components support both nested and legacy flat fields via `??` fallback chains
+- Auth: Netlify Identity (git-gateway backend, branch: `master`) — requires Netlify deployment with Identity enabled
+- Admin JS: `netlify-cms@2.10.192` from `unpkg.com`, React 17 loaded first in `<head>` as global so CMS uses `window.React`
+- Content files: **`src/content/`** — bundled into JS at Vite build time (NOT served as static files)
+  - `home.md` — nested YAML: `hero:`, `brand_intro:`, `what_we_do:`, `marquee:` (list), `cta:` (eyebrow, headline parts, subtext, button labels, note)
+  - `about.md` — nested YAML: `hero:`, `story:`, `stats:` (list), `principles:`, `philosophy:`, `team:`, `cta:`
+  - `settings.md` — `brand:` (site_name, primary_color, tagline, location, email), `socials:` (facebook, instagram, youtube, linkedin)
+  - `work.md` — page_eyebrow, headline, headline_italic, intro_col1, intro_col2, social_note
+  - `services/01-brand-strategy.md` through `05-digital-presence.md` — num, title, tagline, intro, services[], outcome, idealClient
+- **Build-time content pipeline:** Vite plugin `markdownFrontmatterPlugin` (in `vite.config.ts`) transforms imported `*.md` files to `{ data, body }` JS modules using `js-yaml`. `useContent.ts` uses `import.meta.glob('../content/**/*.md', { eager: true, import: 'default' })` to bundle ALL content files at compile time — zero runtime HTTP fetches, no loading states.
+- **Update workflow:** CMS editor saves → git commit to `src/content/` → Netlify triggers build → Vite bundles updated markdown → live site updated. No extra steps.
+- Hooks: `src/hooks/useContent.ts` exports `useContent<T>(path)` and `useContentCollection<T>(paths[])` — both synchronous (no loading/error states in production)
+- Components using CMS: HeroSection, BrandIntroSection, ServicesPreview, Home (CTA + marquee), Footer, Services page (all 5 categories), Work page (overview + social note), About page (all 7 sections), ThemeProvider (brand color)
+- All CMS-driven components include hardcoded fallbacks for every field via `??` chains — site renders correctly even without content files
 - Vite plugin (`serveAdminPlugin`) intercepts `/admin/` in dev to serve the correct static HTML
 - `netlify.toml`: build command = `pnpm run build`, publish = `dist/public`, SPA redirect, content cache headers
-- Preview templates: registered for all 4 collections (Home, Work, Settings, Service Categories) via `CMS.registerPreviewTemplate()` in `public/admin/index.html` — renders styled HTML matching the actual site with mobile/desktop toggle
-- ThemeProvider (`src/components/ThemeProvider.tsx`): reads `settings.brand.primary_color` (hex), converts to HSL via `hexToHslValues()`, sets `--primary` and `--ring` CSS variables on `document.documentElement` — changes propagate to all Tailwind primary utilities sitewide
-- Style control: brand accent colour picker in Settings CMS collection (color widget) — client can change the brand colour and it applies sitewide without code changes
-- Media library: `public/images/` is the configured media folder; service categories have an optional `image` field using the Decap image widget
-- Section organisation: Home and Settings use Decap `object` widgets to show collapsible sections (Hero Section, Brand Intro, What We Do; Brand & Identity, Social Media) in the CMS editor
+- Preview template (About): registered via `CMS.registerPreviewTemplate('about', AboutPreview)` in `public/admin/index.html` — plain function component using `window.React.createElement`, renders all 7 sections
+- ThemeProvider (`src/components/ThemeProvider.tsx`): reads `settings.brand.primary_color` (hex), converts to HSL, sets `--primary` and `--ring` CSS variables — propagates to all Tailwind primary utilities sitewide
+- Style control: brand accent colour picker in Settings CMS collection (color widget) — client can change brand colour without code changes
+- Media library: `public/images/` is the configured media folder; images stay in `public/` (served as static assets); content markdown lives in `src/content/` (bundled into JS)
 
 **Design Rules:** Billboard headlines at `clamp(48px, 8.5vw, 122px)`. Editorial ruled lists instead of card grids for feature/differentiator lists. No faded giant numbers as section markers. Stacked blockquotes for testimonials. Asymmetric grids for work previews. Orange accent used with restraint on labels, highlights, and primary CTAs only.
 

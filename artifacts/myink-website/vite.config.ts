@@ -1,9 +1,10 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { readFileSync } from "fs";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import yaml from "js-yaml";
 
 const rawPort = process.env.PORT;
 
@@ -27,11 +28,44 @@ if (!basePath) {
   );
 }
 
-// Plugin: serve public/admin/index.html for /admin routes in dev
-// (On Netlify, static files are served before the SPA catch-all automatically)
-const serveAdminPlugin = {
+// ─── Markdown → JS plugin ───────────────────────────────────────────────────
+// Transforms any imported *.md file into a JS module that exports:
+//   { data: <parsed YAML frontmatter>, body: <markdown body string> }
+// Runs at build time (Node.js), so no browser Buffer issues.
+// Allows import.meta.glob('../content/**/*.md', { eager: true }) to produce
+// pre-parsed content that is compiled into the bundle — zero runtime fetches.
+function markdownFrontmatterPlugin(): Plugin {
+  return {
+    name: "markdown-frontmatter",
+    transform(src, id) {
+      if (!id.endsWith(".md")) return;
+
+      const match = src.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)/);
+      let data: unknown = {};
+      let body = src;
+
+      if (match) {
+        try {
+          data = yaml.load(match[1]) ?? {};
+          body = match[2].trim();
+        } catch {
+          data = {};
+          body = src;
+        }
+      }
+
+      return {
+        code: `export default ${JSON.stringify({ data, body })}`,
+        map: null,
+      };
+    },
+  };
+}
+
+// ─── Dev: serve public/admin for /admin routes ──────────────────────────────
+const serveAdminPlugin: Plugin = {
   name: "serve-admin-static",
-  configureServer(server: import("vite").ViteDevServer) {
+  configureServer(server) {
     server.middlewares.use((req, res, next) => {
       const url = req.url ?? "";
       if (url === "/admin" || url === "/admin/" || url === "/admin/index.html") {
@@ -51,6 +85,7 @@ const serveAdminPlugin = {
 export default defineConfig({
   base: basePath,
   plugins: [
+    markdownFrontmatterPlugin(),
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),

@@ -6,8 +6,24 @@ import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { CaseStudyGrid } from "@/components/sections/CaseStudyGrid";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { CTASection } from "@/components/sections/CTASection";
+import { useContent } from "@/hooks/useContent";
 
-const MARQUEE_ITEMS = [
+interface HomeCTA {
+  eyebrow?: string;
+  headline_1?: string;
+  headline_italic?: string;
+  subtext?: string;
+  primary_label?: string;
+  secondary_label?: string;
+  note?: string;
+}
+
+interface HomeContent {
+  marquee?: string[];
+  cta?: HomeCTA;
+}
+
+const DEFAULT_MARQUEE = [
   "Brand Strategy",
   "Campaign Execution",
   "Advertising Concepts",
@@ -19,6 +35,21 @@ const MARQUEE_ITEMS = [
 ];
 
 export default function Home() {
+  const { data: home } = useContent<HomeContent>("home.md");
+
+  const marqueeItems = home.marquee ?? DEFAULT_MARQUEE;
+  const cta = home.cta ?? {};
+
+  const ctaEyebrow       = cta.eyebrow         ?? "Let's Work Together";
+  const ctaHeadline1     = cta.headline_1       ?? "Your brand's next chapter";
+  const ctaHeadlineIt    = cta.headline_italic  ?? "doesn't write itself.";
+  const ctaSubtext       = cta.subtext          ??
+    "Most of the best partnerships we've built started with a conversation, not a formal brief. If you are thinking seriously about where your brand needs to go next, that is reason enough to reach out.";
+  const ctaPrimaryLabel  = cta.primary_label    ?? "Start a Conversation";
+  const ctaSecondaryLabel= cta.secondary_label  ?? "Explore Our Services";
+  const ctaNote          = cta.note             ??
+    "We review every enquiry personally and respond within 48 business hours.";
+
   return (
     <PageLayout>
       {/* Full-screen editorial hero */}
@@ -29,7 +60,7 @@ export default function Home() {
         <div className="flex animate-marquee whitespace-nowrap items-center">
           {[...Array(5)].map((_, i) => (
             <div key={i} className="flex items-center">
-              {MARQUEE_ITEMS.map((item, idx) => (
+              {marqueeItems.map((item, idx) => (
                 <div key={`${i}-${idx}`} className="flex items-center">
                   <span className="text-xs font-bold tracking-[0.2em] uppercase px-8 text-secondary-foreground/60">
                     {item}
@@ -57,19 +88,19 @@ export default function Home() {
       {/* Editorial stacked testimonials */}
       <TestimonialsSection />
 
-      {/* Full-width dark CTA */}
+      {/* Full-width dark CTA — driven by home.md */}
       <CTASection
-        eyebrow="Let's Work Together"
+        eyebrow={ctaEyebrow}
         headline={
           <>
-            Your brand's next chapter{" "}
-            <span className="text-primary italic">doesn't write itself.</span>
+            {ctaHeadline1}{" "}
+            <span className="text-primary italic">{ctaHeadlineIt}</span>
           </>
         }
-        subtext="Most of the best partnerships we've built started with a conversation, not a formal brief. If you are thinking seriously about where your brand needs to go next, that is reason enough to reach out."
-        primaryCta={{ label: "Start a Conversation", href: "/contact" }}
-        secondaryCta={{ label: "Explore Our Services", href: "/services" }}
-        note="We review every enquiry personally and respond within 48 business hours."
+        subtext={ctaSubtext}
+        primaryCta={{ label: ctaPrimaryLabel, href: "/contact" }}
+        secondaryCta={{ label: ctaSecondaryLabel, href: "/services" }}
+        note={ctaNote}
       />
     </PageLayout>
   );

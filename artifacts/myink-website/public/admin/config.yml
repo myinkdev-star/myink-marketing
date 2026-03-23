@@ -7,7 +7,7 @@
 #   If the full monorepo is the git root, prefix every `file:` and
 #   `folder:` path with "artifacts/myink-website/".
 #   Example: "public/content/home.md"
-#         →  "artifacts/myink-website/public/content/home.md"
+#         →  "artifacts/myink-website/src/content/home.md"
 #
 # LOCAL TESTING:
 #   Run `npx decap-server` in a terminal, then uncomment `local_backend`.
@@ -39,7 +39,7 @@ collections:
     files:
       - name: "home"
         label: "Home Page Sections"
-        file: "artifacts/myink-website/public/content/home.md"
+        file: "artifacts/myink-website/src/content/home.md"
         fields:
 
           - label: "▸ Hero Section"
@@ -101,7 +101,51 @@ collections:
               - label: "Section Headline"
                 name: "headline"
                 widget: "string"
-                hint: "Bold heading above the five service cards."
+                hint: "Bold heading above the five service rows."
+
+          - label: "▸ Discipline Ticker"
+            name: "marquee"
+            widget: "list"
+            collapsed: true
+            label_singular: "Discipline"
+            summary: "Scrolling ticker items (e.g. Brand Strategy, Ghostwriting)"
+            hint: "These scroll across the dark band beneath the hero. Keep each item short."
+            field:
+              label: "Item"
+              name: "item"
+              widget: "string"
+
+          - label: "▸ Home CTA Section"
+            name: "cta"
+            widget: "object"
+            collapsed: true
+            summary: "Full-width call to action at the bottom of the homepage"
+            fields:
+              - label: "Eyebrow Label"
+                name: "eyebrow"
+                widget: "string"
+                hint: "Small uppercase line above the headline, e.g. \"Let's Work Together\""
+              - label: "Headline — Before Italic"
+                name: "headline_1"
+                widget: "string"
+              - label: "Headline — Italic Part (orange)"
+                name: "headline_italic"
+                widget: "string"
+              - label: "Subtext Paragraph"
+                name: "subtext"
+                widget: "text"
+              - label: "Primary Button Label"
+                name: "primary_label"
+                widget: "string"
+                hint: "Links to /contact"
+              - label: "Secondary Button Label"
+                name: "secondary_label"
+                widget: "string"
+                hint: "Links to /services"
+              - label: "Footer Note"
+                name: "note"
+                widget: "string"
+                hint: "Small line beneath the buttons, e.g. response-time promise."
 
   # ────────────────────────────────────────────────────────────
   # ABOUT PAGE
@@ -111,7 +155,7 @@ collections:
     files:
       - name: "about"
         label: "About Page Sections"
-        file: "artifacts/myink-website/public/content/about.md"
+        file: "artifacts/myink-website/src/content/about.md"
         fields:
 
           - label: "▸ Hero Section"
@@ -296,7 +340,7 @@ collections:
   # ────────────────────────────────────────────────────────────
   - name: "service_categories"
     label: "🔧  Service Categories"
-    folder: "artifacts/myink-website/public/content/services"
+    folder: "artifacts/myink-website/src/content/services"
     create: false
     slug: "{{num}}"
     fields:
@@ -342,7 +386,7 @@ collections:
     files:
       - name: "work"
         label: "Work Page Content"
-        file: "artifacts/myink-website/public/content/work.md"
+        file: "artifacts/myink-website/src/content/work.md"
         fields:
           - label: "Page Eyebrow"
             name: "page_eyebrow"
@@ -372,7 +416,7 @@ collections:
     files:
       - name: "settings"
         label: "Global Settings"
-        file: "artifacts/myink-website/public/content/settings.md"
+        file: "artifacts/myink-website/src/content/settings.md"
         fields:
 
           - label: "▸ Brand & Identity"
