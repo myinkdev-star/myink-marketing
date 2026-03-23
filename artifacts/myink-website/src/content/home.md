@@ -1,6 +1,6 @@
 ---
 hero:
-  headline_line1: "emnkbfcsjd "
+  headline_line1: Creative Thinking
   headline_line2: Strategic Execution.
   headline_italic: Meaningful Growth.
   body: Creative thinking that moves brands forward. M.Y. INK builds
@@ -24,11 +24,13 @@ what_we_do:
   headline: Five disciplines. One standard.
 marquee: []
 cta:
-  eyebrow: d
-  headline_1: d
-  headline_italic: d
-  subtext: d
-  primary_label: d
-  secondary_label: d
-  note: d
+  eyebrow: Let's Work Together
+  headline_1: Your brand's next chapter
+  headline_italic: doesn't write itself.
+  subtext: Most of the best partnerships we've built started with a conversation,
+    not a formal brief. If you are thinking seriously about where your brand
+    needs to go next, that is reason enough to reach out.
+  primary_label: START A CONVERSATION
+  secondary_label: EXPLORE OUR SERVICES
+  note: We review every enquiry personally and respond within 48 business hours.
 ---
