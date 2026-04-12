@@ -3,10 +3,11 @@ hero:
   headline_line1: Creative Thinking
   headline_line2: Strategic Execution.
   headline_italic: Meaningful Growth.
-  body: Creative thinking that moves brands forward. M.Y. INK builds
-    revenue-generating campaigns driven by KPIs — for ambitious brands that are
-    serious about where they are going.
-  location_badge: Nassau, Bahamas · Strategic Marketing Firm
+  body: We turn ideas into strategies, and strategies into measurable growth..
+    M.Y. INK builds revenue-generating campaigns driven by KPIs — for ambitious
+    brands that are serious about where they are going.
+  location_badge: "Nassau, Bahamas · Strategic Marketing Firm  Web Development
+    Division:  Ireland "
 brand_intro:
   headline_part1: We are not an agency for everyone.
   headline_italic: We work with brands
